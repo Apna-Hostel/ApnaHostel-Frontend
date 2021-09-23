@@ -20,7 +20,7 @@ class LandingPage extends Component {
                         <Route path="/student" component={() => <Student />} />
                         <Route path="/header" component={() => <Header />} />
                         <Route path="/gallery" component={() => <Gallery />} />
-                        <Route path="/contact" component={() => <Contact />} />
+                        <Route path="/contactus" component={() => <Contact />} />
                         <Route path="/team" component={() => <Team />} />
                         <Redirect to="/header"/>
                     </Switch>

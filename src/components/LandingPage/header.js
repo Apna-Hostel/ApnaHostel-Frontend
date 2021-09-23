@@ -1,7 +1,7 @@
 import React from "react";
-import './css/bootstrap.css'
-import './css/bootstrap.min.css'
-import './css/style.css'
+// import './css/bootstrap.css'
+// import './css/bootstrap.min.css'
+// import './css/style.css'
 
 function header(){
     return (

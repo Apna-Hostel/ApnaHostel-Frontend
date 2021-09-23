@@ -1,9 +1,9 @@
 import React from "react";
-import './css/bootstrap.css'
-import './css/bootstrap.min.css'
-import './css/style.css'
-import './css/nivo-lightbox/default.css'
-import './css/nivo-lightbox/nivo-lightbox.css'
+// import './css/bootstrap.css'
+// import './css/bootstrap.min.css'
+// import './css/style.css'
+// import './css/nivo-lightbox/default.css'
+// import './css/nivo-lightbox/nivo-lightbox.css'
 
 
 function footer() {
