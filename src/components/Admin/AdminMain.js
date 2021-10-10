@@ -5,7 +5,7 @@ import LeftNav from "./LeftNav";
 import AddMessBill from "./Student/AddMessBill";
 import AddEmployee from "./Employee/AddEmployee";
 import EmployeeView from "./Employee/EmployeeView";
-// import EmployeeUpdate from "./Employee/EmployeeUpdate";
+import EmployeeUpdate from "./Employee/EmployeeUpdate";
 
 class Admin extends Component {
     render() {
@@ -21,7 +21,7 @@ class Admin extends Component {
                             <Route exact path="/admin/manageStudentsPayment/addBill" component={() => <AddMessBill />} />
                             <Route exact path="/admin/manageEmployee/addnew" component={() => <AddEmployee />} />
                             <Route exact path="/admin/manageEmployee/view" component={() => <EmployeeView />} />
-                            {/* <Route exact path="/admin/manageEmployee/updateEmployee" component={() => <EmployeeUpdate />} /> */}
+                            <Route exact path="/admin/manageEmployee/updateEmployee" component={() => <EmployeeUpdate />} />
                         </Switch>
                     </div>
                 </div>
