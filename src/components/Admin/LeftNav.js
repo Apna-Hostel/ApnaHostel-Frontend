@@ -111,6 +111,7 @@ class LeftNav extends Component {
                                     <NavItem>
                                         <Link className="nav-link offset-2" to="/admin/manageEmployee/view"><i className="fa fa-eye" aria-hidden="true"></i> View</Link>
                                     </NavItem>
+                                    
                                 </UncontrolledCollapse>
                             </div>
                             <NavItem>
