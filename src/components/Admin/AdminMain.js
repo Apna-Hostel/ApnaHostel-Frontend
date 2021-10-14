@@ -10,6 +10,7 @@ import UpdateMessBill from "./Student/UpdateMessBill";
 import AddEmployee from "./Employee/AddEmployee";
 import EmployeeView from "./Employee/EmployeeView";
 import EmployeeUpdate from "./Employee/EmployeeUpdate";
+import Complaints from "./ViewComplaints";
 
 class Admin extends Component {
     constructor(props){
@@ -34,6 +35,7 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/addnew" component={() => <AddEmployee />} />
                             <Route exact path="/admin/manageEmployee/view" component={() => <EmployeeView />} />
                             <Route exact path="/admin/manageEmployee/updateEmployee" component={() => <EmployeeUpdate />} />
+                            <Route exact path="/admin/complaints" component={() => <Complaints />} />
                         </Switch>
                     </div>
                 </div>
