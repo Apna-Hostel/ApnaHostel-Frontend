@@ -56,7 +56,7 @@ class LeftNav extends Component {
                     <Collapse isOpen={this.state.isNavOpen} navbar >
                         <Nav navbar className="flex-column" >
                             <NavItem>
-                                <Link className="nav-link" to="/admin/dashboard">
+                                <Link className="nav-link" to="admin/dashboard">
                                     <i class="fa fa-server"></i> Dashboard
                                 </Link>
                             </NavItem>

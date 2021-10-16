@@ -11,6 +11,7 @@ import AddEmployee from "./Employee/AddEmployee";
 import EmployeeView from "./Employee/EmployeeView";
 import EmployeeUpdate from "./Employee/EmployeeUpdate";
 import NoticeBoard from "./NoticeBoard";
+import DashBoard from "../DashBoard";
 
 class Admin extends Component {
     constructor(props){
@@ -36,6 +37,8 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/view" component={() => <EmployeeView />} />
                             <Route exact path="/admin/manageEmployee/updateEmployee" component={() => <EmployeeUpdate />} />
                             <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard />} />
+                            <Route exact path="/admin/dashboard" component={() => <DashBoard architectures students employees auth notices />} />
+
                         </Switch>
                     </div>
                 </div>
