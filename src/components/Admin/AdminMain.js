@@ -10,12 +10,9 @@ import UpdateMessBill from "./Student/UpdateMessBill";
 import AddEmployee from "./Employee/AddEmployee";
 import EmployeeView from "./Employee/EmployeeView";
 import EmployeeUpdate from "./Employee/EmployeeUpdate";
-<<<<<<< HEAD
 import Complaints from "./ViewComplaints";
-=======
 import NoticeBoard from "./NoticeBoard";
 import DashBoard from "../DashBoard";
->>>>>>> d1351fc80e6455ee5242b1d56117e42025298581
 
 class Admin extends Component {
     constructor(props){

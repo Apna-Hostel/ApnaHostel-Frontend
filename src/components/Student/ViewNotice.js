@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 
-export default function NoticeV({ notices }) {
+function ViewNotice({ notices }) {
   const [datatable] = React.useState({
     columns: [
       {
@@ -23,7 +23,7 @@ export default function NoticeV({ notices }) {
       <>
         <div className="row">
           <div className="col-12 container-fluid">
-            <h2 className="feature-heading ">Architecture</h2>
+            <h2 className="feature-heading ">Notices</h2>
             <hr className="feature-line" />
           </div>
 
@@ -45,3 +45,5 @@ export default function NoticeV({ notices }) {
       </>
     );
   }
+
+  export default ViewNotice;

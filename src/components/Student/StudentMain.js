@@ -7,7 +7,7 @@ import ViewEmployee from "./ViewEmployee";
 import ViewMessBill from "./ViewMessBill";
 import ViewStudent from "./ViewStudent";
 
-import NoticeView from "./NoticeView";
+import ViewNotice from "./ViewNotice";
 import DashBoard from "../DashBoard";
 class Student extends Component {
     render() {
@@ -24,7 +24,7 @@ class Student extends Component {
                             <Route exact path="/student/profile" component={() => <StudentProfile />} />
                             <Route exact path="/student/bills" component={() => <ViewMessBill />} />
                             <Route exact path="/student/complaints" component={() => <SubmitComplaint />} />
-                            <Route exact path="/student/noticeBoard" component={() => <NoticeView />} />
+                            <Route exact path="/student/noticeBoard" component={() => <ViewNotice />} />
                             <Route exact path="/student/dashboard" component={() => <DashBoard />} />
                         </Switch>
                     </div>
