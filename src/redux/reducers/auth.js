@@ -32,5 +32,22 @@ export const Auth = (state = {
                 token: action.token,
                 admin: action.admin
             };
+        case ActionTypes.LOGOUT_REQUEST:
+            return{
+                ...state,
+                isLoading: true,
+                isAuthenticated: true
+            };
+        case ActionTypes.LOGOUT_SUCCESS:
+            return{
+                ...state,
+                isLoading: false,
+                isAuthenticated: false,
+                token: '',
+                user: null,
+                admin: false
+            };
+        default:
+            return state;
     }
 }

@@ -22,7 +22,7 @@ export const loginError = (message) => {
     }
 }
 
-export const LoginUser = (creds) => (dispatch) => {
+export const loginUser = (creds) => (dispatch) => {
     dispatch(requestLogin(creds));
     return fetch(process.env.REACT_BASEURL + 'users/login', {
         method: 'POST',
@@ -62,5 +62,22 @@ export const LoginUser = (creds) => (dispatch) => {
         .catch(error => dispatch(loginError(error.message)))
 }
 
+export const receiveLogout = () => {
+    return {
+        type: ActionTypes.LOGOUT_SUCCESS
+    }
+}
 
+export const requestLogout = () => {
+    return {
+        type: ActionTypes.LOGOUT_REQUEST
+    }
+}
 
+export const logoutUser = () => (dispatch) => {
+    dispatch(requestLogout())
+    localStorage.removeItem('token');
+    localStorage.removeItem('creds');
+    localStorage.removeItem('admin');
+    dispatch(receiveLogout())
+}
