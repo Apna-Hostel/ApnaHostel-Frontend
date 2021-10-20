@@ -9,7 +9,26 @@ class DashBoard extends Component {
         this.state = {
             employee: '',
             student: '',
-            meals: ''
+        }
+    }
+
+    componentDidMount() {
+        this.changeLink();
+    }
+
+    changeLink = () => {
+        if (this.props.auth.admin) {
+            this.setState({
+                employee: "/admin/manageEmployee/view",
+                student: "/admin/manageStudents/view",
+            })
+        } 
+        if (!this.props.auth.admin) {
+
+            this.setState({
+                employee: "/student/employeeview",
+                student: "/student/studentview",
+            })
         }
     }
     render() {

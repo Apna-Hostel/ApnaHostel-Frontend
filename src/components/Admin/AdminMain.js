@@ -28,6 +28,7 @@ class Admin extends Component {
                     </div>
                     <div className="col-md-9">
                         <Switch>
+                            <Route path="/admin/dashboard" component={() => <DashBoard auth={this.props.auth}/>} />
                             <Route exact path="/admin/manageStudents/addNew" component={() => <AddStudent />} />
                             <Route exact path="/admin/manageStudents/view" component={() => <ViewStudent />} />
                             <Route exact path="/admin/manageStudents/updateStudent" component={() => <UpdateStudent />} />
@@ -39,7 +40,6 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/updateEmployee" component={() => <EmployeeUpdate />} />
                             <Route exact path="/admin/complaints" component={() => <Complaints />} />
                             <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard />} />
-                            <Route exact path="/admin/dashboard" component={() => <DashBoard />} />
 
                         </Switch>
                     </div>

@@ -1,7 +1,8 @@
 import * as ActionTypes from "./actionTypes"
+import {baseurl} from '../config'
 
 export const requestLogin = (creds) => {
-    return{
+    return {
         type: ActionTypes.LOGIN_REQUEST,
         creds
     }
@@ -23,8 +24,10 @@ export const loginError = (message) => {
 }
 
 export const loginUser = (creds) => (dispatch) => {
-    dispatch(requestLogin(creds));
-    return fetch(process.env.REACT_BASEURL + 'users/login', {
+    // We dispatch requestLogin to kickoff the call to the API
+    dispatch(requestLogin(creds))
+
+    return fetch(baseurl + 'users/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -32,7 +35,7 @@ export const loginUser = (creds) => (dispatch) => {
         body: JSON.stringify(creds)
     })
         .then(response => {
-            if(response.ok){
+            if (response.ok) {
                 return response;
             } else {
                 var error = new Error('Error ' + response.status + ': ' + response.statusText);
@@ -50,7 +53,6 @@ export const loginUser = (creds) => (dispatch) => {
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('creds', JSON.stringify(creds));
                 localStorage.setItem('admin', response.admin);
-                // Dispatch the success action
                 dispatch(receiveLogin(response));
             }
             else {
@@ -60,6 +62,12 @@ export const loginUser = (creds) => (dispatch) => {
             }
         })
         .catch(error => dispatch(loginError(error.message)))
+};
+
+export const requestLogout = () => {
+    return {
+        type: ActionTypes.LOGOUT_REQUEST
+    }
 }
 
 export const receiveLogout = () => {
@@ -68,11 +76,6 @@ export const receiveLogout = () => {
     }
 }
 
-export const requestLogout = () => {
-    return {
-        type: ActionTypes.LOGOUT_REQUEST
-    }
-}
 
 export const logoutUser = () => (dispatch) => {
     dispatch(requestLogout())
