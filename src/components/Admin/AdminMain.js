@@ -17,9 +17,24 @@ import DashBoard from "../DashBoard";
 class Admin extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            Notices: [],
+        }
+    }
+
+    componentDidMount() {
+        let notices = [];
+        this.props.notices.notices.forEach(element => {
+        notices.push({
+            title: element.title,
+            description: element.description,
+        })
+        });
+        const noticeList = this.state.Notices.concat(notices);
     }
     
     render() {
+        
         return (
             <div className="feature admin">
                 <div className="row">
@@ -39,7 +54,7 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/view" component={() => <EmployeeView />} />
                             <Route exact path="/admin/manageEmployee/updateEmployee" component={() => <EmployeeUpdate />} />
                             <Route exact path="/admin/complaints" component={() => <Complaints />} />
-                            <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard />} />
+                            <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.props.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />
 
                         </Switch>
                     </div>
