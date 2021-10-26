@@ -63,7 +63,7 @@ class NoticeBoard extends Component {
                     </Form>
                 </div>
                 <div className="col-12 container-fluid">
-                    <NoticeView />
+                    <NoticeView notices={this.props.notices} errMess={this.props.errMess} />
                 </div>
             </div>
         )

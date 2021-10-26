@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 
-export default function NoticeView({ notices}) {
+export default function NoticeView({ notices, errMess}) {
   const [datatable] = React.useState({
     columns: [
       {
@@ -28,18 +28,22 @@ export default function NoticeView({ notices}) {
     ],
     rows: notices,
   });
-  return (
-    <MDBDataTableV5
-      hover
-      responsiveMd
-      entriesOptions={[5, 20, 25]}
-      entries={5}
-      pagesAmount={4}
-      data={datatable}
-      pagingTop
-      searchTop
-      searchBottom={false}
-      scrollX
-    />
-  );
+  if(errMess){
+    return(<div><p>{errMess} Please Try Again</p></div>);
+  } else {
+    return (
+      <MDBDataTableV5
+        hover
+        responsiveMd
+        entriesOptions={[5, 20, 25]}
+        entries={5}
+        pagesAmount={4}
+        data={datatable}
+        pagingTop
+        searchTop
+        searchBottom={false}
+        scrollX
+      />
+    );
+  }
 }

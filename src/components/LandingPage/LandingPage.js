@@ -11,13 +11,14 @@ import Team from "./team"
 import Contact from "./contact"
 import LoginForm from "./LoginForm";
 import { logoutUser, loginUser } from "../../redux/actions/auth"
-import { postNotice, fetchNotices } from "../../redux/actions/notices";
+import { postNotice, fetchNotices, deleteNotice } from "../../redux/actions/notices";
 
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (creds) => dispatch(loginUser(creds)),
     logoutUser: () => dispatch(logoutUser()),
     postNotice: (notice) => dispatch(postNotice(notice)),
     fetchNotices: () => dispatch(fetchNotices()),
+    deleteNotice: (noticeId) => dispatch(deleteNotice(noticeId)),
 })
 
 const mapStateToProps = (state) => {
@@ -62,7 +63,7 @@ class LandingPage extends Component {
                 <div className="mainSection">
                     <Switch>
                         <Route path="/home" component={() => <Header />} />
-                        <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postNotice={this.props.postNotice} notices={this.props.notices} />} />
+                        <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postNotice={this.props.postNotice} notices={this.props.notices} deleteNotice={this.props.deleteNotice} fetchNotices={this.props.fetchNotices}/>} />
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} />} />
                         <Route path="/gallery" component={() => <Gallery />} />
                         <Route path="/contactus" component={() => <Contact />} />

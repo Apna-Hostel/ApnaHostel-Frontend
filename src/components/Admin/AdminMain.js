@@ -25,16 +25,25 @@ class Admin extends Component {
     componentDidMount() {
         let notices = [];
         this.props.notices.notices.forEach(element => {
-        notices.push({
-            title: element.title,
-            description: element.description,
-        })
+            notices.push({
+                title: element.title,
+                description: element.description,
+                actions: <div>
+                    <i className="fa fa-trash delete" onClick={() => {
+                        if (window.confirm("Are u sure u want to delete ?"))
+                        this.props.deleteNotice(element._id)
+                    }}></i>
+                </div>
+            })
         });
         const noticeList = this.state.Notices.concat(notices);
+
+        this.setState({
+            Notices: noticeList,
+        });
     }
     
     render() {
-        
         return (
             <div className="feature admin">
                 <div className="row">
@@ -43,7 +52,7 @@ class Admin extends Component {
                     </div>
                     <div className="col-md-9">
                         <Switch>
-                            <Route path="/admin/dashboard" component={() => <DashBoard auth={this.props.auth}/>} />
+                            <Route path="/admin/dashboard" component={() => <DashBoard auth={this.props.auth} notices={this.props.notices.notices}/>} />
                             <Route exact path="/admin/manageStudents/addNew" component={() => <AddStudent />} />
                             <Route exact path="/admin/manageStudents/view" component={() => <ViewStudent />} />
                             <Route exact path="/admin/manageStudents/updateStudent" component={() => <UpdateStudent />} />
@@ -54,8 +63,7 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/view" component={() => <EmployeeView />} />
                             <Route exact path="/admin/manageEmployee/updateEmployee" component={() => <EmployeeUpdate />} />
                             <Route exact path="/admin/complaints" component={() => <Complaints />} />
-                            <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.props.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />
-
+                            <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.state.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />
                         </Switch>
                     </div>
                 </div>
