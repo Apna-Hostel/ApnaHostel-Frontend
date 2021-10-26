@@ -6,6 +6,32 @@ import { Form, Input, Button, Label, Col, Row, FormGroup} from 'reactstrap';
 class AddEmployee extends Component {
     constructor(props) {
         super(props);
+        this.state={
+            name: '',
+            mobile: '',
+            gender: '',
+            type: '',
+            address: '',
+            designation: '',
+            salary: '',
+            joinDate: '',
+            eid: '',
+        };
+    }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.postEmployee(this.state);
+
+    }
+    
+    handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
     }
 render(){
 return (
@@ -17,19 +43,20 @@ return (
             </div>
         </div>
         <div >
-            <Form className="myForm">
+            <Form className="myForm" onSubmit={this.handleSubmit}>
                 <Row form>
                     <Col md={4}>
                         <FormGroup>
                             <Label for="name">Full Name</Label>
-                            <Input required type="text" name="name" id="name" placeholder="Name"
+                            <Input required type="text" name="name" id="name" placeholder="Name" value={this.state.employeeName}
+                            onChange={this.handleInputChange}
                                 />
                         </FormGroup>
                     </Col>
                     <Col md={3}>
                         <FormGroup>
                             <Label for="gender">Gender</Label>
-                            <Input required type="select" name="gender" id="gender"  className="form-control">
+                            <Input required type="select" name="gender" id="gender" value={this.state.gender}  className="form-control" onChange={this.handleInputChange}>
                                 <option defaultValue>Select</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -39,7 +66,8 @@ return (
                     <Col md={4}>
                         <FormGroup>
                             <Label for="type">Employee Type</Label>
-                            <Input required type="text" name="type" id="type" placeholder="Employee Type"/>
+                            <Input required type="text" name="type" id="type" 
+                            value={this.state.employeeType} placeholder="Employee Type" onChange={this.handleInputChange}/>
                         </FormGroup>
                     </Col>
                 </Row>
@@ -48,21 +76,24 @@ return (
                         <FormGroup>
                             <Label for="eid">Employee Id</Label>
                             <Input required type="text" name="eid" id="eid"
-                                 placeholder="Employee Id" />
+                                 placeholder="Employee Id" value={this.state.eid} onChange={this.handleInputChange} />
                         </FormGroup>
                     </Col>
                     <Col md={3}>
                         <FormGroup>
                             <Label for="joinDate">Joining Date</Label>
                             <Input required type="date" name="joinDate" id="joiningdate" 
-                            placeholder="Joining Date"/>
+                            placeholder="Joining Date" value={this.state.joiningDate}
+                            onChange={this.handleInputChange}
+                            />
                         </FormGroup>
                     </Col>
                     <Col md={4}>
                         <FormGroup>
                             <Label for="address">Address</Label>
                             <Input required type="textarea" name="address" id="address"
-                                placeholder="Address"
+                                placeholder="Address" value={this.state.address}
+                                onChange={this.handleInputChange}
                                  rows="1" />
                         </FormGroup>
                     </Col>
@@ -72,14 +103,14 @@ return (
                         <FormGroup>
                             <Label for="salary">Salary</Label>
                             <Input required type="number" name="salary" id="salary"
-                                 placeholder="Salary" rows="1" />
+                                 placeholder="Salary" rows="1" value={this.state.salary} onChange={this.handleInputChange} />
                         </FormGroup>
                     </Col>
                     <Col md={3}>
                         <FormGroup>
                             <Label for="mobile">Mobile No.</Label>
                             <Input required type="text" name="mobile" id="mobile"
-                                placeholder="Mobile No." />
+                                placeholder="Mobile No." value={this.state.mobileNo} onChange={this.handleInputChange}/>
                         </FormGroup>
                     </Col>
                     

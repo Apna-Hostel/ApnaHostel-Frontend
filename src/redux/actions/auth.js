@@ -1,5 +1,6 @@
 import * as ActionTypes from "./actionTypes"
 import {baseurl} from '../config'
+import { fetchEmployees, employeesFailed } from "./employee"
 
 export const requestLogin = (creds) => {
     return {
@@ -54,6 +55,7 @@ export const loginUser = (creds) => (dispatch) => {
                 localStorage.setItem('creds', JSON.stringify(creds));
                 localStorage.setItem('admin', response.admin);
                 dispatch(receiveLogin(response));
+                dispatch(fetchEmployees());
             }
             else {
                 var error = new Error('Error ' + response.status);
@@ -83,4 +85,5 @@ export const logoutUser = () => (dispatch) => {
     localStorage.removeItem('creds');
     localStorage.removeItem('admin');
     dispatch(receiveLogout())
+    dispatch(employeesFailed("Error 401: Unauthorized"));
 }

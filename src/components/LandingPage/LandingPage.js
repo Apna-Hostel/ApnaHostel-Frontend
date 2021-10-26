@@ -11,21 +11,26 @@ import Team from "./team"
 import Contact from "./contact"
 import LoginForm from "./LoginForm";
 import { logoutUser, loginUser } from "../../redux/actions/auth"
+import { postEmployee, fetchEmployees } from "../../redux/actions/employee";
 
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (creds) => dispatch(loginUser(creds)),
-    logoutUser: () => dispatch(logoutUser()) 
+    logoutUser: () => dispatch(logoutUser()), 
+    postEmployee: (employee) => dispatch(postEmployee(employee)),
+    fetchEmployees: () => dispatch(fetchEmployees())
 })
 
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
+        employees: state.employees,
     }
 }
 class LandingPage extends Component {
     componentDidMount() {
         if(this.props.auth.isAuthenticated) {
             this.props.loginUser(JSON.parse(localStorage.getItem('creds')));
+            this.props.fetchEmployees();
         }
     }
     render() {
@@ -57,7 +62,7 @@ class LandingPage extends Component {
                 <div className="mainSection">
                     <Switch>
                         <Route path="/home" component={() => <Header />} />
-                        <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth}/>} />
+                        <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postEmployee={this.props.postEmployee} fetchEmployees={this.props.fetchEmployees} employees={this.props.employees}/>} />
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} />} />
                         <Route path="/gallery" component={() => <Gallery />} />
                         <Route path="/contactus" component={() => <Contact />} />
