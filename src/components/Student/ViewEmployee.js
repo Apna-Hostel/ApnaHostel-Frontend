@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 
-function ViewEmployee({ employees,}) {
+function ViewEmployee({ employees}) {
 
   const [datatable] = React.useState({
 

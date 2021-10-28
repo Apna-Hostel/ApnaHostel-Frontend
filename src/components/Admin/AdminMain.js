@@ -19,10 +19,34 @@ class Admin extends Component {
         super(props);
         this.state = {
             Notices: [],
+            Employees:[],
         }
     }
 
     componentDidMount() {
+        let employees = [];
+        if (this.props.employees.employees != null) {
+        this.props.employees.employees.forEach(element => {
+            employees.push({
+            name: element.employeeName,
+            gender: element.gender,
+            employeetype: element.employeeType,
+            designation: element.designation,
+            mobile: element.mobileNo,
+            date: element.joiningDate.split('T')[0],
+            address: element.hostel.name,
+            actions: <div>
+                <Link className="fa fa-pencil-alt edit mr-2" to={`/admin/updateEmployee/${element._id}`}></Link>
+                <i className="fa fa-trash-alt delete" onClick={() => {
+                if (window.confirm("Are u sure u want to delete ?"))
+                    this.props.deleteEmployee(element._id)
+                }}></i>
+            </div>
+            })
+        });
+        }
+        const employeeList = this.state.Employees.concat(employees);
+
         let notices = [];
         this.props.notices.notices.forEach(element => {
             notices.push({
@@ -40,10 +64,19 @@ class Admin extends Component {
 
         this.setState({
             Notices: noticeList,
+            Employees: employeeList,
         });
-    }
-    
+            
+        }; 
     render() {
+        const employeedetails =({match}) =>{
+            return (
+                <EmployeeUpdate updateEmployee={this.props.updateEmployee} id={match.params.id} 
+                employee={this.props.employees.employees.filter((employee) =>(
+                    employee._id===match.params.id))[0]}
+                ></EmployeeUpdate>
+            )
+        }
         return (
             <div className="feature admin">
                 <div className="row">
@@ -56,12 +89,12 @@ class Admin extends Component {
                             <Route exact path="/admin/manageStudents/addNew" component={() => <AddStudent />} />
                             <Route exact path="/admin/manageStudents/view" component={() => <ViewStudent />} />
                             <Route exact path="/admin/manageStudents/updateStudent" component={() => <UpdateStudent />} />
-                            <Route exact path="/admin/manageStudentsPayment/addBill" component={() => <AddMessBill />} />
+                            <Route exact path="/admin/manageStudentsPayment/addBill" component={ () => <AddMessBill />} />
                             <Route exact path="/admin/manageStudentsPayment/viewBills" component={() => <ViewMessBill />} />
                             <Route exact path="/admin/manageStudentsPayment/updateMessBill" component={() => <UpdateMessBill />} />
-                            <Route exact path="/admin/manageEmployee/addnew" component={() => <AddEmployee />} />
-                            <Route exact path="/admin/manageEmployee/view" component={() => <EmployeeView />} />
-                            <Route exact path="/admin/manageEmployee/updateEmployee" component={() => <EmployeeUpdate />} />
+                            <Route exact path="/admin/manageEmployee/addnew" component={() => <AddEmployee postEmployee={this.props.postEmployee} />} />
+                            <Route exact path="/admin/manageEmployee/view" component={() => <EmployeeView employees={this.state.Employees} />} />
+                            <Route exact path="/admin/manageEmployee/updateEmployee/:id" component={employeedetails} />
                             <Route exact path="/admin/complaints" component={() => <Complaints />} />
                             <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.state.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />
                         </Switch>

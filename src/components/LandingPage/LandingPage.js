@@ -12,6 +12,7 @@ import Contact from "./contact"
 import LoginForm from "./LoginForm";
 import { logoutUser, loginUser } from "../../redux/actions/auth"
 import { postNotice, fetchNotices, deleteNotice } from "../../redux/actions/notices";
+import { postEmployee, fetchEmployees, deleteEmployee } from "../../redux/actions/employee";
 
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (creds) => dispatch(loginUser(creds)),
@@ -19,12 +20,16 @@ const mapDispatchToProps = (dispatch) => ({
     postNotice: (notice) => dispatch(postNotice(notice)),
     fetchNotices: () => dispatch(fetchNotices()),
     deleteNotice: (noticeId) => dispatch(deleteNotice(noticeId)),
+    postEmployee: (employee) => dispatch(postEmployee(employee)),
+    fetchEmployees: () => dispatch(fetchEmployees()),
+    deleteEmployee: (employeeId) => dispatch(deleteEmployee(employeeId)),
 })
 
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
         notices: state.notices,
+        employees: state.employees,
     }
 }
 class LandingPage extends Component {
@@ -32,6 +37,7 @@ class LandingPage extends Component {
         if(this.props.auth.isAuthenticated) {
             this.props.loginUser(JSON.parse(localStorage.getItem('creds')));
             this.props.fetchNotices();
+            this.props.fetchEmployees();
         }
     }
     render() {
@@ -63,7 +69,9 @@ class LandingPage extends Component {
                 <div className="mainSection">
                     <Switch>
                         <Route path="/home" component={() => <Header />} />
-                        <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postNotice={this.props.postNotice} notices={this.props.notices} deleteNotice={this.props.deleteNotice} fetchNotices={this.props.fetchNotices}/>} />
+                        <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postNotice={this.props.postNotice} notices={this.props.notices} 
+                            deleteNotice={this.props.deleteNotice} fetchNotices={this.props.fetchNotices}/>} postEmployee={this.props.postEmployee} fetchEmployees={this.props.fetchEmployees} 
+                            employees={this.props.employees} />
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} />} />
                         <Route path="/gallery" component={() => <Gallery />} />
                         <Route path="/contactus" component={() => <Contact />} />
