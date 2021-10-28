@@ -12,7 +12,6 @@ class AddEmployee extends Component {
             gender: '',
             type: '',
             address: '',
-            designation: '',
             salary: '',
             joinDate: '',
             eid: '',
@@ -67,7 +66,7 @@ return (
                         <FormGroup>
                             <Label for="type">Employee Type</Label>
                             <Input required type="text" name="type" id="type" 
-                            value={this.state.employeeType} placeholder="Employee Type" onChange={this.handleInputChange}/>
+                            value={this.state.type} placeholder="Employee Type" onChange={this.handleInputChange}/>
                         </FormGroup>
                     </Col>
                 </Row>
@@ -110,7 +109,7 @@ return (
                         <FormGroup>
                             <Label for="mobile">Mobile No.</Label>
                             <Input required type="text" name="mobile" id="mobile"
-                                placeholder="Mobile No." value={this.state.mobileNo} onChange={this.handleInputChange}/>
+                                placeholder="Mobile No." value={this.state.mobile} onChange={this.handleInputChange}/>
                         </FormGroup>
                     </Col>
                     

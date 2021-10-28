@@ -37,7 +37,7 @@ export const postEmployee = (employee) => (dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseurl + 'employees', {
+    return fetch(baseUrl + 'employees', {
         method: 'POST',
         body: JSON.stringify(newEmployee),
         headers: {
@@ -67,12 +67,13 @@ export const postEmployee = (employee) => (dispatch) => {
         })
 }
 
+
 export const fetchEmployees = () => (dispatch) => {
     dispatch(employeesLoading(true));
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseurl + 'employees', {
+    return fetch(baseUrl + 'employees', {
         headers: {
             'method': 'GET',
             'Authorization': bearer
@@ -97,3 +98,79 @@ export const fetchEmployees = () => (dispatch) => {
         .catch(error => dispatch(employeesFailed(error.message)));
 }
 
+export const deleteEmployee = (employeeId) => (dispatch) => {
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'employees/' + employeeId, {
+        method: "DELETE",
+        headers: {
+            'Authorization': bearer
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                throw error;
+            })
+        .then(response => response.json())
+        .then(employees => { console.log('Employee Deleted', employees); dispatch(fetchEmployees()); })
+        .catch(error => dispatch(employeesFailed(error.message)));
+};
+
+
+export const updateEmployee = (employee) => (dispatch) => {
+    console.log(employee.id);
+    console.log(employee)
+    const newemployee = {
+        employeeName: employee.name,
+        eid: employee.eid,
+        mobileNo: employee.mobile,
+        gender: employee.gender,
+        employeeType: employee.type,
+        designation: employee.designation,
+        joiningDate: employee.joinDate,
+        salary: employee.salary,
+        address: employee.address,
+    }
+    console.log('Employee: ', newemployee);
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'employees/' + employee.id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        body: JSON.stringify(newemployee),
+    })
+        .then(response => {
+            console.log(response);
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+        .then(response => response.json())
+        .then(response => { alert("Employee Updated!"); dispatch(fetchEmployees()); })
+        .catch(error => {
+            console.log('Update students ', error.message);
+            alert('Your employee could not be updated\nError: ' + error.message);
+        })
+}
