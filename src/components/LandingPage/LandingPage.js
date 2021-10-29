@@ -12,7 +12,7 @@ import Contact from "./contact"
 import LoginForm from "./LoginForm";
 import { logoutUser, loginUser } from "../../redux/actions/auth"
 import { postNotice, fetchNotices, deleteNotice } from "../../redux/actions/notices";
-import { postEmployee, fetchEmployees, deleteEmployee } from "../../redux/actions/employee";
+import { postEmployee, fetchEmployees, deleteEmployee, updateEmployee } from "../../redux/actions/employee";
 
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (creds) => dispatch(loginUser(creds)),
@@ -23,6 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
     postEmployee: (employee) => dispatch(postEmployee(employee)),
     fetchEmployees: () => dispatch(fetchEmployees()),
     deleteEmployee: (employeeId) => dispatch(deleteEmployee(employeeId)),
+    updateEmployee: (employee) => dispatch(updateEmployee(employee)),
 })
 
 const mapStateToProps = (state) => {
@@ -70,8 +71,8 @@ class LandingPage extends Component {
                     <Switch>
                         <Route path="/home" component={() => <Header />} />
                         <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postNotice={this.props.postNotice} notices={this.props.notices} 
-                            deleteNotice={this.props.deleteNotice} fetchNotices={this.props.fetchNotices}/>} postEmployee={this.props.postEmployee} fetchEmployees={this.props.fetchEmployees} 
-                            employees={this.props.employees} />
+                            deleteNotice={this.props.deleteNotice} fetchNotices={this.props.fetchNotices} postEmployee={this.props.postEmployee} fetchEmployees={this.props.fetchEmployees} 
+                            employees={this.props.employees} updateEmployee={this.props.updateEmployee} deleteEmployee={this.props.deleteEmployee} /> } />
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} />} />
                         <Route path="/gallery" component={() => <Gallery />} />
                         <Route path="/contactus" component={() => <Contact />} />

@@ -9,7 +9,7 @@ export const ConfigureStore = () => {
         combineReducers({
             auth: Auth,
             notices: Notices,
-            employee:Employees,
+            employees:Employees,
         }, +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()),
         applyMiddleware(thunk)
     );

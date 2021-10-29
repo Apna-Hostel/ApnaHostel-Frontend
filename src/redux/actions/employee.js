@@ -27,7 +27,6 @@ export const postEmployee = (employee) => (dispatch) => {
         employeeType: employee.type,
         mobileNo: employee.mobile,
         gender: employee.gender,
-        designation: employee.designation,
         address: employee.address,
         joiningDate: employee.joinDate,
         salary: employee.salary,
@@ -127,20 +126,17 @@ export const deleteEmployee = (employeeId) => (dispatch) => {
 
 
 export const updateEmployee = (employee) => (dispatch) => {
-    console.log(employee.id);
-    console.log(employee)
     const newemployee = {
         employeeName: employee.name,
         eid: employee.eid,
         mobileNo: employee.mobile,
         gender: employee.gender,
         employeeType: employee.type,
-        designation: employee.designation,
         joiningDate: employee.joinDate,
         salary: employee.salary,
         address: employee.address,
     }
-    console.log('Employee: ', newemployee);
+    // console.log('Employee: ', newemployee);
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 

@@ -25,26 +25,23 @@ class Admin extends Component {
 
     componentDidMount() {
         let employees = [];
-        if (this.props.employees.employees != null) {
         this.props.employees.employees.forEach(element => {
             employees.push({
             name: element.employeeName,
             gender: element.gender,
             employeetype: element.employeeType,
-            designation: element.designation,
             mobile: element.mobileNo,
             date: element.joiningDate.split('T')[0],
-            address: element.hostel.name,
+            address: element.address,
             actions: <div>
-                <Link className="fa fa-pencil-alt edit mr-2" to={`/admin/updateEmployee/${element._id}`}></Link>
-                <i className="fa fa-trash-alt delete" onClick={() => {
+                <Link className="fa fa-pencil edit mr-2" to={`/admin/updateEmployee/${element._id}`}></Link>
+                <i className="fa fa-trash delete" onClick={() => {
                 if (window.confirm("Are u sure u want to delete ?"))
                     this.props.deleteEmployee(element._id)
                 }}></i>
             </div>
             })
         });
-        }
         const employeeList = this.state.Employees.concat(employees);
 
         let notices = [];
@@ -64,7 +61,7 @@ class Admin extends Component {
 
         this.setState({
             Notices: noticeList,
-            Employees: employeeList,
+            Employees: employeeList
         });
             
         }; 
@@ -74,7 +71,7 @@ class Admin extends Component {
                 <EmployeeUpdate updateEmployee={this.props.updateEmployee} id={match.params.id} 
                 employee={this.props.employees.employees.filter((employee) =>(
                     employee._id===match.params.id))[0]}
-                ></EmployeeUpdate>
+                />
             )
         }
         return (
@@ -85,7 +82,7 @@ class Admin extends Component {
                     </div>
                     <div className="col-md-9">
                         <Switch>
-                            <Route path="/admin/dashboard" component={() => <DashBoard auth={this.props.auth} notices={this.props.notices.notices}/>} />
+                            <Route path="/admin/dashboard" component={() => <DashBoard auth={this.props.auth} notices={this.props.notices.notices} employees={this.props.employees}/>} />
                             <Route exact path="/admin/manageStudents/addNew" component={() => <AddStudent />} />
                             <Route exact path="/admin/manageStudents/view" component={() => <ViewStudent />} />
                             <Route exact path="/admin/manageStudents/updateStudent" component={() => <UpdateStudent />} />
