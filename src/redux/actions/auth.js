@@ -2,6 +2,7 @@ import * as ActionTypes from "./actionTypes"
 import {baseurl} from '../config'
 import { fetchNotices, noticesFailed } from "./notices"
 import { fetchEmployees, employeesFailed } from "./employee"
+import { fetchStudents, studentsFailed } from "./students"
 
 export const requestLogin = (creds) => {
     return {
@@ -58,6 +59,7 @@ export const loginUser = (creds) => (dispatch) => {
                 dispatch(receiveLogin(response));
                 dispatch(fetchNotices());
                 dispatch(fetchEmployees());
+                dispatch(fetchStudents());
             }
             else {
                 var error = new Error('Error ' + response.status);
@@ -89,4 +91,5 @@ export const logoutUser = () => (dispatch) => {
     dispatch(noticesFailed("Error 401: Unauthorized"));
     dispatch(receiveLogout())
     dispatch(employeesFailed("Error 401: Unauthorized"));
+    dispatch(studentsFailed("Error 404: Unauthorised"));
 }

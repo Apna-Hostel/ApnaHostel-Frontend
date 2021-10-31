@@ -13,6 +13,7 @@ import LoginForm from "./LoginForm";
 import { logoutUser, loginUser } from "../../redux/actions/auth"
 import { postNotice, fetchNotices, deleteNotice } from "../../redux/actions/notices";
 import { postEmployee, fetchEmployees, deleteEmployee, updateEmployee } from "../../redux/actions/employee";
+import { fetchStudents, postStudent} from "../../redux/actions/students"
 
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (creds) => dispatch(loginUser(creds)),
@@ -24,6 +25,8 @@ const mapDispatchToProps = (dispatch) => ({
     fetchEmployees: () => dispatch(fetchEmployees()),
     deleteEmployee: (employeeId) => dispatch(deleteEmployee(employeeId)),
     updateEmployee: (employee) => dispatch(updateEmployee(employee)),
+    postStudent: (student) => dispatch(postStudent(student)),
+    fetchStudents: () => dispatch(fetchStudents()),
 })
 
 const mapStateToProps = (state) => {
@@ -31,6 +34,7 @@ const mapStateToProps = (state) => {
         auth: state.auth,
         notices: state.notices,
         employees: state.employees,
+        students: state.students,
     }
 }
 class LandingPage extends Component {
@@ -39,6 +43,7 @@ class LandingPage extends Component {
             this.props.loginUser(JSON.parse(localStorage.getItem('creds')));
             this.props.fetchNotices();
             this.props.fetchEmployees();
+            this.props.fetchStudents();
         }
     }
     render() {
@@ -72,7 +77,8 @@ class LandingPage extends Component {
                         <Route path="/home" component={() => <Header />} />
                         <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postNotice={this.props.postNotice} notices={this.props.notices} 
                             deleteNotice={this.props.deleteNotice} fetchNotices={this.props.fetchNotices} postEmployee={this.props.postEmployee} fetchEmployees={this.props.fetchEmployees} 
-                            employees={this.props.employees} updateEmployee={this.props.updateEmployee} deleteEmployee={this.props.deleteEmployee} /> } />
+                            employees={this.props.employees} updateEmployee={this.props.updateEmployee} deleteEmployee={this.props.deleteEmployee} 
+                            postStudent={this.props.postStudent} fetchStudents={this.props.fetchStudents} students={this.props.students} /> } />
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} />} />
                         <Route path="/gallery" component={() => <Gallery />} />
                         <Route path="/contactus" component={() => <Contact />} />
