@@ -102,3 +102,82 @@ export const fetchStudents = () => (dispatch) => {
         .then(students => dispatch(studentsSuccess(students)))
         .catch(error => dispatch(studentsFailed(error.message)));
 }
+
+export const updateStudent = (student) => (dispatch) => {
+
+    const newStudent = {
+        studentName: student.fullname,
+        sid: student.sid,
+        mobileNo: student.mobile,
+        email: student.email,
+        branch: student.branch,
+        address: student.address,
+        fatherName: student.father,
+        motherName: student.mother,
+        fatherMobile: student.fnum,
+        roomNo: student.roomNo,
+        gender: student.gender,
+        nationality: student.nationality,
+        dob: student.dob,
+    }
+    console.log('Student: ', newStudent);
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseurl + 'students/' + student.id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        body: JSON.stringify(newStudent),
+    })
+        .then(response => {
+            console.log(response);
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+        .then(response => response.json())
+        .then(response => { alert("Student Updated!"); dispatch(fetchStudents()); })
+        .catch(error => {
+            console.log('Update students ', error.message);
+            alert('Your student could not be updated\nError: ' + error.message);
+        })
+}
+
+export const deleteStudent = (studentId) => (dispatch) => {
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseurl + 'students/' + studentId, {
+        method: "DELETE",
+        headers: {
+            'Authorization': bearer
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                throw error;
+            })
+        .then(response => response.json())
+        .then(students => { console.log('Student Deleted', students); dispatch(fetchStudents()); })
+        .catch(error => dispatch(studentsFailed(error.message)));
+};

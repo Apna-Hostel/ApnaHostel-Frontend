@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MDBDataTableV5 } from 'mdbreact';
 
-function ViewStudent({students, }) {
+function ViewStudent({students, errMess}) {
     const[datatable] = useState({
         columns: [
             {
@@ -50,29 +50,34 @@ function ViewStudent({students, }) {
         ],
         rows: students,
     });
-    return (
-        <div>
-            <div className="row">
-            <div className="col-12 container-fluid">
-                <h2 className="feature-heading ">Students</h2>
-                <hr className="feature-line" />
-            </div>
-            </div>
+    if (errMess) {
+        return (<div><p>{errMess} Please try again</p></div>);
+    }
+    else{
+        return (
             <div>
-            <MDBDataTableV5
-                hover
-                responsiveMd
-                entriesOptions={[5, 20, 25]}
-                entries={5}
-                pagesAmount={4}
-                data={datatable}
-                pagingTop
-                searchTop
-                searchBottom={false}
-                scrollX />
+                <div className="row">
+                <div className="col-12 container-fluid">
+                    <h2 className="feature-heading ">Students</h2>
+                    <hr className="feature-line" />
+                </div>
+                </div>
+                <div>
+                <MDBDataTableV5
+                    hover
+                    responsiveMd
+                    entriesOptions={[5, 20, 25]}
+                    entries={5}
+                    pagesAmount={4}
+                    data={datatable}
+                    pagingTop
+                    searchTop
+                    searchBottom={false}
+                    scrollX />
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default ViewStudent;

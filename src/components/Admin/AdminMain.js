@@ -38,8 +38,8 @@ class Admin extends Component {
             pAddress: element.address,
             roomNo: element.roomNo,
             actions: <div>
-                <Link className="fa fa-pencil-alt edit mr-2" to={`/admin/updateStudent/${element._id}`}></Link>
-                <i className="fa fa-trash-alt delete" onClick={() => {
+                <Link className="fa fa-pencil edit mr-2" to={`/admin/manageStudents/updateStudent/${element._id}`}></Link>
+                <i className="fa fa-trash delete" onClick={() => {
                 if (window.confirm("Are u sure u want to delete ?"))
                     this.props.deleteStudent(element._id)
                 }}></i>
@@ -92,6 +92,16 @@ class Admin extends Component {
             
         }; 
     render() {
+        const studentdetails = ({ match }) => {
+            return (
+              <UpdateStudent
+                updateStudent={this.props.updateStudent}
+                id={match.params.id}
+                student={this.props.students.students.filter((student) => (student._id === match.params.id))[0]}
+              />
+            )
+        }
+
         const employeedetails =({match}) =>{
             return (
                 <EmployeeUpdate updateEmployee={this.props.updateEmployee} id={match.params.id} 
@@ -110,8 +120,8 @@ class Admin extends Component {
                         <Switch>
                             <Route path="/admin/dashboard" component={() => <DashBoard auth={this.props.auth} notices={this.props.notices.notices} employees={this.props.employees}/>} />
                             <Route exact path="/admin/manageStudents/addNew" component={() => <AddStudent postStudent={this.props.postStudent} />} />
-                            <Route exact path="/admin/manageStudents/view" component={() => <ViewStudent />} />
-                            <Route exact path="/admin/manageStudents/updateStudent" component={() => <UpdateStudent />} />
+                            <Route exact path="/admin/manageStudents/view" component={() => <ViewStudent students={this.state.Students} errMess={this.props.students.errMess} />} />
+                            <Route exact path="/admin/manageStudents/updateStudent/:id" component={studentdetails} />
                             <Route exact path="/admin/manageStudentsPayment/addBill" component={ () => <AddMessBill />} />
                             <Route exact path="/admin/manageStudentsPayment/viewBills" component={() => <ViewMessBill />} />
                             <Route exact path="/admin/manageStudentsPayment/updateMessBill" component={() => <UpdateMessBill />} />
