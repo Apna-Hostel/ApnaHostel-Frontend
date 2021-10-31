@@ -34,7 +34,7 @@ class Admin extends Component {
             date: element.joiningDate.split('T')[0],
             address: element.address,
             actions: <div>
-                <Link className="fa fa-pencil edit mr-2" to={`/admin/updateEmployee/${element._id}`}></Link>
+                <Link className="fa fa-pencil edit mr-2" to={`/admin/manageEmployee/updateEmployee/${element._id}`}></Link>
                 <i className="fa fa-trash delete" onClick={() => {
                 if (window.confirm("Are u sure u want to delete ?"))
                     this.props.deleteEmployee(element._id)

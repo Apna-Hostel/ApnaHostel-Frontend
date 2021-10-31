@@ -10,7 +10,7 @@ class EmployeeUpdate extends Component {
             mobile: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.mobileNo,
             gender: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.gender,
             type: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.employeeType,
-            address: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.hostel.name,
+            address: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.address,
             salary: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.salary,
             joinDate: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.joiningDate.split('T')[0],
             eid: (typeof this.props.employee === 'undefined') ? '' : this.props.employee.eid,
