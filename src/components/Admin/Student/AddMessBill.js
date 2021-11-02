@@ -43,7 +43,7 @@ class AddMessBill extends Component {
                                         <option>Electrical</option>
                                         <option>Mechanical</option>
                                         <option>Civil</option>
-                                        <option>Mettalurgy</option>
+                                        <option>Metallurgy</option>
                                         <option>Aerospace</option>
                                         <option>Production</option>
                                     </Input>

@@ -117,7 +117,7 @@ class AddStudent extends Component {
                                         <option value="Electrical">Electrical</option>
                                         <option value="Mechanical">Mechanical</option>
                                         <option value="Civil">Civil</option>
-                                        <option value="Mettalurgy">Mettalurgy</option>
+                                        <option value="Mettalurgy">Metallurgy</option>
                                         <option value="Aerospace">Aerospace</option>
                                         <option value="Production">Production</option>
                                     </Input>
@@ -141,9 +141,9 @@ class AddStudent extends Component {
                         <Row form>
                             <Col md={4}>
                                 <FormGroup>
-                                    <Label for="room">Room No.</Label>
-                                    <Input type="text" name="room" id="room" placeholder="Room No." value={this.state.roomNo} 
-                                        onChange={this.handleInputChange} />
+                                    <Label for="roomNo">Room No.</Label>
+                                    <Input required type="text" name="roomNo" id="roomNo" placeholder="Room No." value={this.state.roomNo} 
+                                        onChange={this.handleInputChange}/>
                                 </FormGroup>
                             </Col>
                         </Row>

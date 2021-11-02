@@ -127,7 +127,7 @@ body {
 }
 
 .feature-heading {
-  color: rgba(20, 100, 196, 1);
+  color: rgb(101, 131, 212);
   font-family: "Ubuntu", sans-serif;
   text-align: center;
   font-family: "Montserrat", sans-serif;
@@ -135,7 +135,7 @@ body {
   font-size: 2.5rem;
 }
 .feature-line {
-  border-color: rgba(20, 100, 196, 1);
+  border-color: rgb(101, 131, 212);
   text-align: center;
 }
 
@@ -173,7 +173,7 @@ hr {
     rgba(20, 100, 196, 1) 0.4%,
     rgba(33, 152, 214, 1) 100.2%
   ); */
-  background-color: lightgray;
+  background-color: #f19b84;
   padding: 3% 0%;
   text-align: center;
   font-family: "Ubuntu", sans-serif;
@@ -261,7 +261,7 @@ strong {
 }
 .card {
   border-radius: 0;
-  border-color: rgb(101, 131, 212);
+  border-color: #f19b84;
   box-shadow: none;
   font-size: x-small;
 }
@@ -273,7 +273,7 @@ strong {
   margin-left: 10%;
 }
 .card-header {
-  background-color: rgb(101, 131, 212);
+  background-color: #f19b84;
   color: white;
 }
 .card-footer {

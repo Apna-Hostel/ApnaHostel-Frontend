@@ -40,7 +40,7 @@ export const postStudent = (student) => (dispatch) => {
     console.log('Student: ', newStudent);
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
-
+    console.log(bearer);
     return fetch(baseurl + 'students', {
         method: 'POST',
         headers: {
@@ -71,36 +71,6 @@ export const postStudent = (student) => (dispatch) => {
             console.log('Post students ', error.message);
             alert('Your student could not be added\nError: ' + error.message);
         })
-}
-
-export const fetchStudents = () => (dispatch) => {
-    dispatch(studentsLoading(true));
-
-    const bearer = 'Bearer ' + localStorage.getItem('token');
-
-    return fetch(baseurl + 'students', {
-        headers: {
-            'method': 'GET',
-            'Authorization': bearer
-        },
-    })
-        .then(response => {
-            if (response.ok) {
-                return response;
-            }
-            else {
-                var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        },
-            error => {
-                var errmess = new Error(error.message);
-                throw errmess;
-            })
-        .then(response => response.json())
-        .then(students => dispatch(studentsSuccess(students)))
-        .catch(error => dispatch(studentsFailed(error.message)));
 }
 
 export const updateStudent = (student) => (dispatch) => {
@@ -153,6 +123,36 @@ export const updateStudent = (student) => (dispatch) => {
             console.log('Update students ', error.message);
             alert('Your student could not be updated\nError: ' + error.message);
         })
+}
+
+export const fetchStudents = () => (dispatch) => {
+    dispatch(studentsLoading(true));
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseurl + 'students', {
+        headers: {
+            'method': 'GET',
+            'Authorization': bearer
+        },
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+        .then(response => response.json())
+        .then(students => dispatch(studentsSuccess(students)))
+        .catch(error => dispatch(studentsFailed(error.message)));
 }
 
 export const deleteStudent = (studentId) => (dispatch) => {

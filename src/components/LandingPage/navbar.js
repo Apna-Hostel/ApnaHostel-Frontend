@@ -41,7 +41,7 @@ class navbar extends Component {
             }
             return (
                   <div>
-                        <Navbar style={{backgroundColor: "grey"}} expand="md" className="me">
+                        <Navbar style={{backgroundColor: "#f19b84"}} expand="md" className="me">
                               <div className="container-fluid">
                               <NavbarBrand> Apna Hostel </NavbarBrand>
                               <ul className="ml-auto nav me">

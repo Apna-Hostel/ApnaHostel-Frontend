@@ -16,7 +16,7 @@ class UpdateStudent extends Component{
             address: (typeof this.props.student === 'undefined') ? '' : this.props.student.address,
             email: (typeof this.props.student === 'undefined') ? '' : this.props.student.email,
             roomNo: (typeof this.props.student === 'undefined') ? '' : this.props.student.roomNo,
-            dob: (typeof this.props.student === 'undefined') ? '' : this.props.student.dob,
+            dob: (typeof this.props.student === 'undefined') ? '' : this.props.student.dob.split('T')[0],
             gender: (typeof this.props.student === 'undefined') ? '' : this.props.student.gender,
             nationality: (typeof this.props.student === 'undefined') ? '' : this.props.student.nationality,
         }

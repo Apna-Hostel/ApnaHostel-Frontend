@@ -25,7 +25,7 @@ class Student extends Component {
                             <Route exact path="/student/bills" component={() => <ViewMessBill />} />
                             <Route exact path="/student/complaints" component={() => <SubmitComplaint />} />
                             <Route exact path="/student/noticeBoard" component={() => <ViewNotice />} />
-                            <Route exact path="/student/dashboard" component={() => <DashBoard />} />
+                            <Route exact path="/student/dashboard" component={() => <DashBoard auth={this.props.auth}/>} />
                         </Switch>
                     </div>
                     

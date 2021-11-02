@@ -81,7 +81,7 @@ class DashBoard extends Component {
                         <Card>
                             <CardHeader mb="0" mt="0"><span><h4>Notices</h4></span></CardHeader>
                             <CardBody>
-                                {
+                                {/* {
                                     this.props.notices.map((element) => {
                                         return (
                                             <Alert color="primary" className="mb-1 mt-1">
@@ -89,7 +89,7 @@ class DashBoard extends Component {
                                             </Alert>
                                         )
                                     })
-                                }
+                                } */}
                             </CardBody>
                         </Card>
                     </div>
