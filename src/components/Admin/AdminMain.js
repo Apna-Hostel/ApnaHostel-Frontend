@@ -21,6 +21,7 @@ class Admin extends Component {
             Notices: [],
             Employees: [],
             Students: [],
+            MealBills: [],
         }
     }
 
@@ -84,10 +85,32 @@ class Admin extends Component {
         });
         const noticeList = this.state.Notices.concat(notices);
 
+        let mealBills = [];
+        if (this.props.mealBills.bills != null) {
+        this.props.mealBills.bills.forEach(element => {
+            mealBills.push({
+            name: element.name,
+            sid: element.sid,
+            branch: element.branch,
+            amount: element.payment,
+            date: element.paymentDate.split('T')[0],
+            actions: <div>
+                <Link className="fa fa-pencil-alt edit mr-2" to={`/admin/updateMealBill/${element._id}`}></Link>
+                <i className="fa fa-trash-alt delete" onClick={() => {
+                if (window.confirm("Are u sure u want to delete ?"))
+                    this.props.deleteMealbill(element._id)
+                }}></i>
+            </div>
+            })
+        });
+        }
+        const mealBillsList = this.state.MealBills.concat(mealBills);
+
         this.setState({
             Notices: noticeList,
             Employees: employeeList,
-            Students: studentlist
+            Students: studentlist,
+            MealBills: mealBillsList,
         });
             
         }; 
@@ -122,7 +145,7 @@ class Admin extends Component {
                             <Route exact path="/admin/manageStudents/addNew" component={() => <AddStudent postStudent={this.props.postStudent} />} />
                             <Route exact path="/admin/manageStudents/view" component={() => <ViewStudent students={this.state.Students} errMess={this.props.students.errMess} />} />
                             <Route exact path="/admin/manageStudents/updateStudent/:id" component={studentdetails} />
-                            <Route exact path="/admin/manageStudentsPayment/addBill" component={ () => <AddMessBill />} />
+                            <Route exact path="/admin/manageStudentsPayment/addBill" component={ () => <AddMessBill postMealbill={this.props.postMealbill} />} />
                             <Route exact path="/admin/manageStudentsPayment/viewBills" component={() => <ViewMessBill />} />
                             <Route exact path="/admin/manageStudentsPayment/updateMessBill" component={() => <UpdateMessBill />} />
                             <Route exact path="/admin/manageEmployee/addnew" component={() => <AddEmployee postEmployee={this.props.postEmployee} />} />

@@ -4,6 +4,28 @@ import {Form, Row, Col, FormGroup, Label, Input, FormFeedback, Button} from 'rea
 class AddMessBill extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            name: '',
+            id: '',
+            rupees: '',
+            branch: '',
+            paymentduedate: '',
+        }
+    }
+
+    handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.postMealbill(this.state);
     }
 
     render(){
@@ -16,19 +38,21 @@ class AddMessBill extends Component {
                     </div>
                 </div>
                 <div >
-                    <Form className="myForm">
+                    <Form className="myForm" onSubmit={this.handleSubmit}>
                         <Row form>
                             <Col md={4}>
                                 <FormGroup>
                                     <Label for="name">Full Name</Label>
-                                    <Input required type="text" name="name" id="name" placeholder="Name" />
+                                    <Input required type="text" name="name" id="name" placeholder="Name" value={this.state.name}
+                                        onChange={this.handleInputChange}/>
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <Label for="id">Student Id</Label>
-                                    <Input required type="number" name="id" id="id" placeholder="Student Id" />
+                                    <Input required type="number" name="id" id="id" placeholder="Student Id" value={this.state.id}
+                                        onChange={this.handleInputChange}/>
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>
                             </Col>
@@ -36,7 +60,8 @@ class AddMessBill extends Component {
                             <Col md={4}>
                                 <FormGroup>
                                     <Label for="branch">Branch</Label>
-                                    <Input required type="select" name="branch" id="branch" className="form-control" >
+                                    <Input required type="select" name="branch" id="branch" className="form-control" value={this.state.branch}
+                                        onChange={this.handleInputChange}>
                                         <option defaultValue>Select</option>
                                         <option>CSE</option>
                                         <option>ECE</option>
@@ -54,14 +79,16 @@ class AddMessBill extends Component {
                             <Col md={4}>
                                 <FormGroup>
                                     <Label for="rupees">Payment</Label>
-                                    <Input required type="number" name="rupees" id="rupees"  placeholder="Amount" />
+                                    <Input required type="number" name="rupees" id="rupees"  placeholder="Amount" value={this.state.rupees}
+                                        onChange={this.handleInputChange}/>
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <Label for="paymentduedate">Payment Due Date</Label>
-                                    <Input required type="date" name="paymentduedate" id="paymentduedate" placeholder="Payment Due Date" />
+                                    <Input required type="date" name="paymentduedate" id="paymentduedate" placeholder="Payment Due Date" value={this.state.paymentduedate}
+                                        onChange={this.handleInputChange}/>
 
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>

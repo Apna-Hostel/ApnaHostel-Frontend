@@ -1,4 +1,6 @@
 import * as ActionTypes from './actionTypes'
+import {baseurl} from "../config"
+
 export const mealbillLoading = () => ({
     type: ActionTypes.MEALBILL_LOADING
 });
@@ -31,7 +33,7 @@ export const postMealbill = (mealbill) => (dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'mealBills', {
+    return fetch(baseurl + 'mealBills', {
         method: 'POST',
         body: JSON.stringify(newMealbill),
         headers: {
@@ -65,7 +67,7 @@ export const deleteMealbill = (mealId) => (dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'mealBills/' + mealId, {
+    return fetch(baseurl + 'mealBills/' + mealId, {
         method: "DELETE",
         headers: {
             'Authorization': bearer
@@ -101,7 +103,7 @@ export const updateMealbill = (mealbill) => (dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'mealBills/' + mealbill.id, {
+    return fetch(baseurl + 'mealBills/' + mealbill.id, {
         method: 'PUT',
         body: JSON.stringify(newMealbill),
         headers: {
@@ -136,7 +138,7 @@ export const fetchMealbill = () => (dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'mealBills', {
+    return fetch(baseurl + 'mealBills', {
         headers: {
             'method': 'GET',
             'Authorization': bearer

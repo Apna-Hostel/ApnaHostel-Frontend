@@ -14,6 +14,7 @@ import { logoutUser, loginUser } from "../../redux/actions/auth"
 import { postNotice, fetchNotices, deleteNotice } from "../../redux/actions/notices";
 import { postEmployee, fetchEmployees, deleteEmployee, updateEmployee } from "../../redux/actions/employee";
 import { deleteStudent, fetchStudents, postStudent, updateStudent} from "../../redux/actions/students"
+import { deleteMealbill, fetchMealbill, postMealbill, updateMealbill } from "../../redux/actions/messBills";
 
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (creds) => dispatch(loginUser(creds)),
@@ -29,6 +30,10 @@ const mapDispatchToProps = (dispatch) => ({
     fetchStudents: () => dispatch(fetchStudents()),
     deleteStudent: (studentId) => dispatch(deleteStudent(studentId)),
     updateStudent: (student) => dispatch(updateStudent(student)),
+    postMealbill: (mealBill) => dispatch(postMealbill(mealBill)),
+    fetchMealbill: () => dispatch(fetchMealbill()),
+    deleteMealbill: (billId) => dispatch(deleteMealbill(billId)),
+    updateMealbill: (mealBill) => dispatch(updateMealbill(mealBill)),
 })
 
 const mapStateToProps = (state) => {
@@ -37,6 +42,7 @@ const mapStateToProps = (state) => {
         notices: state.notices,
         employees: state.employees,
         students: state.students,
+        mealBills: state.mealBills,
     }
 }
 class LandingPage extends Component {
@@ -46,6 +52,7 @@ class LandingPage extends Component {
             this.props.fetchNotices();
             this.props.fetchEmployees();
             this.props.fetchStudents();
+            this.props.fetchMealbill();
         }
     }
     render() {
@@ -79,7 +86,9 @@ class LandingPage extends Component {
                         <Route path="/home" component={() => <Header />} />
                         <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postNotice={this.props.postNotice} notices={this.props.notices}  deleteNotice={this.props.deleteNotice} fetchNotices={this.props.fetchNotices} 
                             postEmployee={this.props.postEmployee} fetchEmployees={this.props.fetchEmployees} employees={this.props.employees} updateEmployee={this.props.updateEmployee} deleteEmployee={this.props.deleteEmployee}  
-                            postStudent={this.props.postStudent} fetchStudents={this.props.fetchStudents} students={this.props.students} updateStudent={this.props.updateStudent} deleteStudent={this.props.deleteStudent} /> } />
+                            postStudent={this.props.postStudent} fetchStudents={this.props.fetchStudents} students={this.props.students} updateStudent={this.props.updateStudent} deleteStudent={this.props.deleteStudent} 
+                            postMealbill={this.props.postMealbill} fetchMealbill={this.props.fetchMealbill} mealBills={this.props.mealBills}
+                            /> } />
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} />} />
                         <Route path="/gallery" component={() => <Gallery />} />
                         <Route path="/contactus" component={() => <Contact />} />
