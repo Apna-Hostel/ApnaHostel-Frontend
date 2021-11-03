@@ -87,7 +87,7 @@ class LandingPage extends Component {
                         <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postNotice={this.props.postNotice} notices={this.props.notices}  deleteNotice={this.props.deleteNotice} fetchNotices={this.props.fetchNotices} 
                             postEmployee={this.props.postEmployee} fetchEmployees={this.props.fetchEmployees} employees={this.props.employees} updateEmployee={this.props.updateEmployee} deleteEmployee={this.props.deleteEmployee}  
                             postStudent={this.props.postStudent} fetchStudents={this.props.fetchStudents} students={this.props.students} updateStudent={this.props.updateStudent} deleteStudent={this.props.deleteStudent} 
-                            postMealbill={this.props.postMealbill} fetchMealbill={this.props.fetchMealbill} mealBills={this.props.mealBills}
+                            postMealbill={this.props.postMealbill} fetchMealbill={this.props.fetchMealbill} mealBills={this.props.mealBills} updateMealbill={this.props.updateMealbill} deleteMealbill={this.props.deleteMealbill}
                             /> } />
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} />} />
                         <Route path="/gallery" component={() => <Gallery />} />

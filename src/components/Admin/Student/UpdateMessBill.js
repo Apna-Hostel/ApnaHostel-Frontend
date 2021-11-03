@@ -4,6 +4,29 @@ import { Form, Input, Button, Label, Col, Row, FormGroup, FormFeedback } from 'r
 class UpdateMessBill extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            name: (typeof this.props.mealBill === 'undefined') ? '' : this.props.mealBill.name,
+            id: this.props.id,
+            sid: (typeof this.props.mealBill === 'undefined') ? '' : this.props.mealBill.sid,
+            rupees: (typeof this.props.mealBill === 'undefined') ? '' : this.props.mealBill.payment,
+            branch: (typeof this.props.mealBill === 'undefined') ? '' : this.props.mealBill.branch,
+            paymentduedate: (typeof this.props.mealBill === 'undefined') ? '' : this.props.mealBill.paymentDate.split('T')[0],
+        }
+    }
+
+    handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.updateMealbill(this.state);
     }
 
     render() {
@@ -19,19 +42,21 @@ class UpdateMessBill extends Component {
                     <h3>Student Details</h3>
                 </div>
                 <div >
-                    <Form className="myForm">
+                    <Form className="myForm" onSubmit={this.handleSubmit}>
                         <Row form>
                             <Col md={4}>
                                 <FormGroup>
                                     <Label for="name">Full Name</Label>
-                                    <Input required type="text" name="name" sid="name" placeholder="Name" />
+                                    <Input required type="text" name="name" sid="name" placeholder="Name"  value={this.state.name}
+                                        onChange={this.handleInputChange}/>
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <Label for="sid">Student Id</Label>
-                                    <Input required type="number" name="sid" sid="sid" placeholder="Student Id" />
+                                    <Input required type="number" name="sid" sid="sid" placeholder="Student Id"  value={this.state.sid}
+                                        onChange={this.handleInputChange}/>
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>
                             </Col>
@@ -39,7 +64,8 @@ class UpdateMessBill extends Component {
                             <Col md={3}>
                                 <FormGroup>
                                     <Label for="branch">Branch</Label>
-                                    <Input required type="select" name="branch" sid="branch" className="form-control">
+                                    <Input required type="select" name="branch" sid="branch" className="form-control"  value={this.state.branch}
+                                        onChange={this.handleInputChange}>
                                         <option defaultValue>Select</option>
                                         <option>CSE</option>
                                         <option>ECE</option>
@@ -57,14 +83,16 @@ class UpdateMessBill extends Component {
                             <Col md={4}>
                                 <FormGroup>
                                     <Label for="rupees">Payment</Label>
-                                    <Input required type="number" name="rupees" sid="rupees" placeholder="Amount"/>
+                                    <Input required type="number" name="rupees" sid="rupees" placeholder="Amount"  value={this.state.rupees}
+                                        onChange={this.handleInputChange}/>
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <Label for="paymentduedate">Payment Due Date</Label>
-                                    <Input required type="date" name="paymentduedate" sid="paymentduedate" placeholder="Payment Due Date"/>
+                                    <Input required type="date" name="paymentduedate" sid="paymentduedate" placeholder="Payment Due Date"  value={this.state.paymentduedate}
+                                        onChange={this.handleInputChange}/>
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>
                             </Col>
