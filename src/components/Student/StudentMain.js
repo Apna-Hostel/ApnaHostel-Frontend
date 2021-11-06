@@ -19,6 +19,7 @@ class Student extends Component {
                     </div>
                     <div className="col-md-9">
                         <Switch>
+<<<<<<< HEAD
                             <Route exact path="/student/studentview" component={() => <ViewStudent />} />
                             <Route exact path="/student/employeeview" component={() => <ViewEmployee />} />
                             <Route exact path="/student/profile" component={() => <StudentProfile />} />
@@ -26,6 +27,16 @@ class Student extends Component {
                             <Route exact path="/student/complaints" component={() => <SubmitComplaint />} />
                             <Route exact path="/student/noticeBoard" component={() => <ViewNotice />} />
                             <Route exact path="/student/dashboard" component={() => <DashBoard auth={this.props.auth}/>} />
+=======
+                            <Route exact path="/student/studentview" component={() => <ViewStudent students={this.state.students}/>} />
+                            <Route exact path="/student/employeeview" component={() => <ViewEmployee employees={this.props.employees}/>} />
+                            <Route exact path="/student/profile" component={() => <StudentProfile students={this.props.students}/>} />
+                            <Route exact path="/student/bills" component={() => <ViewMessBill meals={this.props.meals}/>} />
+                            <Route exact path="/student/complaints" component={() => <SubmitComplaint postComplaint={this.props.postComplaint} complaints={this.state.complaints} />} />
+                            <Route exact path="/student/noticeBoard" component={() => <ViewNotice notices={this.props.notices.notices}/>} />
+                            <Route exact path="/student/dashboard" component={() => <DashBoard employees={this.props.employees} students={this.props.students}
+                             auth={this.props.auth} notices={this.props.notices.notices}  />} />
+>>>>>>> 1d8ab6f1c574fcd46e586195d2e78ed719d2eff6
                         </Switch>
                     </div>
                     

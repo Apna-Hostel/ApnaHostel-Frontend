@@ -9,14 +9,25 @@ class SubmitComplaint extends Component {
         this.state = {
             title: '',
             description: '',
-            touched: {
-                title: false,
-                description: false
-            }
         }
+    }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.postComplaint(this.state)
+
+    }
+    handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
     }
 
     render() {
+        const complaint = this.props.complaints.filter((element) => element.name === this.props.auth.user.username)
         return (
             <div>
                 <div className="row">
@@ -31,15 +42,16 @@ class SubmitComplaint extends Component {
                             <Col md={5}>
                                 <FormGroup>
                                     <Label for="title">Title</Label>
-                                    <Input required type="text"
-                                        name="title" id="title" placeholder="Title" />
+                                    <Input required type="text" name="title" 
+                                    id="title" placeholder="Title" value={this.state.title} onChange={this.handleInputChange} />
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={5}>
                                 <FormGroup>
                                     <Label for="description">Description</Label>
-                                    <Input required type="textarea" name="description" id="description" placeholder="Description" rows="1"/>
+                                    <Input required type="textarea" name="description" id="description" 
+                                    placeholder="Description" rows="1" value={this.state.description} onChange={this.handleInputChange} />
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>
                             </Col>
@@ -54,7 +66,7 @@ class SubmitComplaint extends Component {
                     </Form>
                 </div>
                 <div>
-                    <ViewComplaints />
+                    <ViewComplaints complaints={complaint} />
                 </div>
             </div>
         )

@@ -9,7 +9,7 @@ import ViewMessBill from "./Student/ViewMessBill";
 import UpdateMessBill from "./Student/UpdateMessBill";
 import AddEmployee from "./Employee/AddEmployee";
 import EmployeeView from "./Employee/EmployeeView";
-import EmployeeUpdate from "./Employee/EmployeeUpdate";
+import EmployeeUpdate from "./Employee              /EmployeeUpdate";
 import Complaints from "./ViewComplaints";
 import NoticeBoard from "./NoticeBoard";
 import DashBoard from "../DashBoard";
@@ -22,7 +22,8 @@ class Admin extends Component {
             Employees: [],
             Students: [],
             MealBills: [],
-        }
+            Complaints :[],
+        };
     }
 
     componentDidMount() {
@@ -162,7 +163,7 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/addnew" component={() => <AddEmployee postEmployee={this.props.postEmployee} />} />
                             <Route exact path="/admin/manageEmployee/view" component={() => <EmployeeView employees={this.state.Employees} />} />
                             <Route exact path="/admin/manageEmployee/updateEmployee/:id" component={employeedetails} />
-                            <Route exact path="/admin/complaints" component={() => <Complaints />} />
+                            <Route exact path="/admin/complaints" component={() => <Complaints complaints={this.state.Complaints} />} />
                             <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.state.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />
                         </Switch>
                     </div>
