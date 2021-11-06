@@ -63,7 +63,8 @@ class LandingPage extends Component {
                     <Switch>
                         <Route path="/home" component={() => <Header />} />
                         <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postEmployee={this.props.postEmployee} fetchEmployees={this.props.fetchEmployees} employees={this.props.employees}/>} />
-                        <StudentRoute path="/student" component={() => <Student auth={this.props.auth} />} />
+                        <StudentRoute path="/student" component={() => <Student auth={this.props.auth} postComplaint={this.props.postComplaint} complaints={this.props.complaints}
+                            employees={this.props.employees} notices={this.props.notices} students={this.props.students} meals={this.props.meals} />} />
                         <Route path="/gallery" component={() => <Gallery />} />
                         <Route path="/contactus" component={() => <Contact />} />
                         <Route path="/login" component={() => <LoginForm auth={this.props.auth} loginUser={this.props.loginUser} />} />
