@@ -18,6 +18,15 @@ class AddStudent extends Component {
             mother: '',
             Fnum: '',
             roomNo: '',
+            touched: {
+                name: false,
+                id: false,
+                mobile: false,
+                email: false,
+                father: false,
+                mother: false,
+                Fnum: false,
+            }
         }
     }
 
@@ -36,8 +45,56 @@ class AddStudent extends Component {
         this.props.postStudent(this.state);
     }
 
+    handleBlur = (field) => (evt) => {
+        this.setState({
+            touched: { ...this.state.touched, [field]: true }
+        });
+    }
+
+    validate = (name, id, mobile, email, father, mother, Fnum) => {
+        const errors = {
+            name: '',
+            id: '',
+            mobile: '',
+            email: '',
+            father: '',
+            mother: '',
+            Fnum: ''
+        }
+        if (this.state.touched.name && name.length < 3)
+            errors.name = 'Name should be of minimum length of 3 characters';
+        else if (this.state.touched.name && name.length > 30)
+            errors.name = 'Name should not be greater than 30 characters';
+
+        if (this.state.touched.mother && mother.length < 3)
+            errors.mother = 'Name should be of minimum length of 3 characters';
+        else if (this.state.touched.mother && mother.length > 30)
+            errors.mother = 'Name should not be greater than 30 characters';
+
+        if (this.state.touched.father && father.length < 3)
+            errors.father = 'Name should be of minimum length of 3 characters';
+        else if (this.state.touched.father && father.length > 30)
+            errors.father = 'Name should not be greater than 30 characters';
+
+        if (this.state.touched.id && id.length !== 8) {
+            errors.id = 'Length of the student id should be equal to 8';
+        }
+
+        const reg = /^\d{10}$/;
+        if (this.state.touched.mobile && !reg.test(mobile))
+            errors.mobile = 'Enter a valid Mobile Number';
+        if (this.state.touched.Fnum && !reg.test(Fnum))
+            errors.Fnum = 'Enter a valid Mobile Number';
+        if (this.state.touched.email && email.split('').filter(x => x === '@').length !== 1)
+            errors.email = 'Enter a valid email';
+
+        return errors;
+    }
+
 
     render(){
+        const errors = this.validate(this.state.name, this.state.id, this.state.mobile,
+            this.state.email, this.state.father, this.state.mother, this.state.Fnum);
         return (
             <div>
                 <div className="row">
@@ -56,24 +113,24 @@ class AddStudent extends Component {
                                 <FormGroup>
                                     <Label for="name">Full Name</Label>
                                     <Input required type="text" name="name" id="name" placeholder="Name" value={this.state.name} 
-                                        onChange={this.handleInputChange} />
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.name === ''} invalid={errors.name !== ''} onBlur={this.handleBlur('name')}/>
+                                    <FormFeedback>{errors.name}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <Label for="id">Student Id(As Login Id)</Label>
                                     <Input required type="text" name="id" id="id" placeholder="Student Id" value={this.state.id} 
-                                        onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.id === ''} invalid={errors.id !== ''} onBlur={this.handleBlur('id')}/>
+                                    <FormFeedback>{errors.id}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={4}>
                                 <FormGroup>
                                     <Label for="mobile">Mobile No.</Label>
                                     <Input required type="text" name="mobile" id="mobile" placeholder="Mobile No." value={this.state.mobile} 
-                                        onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.mobile === ''} invalid={errors.mobile !== ''} onBlur={this.handleBlur('mobile')}/>
+                                    <FormFeedback>{errors.mobile}</FormFeedback>
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -100,8 +157,8 @@ class AddStudent extends Component {
                                 <FormGroup>
                                     <Label for="email">Email</Label>
                                     <Input required type="email" name="email" id="email" placeholder="Email" value={this.state.email} 
-                                        onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.email === ''} invalid={errors.email !== ''} onBlur={this.handleBlur('email')}/>
+                                    <FormFeedback>{errors.email}</FormFeedback>
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -155,24 +212,24 @@ class AddStudent extends Component {
                                 <FormGroup>
                                     <Label for="father">Father's Name</Label>
                                     <Input required type="text" name="father" id="fathername" placeholder="Father's Name" value={this.state.father} 
-                                        onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.father === ''} invalid={errors.father !== ''} onBlur={this.handleBlur('father')}/>
+                                    <FormFeedback>{errors.father}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={4}>
                                 <FormGroup>
                                     <Label for="mother">Mother's Name</Label>
                                     <Input required type="text" name="mother" id="mothername" placeholder="Mother's Name" value={this.state.mother} 
-                                        onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.mother === ''} invalid={errors.mother !== ''} onBlur={this.handleBlur('mother')}/>
+                                    <FormFeedback>{errors.mother}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <Label for="Fnum">Father's Mobile No.</Label>
                                     <Input required type="text" name="Fnum" id="fathermobile" placeholder="Father Mobile No." value={this.state.Fnum} 
-                                        onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.Fnum === ''} invalid={errors.Fnum !== ''} onBlur={this.handleBlur('Fnum')}/>
+                                    <FormFeedback>{errors.Fnum}</FormFeedback>
                                 </FormGroup>
                             </Col>
                         </Row>

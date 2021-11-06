@@ -11,6 +11,12 @@ class UpdateMessBill extends Component {
             rupees: (typeof this.props.mealBill === 'undefined') ? '' : this.props.mealBill.payment,
             branch: (typeof this.props.mealBill === 'undefined') ? '' : this.props.mealBill.branch,
             paymentduedate: (typeof this.props.mealBill === 'undefined') ? '' : this.props.mealBill.paymentDate.split('T')[0],
+            touched: {
+                name: false,
+                sid: false,
+                rupees: false,
+                paymentduedate: false,
+            }
         }
     }
 
@@ -29,7 +35,37 @@ class UpdateMessBill extends Component {
         this.props.updateMealbill(this.state);
     }
 
+    handleBlur = (field) => (evt) => {
+        this.setState({
+            touched: { ...this.state.touched, [field]: true }
+        });
+    }
+
+    validate = (name, sid, paymentduedate, rupees) => {
+        const errors = {
+            name: '',
+            rupees: '',
+            paymentduedate: '',
+            sid: ''
+        }
+        if (this.state.touched.name && name.length < 3)
+            errors.name = 'Name should be of minimum length of 3 characters';
+        else if (this.state.touched.name && name.length > 30)
+            errors.name = 'Name should not be greater than 30 characters';
+
+        if (this.state.touched.sid && sid.length !== 8) {
+            errors.sid = 'Length of the student sid should be equal to 8';
+        }
+        if (this.state.touched.paymentduedate && paymentduedate.length === 0)
+            errors.paymentduedate = 'Specify Date';
+        if (this.state.touched.rupees && rupees.length === 0)
+            errors.rupees = 'Specify Payment Amount';
+
+        return errors;
+    }
+
     render() {
+        const errors = this.validate(this.state.name, this.state.sid, this.state.paymentduedate, this.state.rupees);
         return (
             <div>
                 <div className="row">
@@ -48,16 +84,16 @@ class UpdateMessBill extends Component {
                                 <FormGroup>
                                     <Label for="name">Full Name</Label>
                                     <Input required type="text" name="name" sid="name" placeholder="Name"  value={this.state.name}
-                                        onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.name === ''} invalid={errors.name !== ''} onBlur={this.handleBlur('name')}/>
+                                    <FormFeedback>{errors.name}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <Label for="sid">Student Id</Label>
                                     <Input required type="number" name="sid" sid="sid" placeholder="Student Id"  value={this.state.sid}
-                                        onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.sid === ''} invalid={errors.sid !== ''} onBlur={this.handleBlur('sid')}/>
+                                    <FormFeedback>{errors.sid}</FormFeedback>
                                 </FormGroup>
                             </Col>
 
@@ -84,16 +120,16 @@ class UpdateMessBill extends Component {
                                 <FormGroup>
                                     <Label for="rupees">Payment</Label>
                                     <Input required type="number" name="rupees" sid="rupees" placeholder="Amount"  value={this.state.rupees}
-                                        onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.rupees === ''} invalid={errors.rupees !== ''} onBlur={this.handleBlur('rupees')}/>
+                                    <FormFeedback>{errors.rupees}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <Label for="paymentduedate">Payment Due Date</Label>
                                     <Input required type="date" name="paymentduedate" sid="paymentduedate" placeholder="Payment Due Date"  value={this.state.paymentduedate}
-                                        onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                        onChange={this.handleInputChange} valid={errors.paymentduedate === ''} invalid={errors.paymentduedate !== ''} onBlur={this.handleBlur('paymentduedate')}/>
+                                    <FormFeedback>{errors.paymentduedate}</FormFeedback>
                                 </FormGroup>
                             </Col>
                         </Row>

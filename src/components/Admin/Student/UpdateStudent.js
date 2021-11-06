@@ -19,6 +19,17 @@ class UpdateStudent extends Component{
             dob: (typeof this.props.student === 'undefined') ? '' : this.props.student.dob.split('T')[0],
             gender: (typeof this.props.student === 'undefined') ? '' : this.props.student.gender,
             nationality: (typeof this.props.student === 'undefined') ? '' : this.props.student.nationality,
+            touched: {
+                sid: false,
+                fullname: false,
+                mobile: false,
+                program: false,
+                father: false,
+                mother: false,
+                fnum: false,
+                address: false,
+                email: false
+            }
         }
     }
 
@@ -38,8 +49,71 @@ class UpdateStudent extends Component{
             this.state
         );
     }
+
+    handleBlur = (field) => (evt) => {
+        this.setState({
+            touched: { ...this.state.touched, [field]: true }
+        });
+    }
+
+    validate = (
+        sid,
+        fullname,
+        mobile,
+        program,
+        mother,
+        father,
+        fnum,
+        email,
+        address
+    ) => {
+        const errors = {
+            sid: '',
+            fullname: '',
+            mobile: '',
+            program: '',
+            mother: '',
+            father: '',
+            fnum: '',
+            email: '',
+            address: ''
+        }
+
+        if (this.state.touched.sid && sid.length !== 8)
+            errors.sid = 'Sid should be of 8 characters';
+        if (this.state.touched.fullname && fullname.length < 3)
+            errors.fullname = 'Name should be greater than 3 characters';
+        if (this.state.touched.program && program.length < 3)
+            errors.program = 'Program should be of minimum length of 3 characters';
+        if (this.state.touched.mother && (mother.length > 30 || mother.length < 3))
+            errors.mother = 'Name should not be greater than 30 characters and smaller than 3 characters';
+        if (this.state.touched.father && (father.length > 30 || father.length < 3))
+            errors.father = 'Name should not be greater than 30 characters and smaller than 3 characters';
+        if (this.state.touched.address && (address.length < 5 || address.length > 50))
+            errors.address = 'Address length should lie between 5 and 50 characters'
+        const reg = /^\d{10}$/;
+        if (this.state.touched.mobile && !reg.test(mobile))
+            errors.mobile = 'Enter a valid Mobile Number';
+        if (this.state.touched.fnum && !reg.test(fnum))
+            errors.fnum = 'Enter a valid Mobile Number';
+        if (this.state.touched.email && email.split('').filter(x => x === '@').length !== 1)
+            errors.email = 'Enter a valid email';
+
+        return errors;
+    }
     
     render(){
+        const errors = this.validate(
+            this.state.sid,
+            this.state.fullname,
+            this.state.mobile,
+            this.state.program,
+            this.state.mother,
+            this.state.father,
+            this.state.fnum,
+            this.state.email,
+            this.state.address);
+
         return(
             <div>
                 <div className="row">
@@ -58,24 +132,24 @@ class UpdateStudent extends Component{
                                 <FormGroup>
                                     <Label htmlFor="name">Full Name</Label>
                                     <Input required type="text" name="name" id="name" placeholder="Name" value={this.state.fullname}
-                                    onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                    onChange={this.handleInputChange} valid={errors.fullname === ''} invalid={errors.fullname !== ''} onBlur={this.handleBlur('fullname')}/>
+                                    <FormFeedback>{errors.fullname}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <Label htmlFor="id">Student Id(As Login Id)</Label>
                                     <Input required type="text" name="id" id="id" placeholder="Student Id" value={this.state.sid}
-                                    onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                    onChange={this.handleInputChange} valid={errors.sid === ''} invalid={errors.sid !== ''} onBlur={this.handleBlur('sid')}/>
+                                    <FormFeedback>{errors.sid}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="mobile">Mobile No.</Label>
                                     <Input required type="text" name="mobile" id="mobile" placeholder="Mobile No."value={this.state.mobile}
-                                    onChange={this.handleInputChange} />
-                                    <FormFeedback></FormFeedback>
+                                    onChange={this.handleInputChange} valid={errors.mobile === ''} invalid={errors.mobile !== ''} onBlur={this.handleBlur('mobile')}/>
+                                    <FormFeedback>{errors.mobile}</FormFeedback>
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -102,8 +176,8 @@ class UpdateStudent extends Component{
                                 <FormGroup>
                                     <Label htmlFor="email">Email</Label>
                                     <Input required type="email" name="email" id="email" placeholder="Email" value={this.state.email}
-                                    onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                    onChange={this.handleInputChange} valid={errors.email === ''} invalid={errors.email !== ''} onBlur={this.handleBlur('email')}/>
+                                    <FormFeedback>{errors.email}</FormFeedback>
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -157,24 +231,24 @@ class UpdateStudent extends Component{
                                 <FormGroup>
                                     <Label htmlFor="father">Father's Name</Label>
                                     <Input required type="text" name="father" id="fathername" placeholder="Father's Name" value={this.state.father}
-                                    onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                    onChange={this.handleInputChange} valid={errors.father === ''} invalid={errors.father !== ''} onBlur={this.handleBlur('father')}/>
+                                    <FormFeedback>{errors.father}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="mother">Mother's Name</Label>
                                     <Input required type="text" name="mother" id="mothername" placeholder="Mother's Name" value={this.state.mother}
-                                    onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                    onChange={this.handleInputChange} valid={errors.mother === ''} invalid={errors.mother !== ''} onBlur={this.handleBlur('mother')}/>
+                                    <FormFeedback>{errors.mother}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
                                     <Label htmlFor="Fnum">Father's Mobile No.</Label>
                                     <Input required type="text" name="Fnum" id="fathermobile" placeholder="Father Mobile No." value={this.state.fnum}
-                                    onChange={this.handleInputChange}/>
-                                    <FormFeedback></FormFeedback>
+                                    onChange={this.handleInputChange} valid={errors.fnum === ''} invalid={errors.fnum !== ''} onBlur={this.handleBlur('fnum')}/>
+                                    <FormFeedback>{errors.fnum}</FormFeedback>
                                 </FormGroup>
                             </Col>
                         </Row>

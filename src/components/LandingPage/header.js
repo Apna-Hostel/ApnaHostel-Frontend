@@ -10,7 +10,7 @@ function header(){
               avoids the problems which occur when carried manually. Identification of the drawbacks of the existing system leads 
               to the designing of computerized system that will be compatible to the existing system with the system which is 
               more user friendly and more GUI oriented.</p>
-              <a href="#features" class="btn btn-custom btn-lg page-scroll">Learn More</a> 
+              {/* <a href="#features" class="btn btn-custom btn-lg page-scroll">Learn More</a>  */}
             </div>
           </div>
         </div>
