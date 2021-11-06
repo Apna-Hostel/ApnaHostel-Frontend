@@ -23,7 +23,7 @@ class Student extends Component {
                             <Route exact path="/student/employeeview" component={() => <ViewEmployee />} />
                             <Route exact path="/student/profile" component={() => <StudentProfile />} />
                             <Route exact path="/student/bills" component={() => <ViewMessBill />} />
-                            <Route exact path="/student/complaints" component={() => <SubmitComplaint />} />
+                            <Route exact path="/student/complaints" component={() => <SubmitComplaint postComplaint={this.props.postComplaint} complaints={this.state.complaints} />} />
                             <Route exact path="/student/noticeBoard" component={() => <ViewNotice />} />
                             <Route exact path="/student/dashboard" component={() => <DashBoard />} />
                         </Switch>
