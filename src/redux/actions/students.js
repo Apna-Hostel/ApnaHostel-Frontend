@@ -20,6 +20,45 @@ export const addStudent = (student) => ({
     payload: student
 });
 
+export const registerStudent = (student) => (dispatch) => {
+    const date = student.dob.split('T')[0];
+    const registerStudent = {
+        username: student.sid,
+        password: date.split('-')[2] + date.split('-')[1] + date.split('-')[0],
+        admin: false,
+        hostel: student.hostel._id
+    }
+    return fetch(baseurl + 'users/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(registerStudent),
+        credentials: "same-origin"
+    })
+    .then(response => {
+        console.log(response);
+        if (response.ok) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+    .then(response => response.json())
+    .then(response => { })
+    .catch(error => {
+        console.log('Post students ', error.message);
+        alert('Your student could not be added\nError: ' + error.message);
+    })
+}
+
 export const postStudent = (student) => (dispatch) => {
 
     const newStudent = {
@@ -66,7 +105,7 @@ export const postStudent = (student) => (dispatch) => {
                 throw errmess;
             })
         .then(response => response.json())
-        .then(response => { alert("Student has been added Successfully!!"); dispatch(addStudent(response)); dispatch(fetchStudents()); })
+        .then(response => { alert("Student has been added Successfully!!"); dispatch(registerStudent(response)); dispatch(addStudent(response)); dispatch(fetchStudents()); })
         .catch(error => {
             console.log('Post students ', error.message);
             alert('Your student could not be added\nError: ' + error.message);
@@ -118,7 +157,7 @@ export const updateStudent = (student) => (dispatch) => {
                 throw errmess;
             })
         .then(response => response.json())
-        .then(response => { alert("Student Updated!"); dispatch(fetchStudents()); })
+        .then(response => { alert("Student Updated!"); dispatch(registerStudent(response)); dispatch(fetchStudents()); })
         .catch(error => {
             console.log('Update students ', error.message);
             alert('Your student could not be updated\nError: ' + error.message);

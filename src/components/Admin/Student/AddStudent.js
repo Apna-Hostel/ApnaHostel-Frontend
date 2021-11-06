@@ -26,6 +26,7 @@ class AddStudent extends Component {
                 father: false,
                 mother: false,
                 Fnum: false,
+                dob: false
             }
         }
     }
@@ -51,7 +52,7 @@ class AddStudent extends Component {
         });
     }
 
-    validate = (name, id, mobile, email, father, mother, Fnum) => {
+    validate = (name, id, mobile, email, father, mother, Fnum, dob) => {
         const errors = {
             name: '',
             id: '',
@@ -59,7 +60,8 @@ class AddStudent extends Component {
             email: '',
             father: '',
             mother: '',
-            Fnum: ''
+            Fnum: '',
+            dob: '',
         }
         if (this.state.touched.name && name.length < 3)
             errors.name = 'Name should be of minimum length of 3 characters';
@@ -75,7 +77,8 @@ class AddStudent extends Component {
             errors.father = 'Name should be of minimum length of 3 characters';
         else if (this.state.touched.father && father.length > 30)
             errors.father = 'Name should not be greater than 30 characters';
-
+        if (this.state.touched.dob && dob.length === 0)
+            errors.dob = 'Specify Date of Birth';
         if (this.state.touched.id && id.length !== 8) {
             errors.id = 'Length of the student id should be equal to 8';
         }
@@ -94,7 +97,7 @@ class AddStudent extends Component {
 
     render(){
         const errors = this.validate(this.state.name, this.state.id, this.state.mobile,
-            this.state.email, this.state.father, this.state.mother, this.state.Fnum);
+            this.state.email, this.state.father, this.state.mother, this.state.Fnum, this.state.dob);
         return (
             <div>
                 <div className="row">
@@ -139,7 +142,8 @@ class AddStudent extends Component {
                                 <FormGroup>
                                     <Label for="dob">Date of Birth</Label>
                                     <Input required type="date" name="dob" id="dob" placeholder="Date Of Birth" value={this.state.dob} 
-                                        onChange={this.handleInputChange}/>
+                                        onChange={this.handleInputChange} valid={errors.dob === ''} invalid={errors.dob !== ''} onBlur={this.handleBlur('dob')}/>
+                                        <FormFeedback>{errors.dob}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>

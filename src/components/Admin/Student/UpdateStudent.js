@@ -28,7 +28,8 @@ class UpdateStudent extends Component{
                 mother: false,
                 fnum: false,
                 address: false,
-                email: false
+                email: false,
+                dob: false
             }
         }
     }
@@ -65,7 +66,8 @@ class UpdateStudent extends Component{
         father,
         fnum,
         email,
-        address
+        address,
+        dob
     ) => {
         const errors = {
             sid: '',
@@ -76,7 +78,8 @@ class UpdateStudent extends Component{
             father: '',
             fnum: '',
             email: '',
-            address: ''
+            address: '',
+            dob: ''
         }
 
         if (this.state.touched.sid && sid.length !== 8)
@@ -91,6 +94,8 @@ class UpdateStudent extends Component{
             errors.father = 'Name should not be greater than 30 characters and smaller than 3 characters';
         if (this.state.touched.address && (address.length < 5 || address.length > 50))
             errors.address = 'Address length should lie between 5 and 50 characters'
+        if (this.state.touched.dob && dob.length === 0)
+            errors.dob = 'Specify Date of Birth';
         const reg = /^\d{10}$/;
         if (this.state.touched.mobile && !reg.test(mobile))
             errors.mobile = 'Enter a valid Mobile Number';
@@ -112,7 +117,8 @@ class UpdateStudent extends Component{
             this.state.father,
             this.state.fnum,
             this.state.email,
-            this.state.address);
+            this.state.address,
+            this.state.dob);
 
         return(
             <div>
@@ -158,7 +164,8 @@ class UpdateStudent extends Component{
                                 <FormGroup>
                                     <Label htmlFor="dob">Date of Birth</Label>
                                     <Input required type="date" name="dob" id="dob" placeholder="Date Of Birth" value={this.state.dob}
-                                    onChange={this.handleInputChange}/>
+                                        onChange={this.handleInputChange} valid={errors.dob === ''} invalid={errors.dob !== ''} onBlur={this.handleBlur('dob')}/>
+                                        <FormFeedback>{errors.dob}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
