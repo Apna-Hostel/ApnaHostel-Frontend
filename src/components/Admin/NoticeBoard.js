@@ -5,7 +5,27 @@ import NoticeView from './NoticeView';
 class NoticeBoard extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            title: '',
+            description: ''
+        }
     }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.postNotice(this.state);
+    }
+
+    handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
     render() {
         return (
             <div>
@@ -16,20 +36,20 @@ class NoticeBoard extends Component {
                     </div>
                 </div>
                 <div >
-                    <Form className="myForm" >
+                    <Form className="myForm" onSubmit={this.handleSubmit}>
                         <Row form>
                             <Col md={5}>
                                 <FormGroup>
                                     <Label for="title">Title</Label>
                                     <Input required type="text"
-                                        name="title" id="title" placeholder="Title"  />
+                                        name="title" id="title" placeholder="Title" value={this.state.title} onChange={this.handleInputChange}/>
                                 </FormGroup>
                             </Col>
                             <Col md={5}>
                                 <FormGroup>
                                     <Label for="description">Description</Label>
-                                    <Input required type="textarea" name="description" id="description" placeholder="Description"
-                                     />
+                                    <Input required type="textarea" name="description" id="description" placeholder="Description" rows={1}
+                                    value={this.state.description} onChange={this.handleInputChange}/>
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -43,7 +63,7 @@ class NoticeBoard extends Component {
                     </Form>
                 </div>
                 <div className="col-12 container-fluid">
-                    <NoticeView />
+                    <NoticeView notices={this.props.notices} errMess={this.props.errMess} />
                 </div>
             </div>
         )

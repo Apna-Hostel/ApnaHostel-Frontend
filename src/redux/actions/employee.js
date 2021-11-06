@@ -27,7 +27,6 @@ export const postEmployee = (employee) => (dispatch) => {
         employeeType: employee.type,
         mobileNo: employee.mobile,
         gender: employee.gender,
-        designation: employee.designation,
         address: employee.address,
         joiningDate: employee.joinDate,
         salary: employee.salary,
@@ -37,7 +36,7 @@ export const postEmployee = (employee) => (dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'employees', {
+    return fetch(baseurl + 'employees', {
         method: 'POST',
         body: JSON.stringify(newEmployee),
         headers: {
@@ -73,7 +72,7 @@ export const fetchEmployees = () => (dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'employees', {
+    return fetch(baseurl + 'employees', {
         headers: {
             'method': 'GET',
             'Authorization': bearer
@@ -102,7 +101,7 @@ export const deleteEmployee = (employeeId) => (dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'employees/' + employeeId, {
+    return fetch(baseurl + 'employees/' + employeeId, {
         method: "DELETE",
         headers: {
             'Authorization': bearer
@@ -127,24 +126,21 @@ export const deleteEmployee = (employeeId) => (dispatch) => {
 
 
 export const updateEmployee = (employee) => (dispatch) => {
-    console.log(employee.id);
-    console.log(employee)
     const newemployee = {
         employeeName: employee.name,
         eid: employee.eid,
         mobileNo: employee.mobile,
         gender: employee.gender,
         employeeType: employee.type,
-        designation: employee.designation,
         joiningDate: employee.joinDate,
         salary: employee.salary,
         address: employee.address,
     }
-    console.log('Employee: ', newemployee);
+    // console.log('Employee: ', newemployee);
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'employees/' + employee.id, {
+    return fetch(baseurl + 'employees/' + employee.id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

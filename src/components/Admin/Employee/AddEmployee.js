@@ -47,7 +47,7 @@ return (
                     <Col md={4}>
                         <FormGroup>
                             <Label for="name">Full Name</Label>
-                            <Input required type="text" name="name" id="name" placeholder="Name" value={this.state.employeeName}
+                            <Input required type="text" name="name" id="name" placeholder="Name" value={this.state.name}
                             onChange={this.handleInputChange}
                                 />
                         </FormGroup>
@@ -82,7 +82,7 @@ return (
                         <FormGroup>
                             <Label for="joinDate">Joining Date</Label>
                             <Input required type="date" name="joinDate" id="joiningdate" 
-                            placeholder="Joining Date" value={this.state.joiningDate}
+                            placeholder="Joining Date" value={this.state.joinDate}
                             onChange={this.handleInputChange}
                             />
                         </FormGroup>

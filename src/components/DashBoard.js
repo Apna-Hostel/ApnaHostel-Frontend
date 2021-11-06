@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, CardFooter } from 'reactstrap';
+import { Card, CardBody, CardHeader, CardFooter, Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -81,6 +81,15 @@ class DashBoard extends Component {
                         <Card>
                             <CardHeader mb="0" mt="0"><span><h4>Notices</h4></span></CardHeader>
                             <CardBody>
+                                {
+                                    this.props.notices.map((element) => {
+                                        return (
+                                            <Alert color="primary" className="mb-1 mt-1">
+                                                <p>{element.description}</p>
+                                            </Alert>
+                                        )
+                                    })
+                                }
                             </CardBody>
                         </Card>
                     </div>
