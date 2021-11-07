@@ -6,10 +6,92 @@ import SubmitComplaint from "./SubmitComplaint";
 import ViewEmployee from "./ViewEmployee";
 import ViewMessBill from "./ViewMessBill";
 import ViewStudent from "./ViewStudent";
-
 import ViewNotice from "./ViewNotice";
 import DashBoard from "../DashBoard";
 class Student extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          Students: [],
+          Employees: [],
+          Notices: [],
+          MessBills: [],
+          Complaints: []
+        }
+      }
+      componentDidMount() {
+        let students = [];
+        this.props.students.students.forEach(element => {
+          students.push({
+            sid: element.sid,
+            name: element.studentName,
+            mobile: element.mobileNo,
+            program: element.branch,
+            gMob: element.fatherMobile,
+            guardian: element.fatherName,
+            pAddress: element.address,
+    
+          })
+        });
+        const studentlist = this.state.Students.concat(students);
+    
+        let employees = [];
+        this.props.employees.employees.forEach(element => {
+          employees.push({
+            name: element.employeeName,
+            gender: element.gender,
+            employeetype: element.employeeType,
+            designation: element.designation,
+            mobile: element.mobileNo,
+            date: element.joiningDate,
+            address: element.hostel.name
+          })
+        });
+        const employeeList = this.state.Students.concat(employees);
+    
+        let notices = [];
+        this.props.notices.notices.forEach(element => {
+          notices.push({
+            title: element.title,
+            description: element.description,
+    
+          })
+        });
+        const noticeList = this.state.Notices.concat(notices);
+    
+        let mealBills = [];
+        this.props.mealBills.bills.forEach(element => {
+          if (element.sid === this.props.auth.user.username) {
+            mealBills.push({
+              name: element.name,
+              sid: element.sid,
+              branch: element.branch,
+              amount: element.payment,
+              date: element.paymentDate.split('T')[0].split("-")[2] + "-" + element.paymentDate.split('T')[0].split("-")[1] + "-" + element.paymentDate.split('T')[0].split("-")[0],
+            })
+          }
+        });
+        const mealBillsList = this.state.MessBills.concat(mealBills);
+    
+        let complaints = [];
+        this.props.complaints.complaints.forEach(element => {
+          complaints.push({
+            name: element.studentName.username,
+            title: element.title,
+            complaint: element.complaint
+          })
+        });
+        const complaintsList = this.state.Complaints.concat(complaints);
+    
+        this.setState({
+          Students: studentlist,
+          Employees: employeeList,
+          Notices: noticeList,
+          MealsBills: mealBillsList,
+          Complaints: complaintsList
+        });
+      }
+    
     render() {
         return (
             <div className="feature admin">
@@ -19,24 +101,14 @@ class Student extends Component {
                     </div>
                     <div className="col-md-9">
                         <Switch>
-<<<<<<< HEAD
-                            <Route exact path="/student/studentview" component={() => <ViewStudent />} />
-                            <Route exact path="/student/employeeview" component={() => <ViewEmployee />} />
-                            <Route exact path="/student/profile" component={() => <StudentProfile />} />
-                            <Route exact path="/student/bills" component={() => <ViewMessBill />} />
-                            <Route exact path="/student/complaints" component={() => <SubmitComplaint />} />
-                            <Route exact path="/student/noticeBoard" component={() => <ViewNotice />} />
-                            <Route exact path="/student/dashboard" component={() => <DashBoard auth={this.props.auth}/>} />
-=======
-                            <Route exact path="/student/studentview" component={() => <ViewStudent students={this.state.students}/>} />
-                            <Route exact path="/student/employeeview" component={() => <ViewEmployee employees={this.props.employees}/>} />
-                            <Route exact path="/student/profile" component={() => <StudentProfile students={this.props.students}/>} />
-                            <Route exact path="/student/bills" component={() => <ViewMessBill meals={this.props.meals}/>} />
-                            <Route exact path="/student/complaints" component={() => <SubmitComplaint postComplaint={this.props.postComplaint} complaints={this.state.complaints} />} />
-                            <Route exact path="/student/noticeBoard" component={() => <ViewNotice notices={this.props.notices.notices}/>} />
+                            <Route exact path="/student/studentview" component={() => <ViewStudent students={this.state.students} errMess={this.props.errMess} />} />
+                            <Route exact path="/student/employeeview" component={() => <ViewEmployee employees={this.props.employees} errMess={this.props.errMess} />} />
+                            <Route exact path="/student/profile" component={() => <StudentProfile students={this.props.students} auth={this.props.auth} />} />
+                            <Route exact path="/student/bills" component={() => <ViewMessBill meals={this.props.MealsBills} errMess={this.props.errMess} />} />
+                            <Route exact path="/student/complaints" component={() => <SubmitComplaint postComplaint={this.props.postComplaint} complaints={this.state.Complaints} auth={this.props.auth} />} />
+                            <Route exact path="/student/noticeBoard" component={() => <ViewNotice notices={this.props.notices.notices} errMess={this.props.errMess} />} />
                             <Route exact path="/student/dashboard" component={() => <DashBoard employees={this.props.employees} students={this.props.students}
                              auth={this.props.auth} notices={this.props.notices.notices}  />} />
->>>>>>> 1d8ab6f1c574fcd46e586195d2e78ed719d2eff6
                         </Switch>
                     </div>
                     

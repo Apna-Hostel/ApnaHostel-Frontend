@@ -1,4 +1,4 @@
-import * as ActionTypes from './actionTypes'
+import * as ActionTypes from '../actions/actionTypes'
 
 export const Complaints = (state = {
     isLoading: true,
@@ -6,13 +6,13 @@ export const Complaints = (state = {
     complaints: []
 }, action) => {
     switch (action.type) {
-        case ActionTypes.COMPLAINTS_SUCCESS:
+        case ActionTypes.COMPLAINT_SUCCESS:
             return { ...state, isLoading: false, errMess: null, complaints: action.payload };
 
-        case ActionTypes.COMPLAINTS_FAILED:
+        case ActionTypes.COMPLAINT_FAILED:
             return { ...state, isLoading: false, errMess: action.payload, complaints: [] };
 
-        case ActionTypes.COMPLAINTS_LOADING:
+        case ActionTypes.COMPLAINT_LOADING:
             return { ...state, isLoading: true, errMess: [], complaints: [] };
 
         case ActionTypes.ADD_COMPLAINT:

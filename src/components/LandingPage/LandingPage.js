@@ -15,6 +15,7 @@ import { postNotice, fetchNotices, deleteNotice } from "../../redux/actions/noti
 import { postEmployee, fetchEmployees, deleteEmployee, updateEmployee } from "../../redux/actions/employee";
 import { deleteStudent, fetchStudents, postStudent, updateStudent} from "../../redux/actions/students"
 import { deleteMealbill, fetchMealbill, postMealbill, updateMealbill } from "../../redux/actions/messBills";
+import { postComplaint, fetchComplaints, deleteComplaint } from "../../redux/actions/complaint";
 
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (creds) => dispatch(loginUser(creds)),
@@ -34,6 +35,9 @@ const mapDispatchToProps = (dispatch) => ({
     fetchMealbill: () => dispatch(fetchMealbill()),
     deleteMealbill: (billId) => dispatch(deleteMealbill(billId)),
     updateMealbill: (mealBill) => dispatch(updateMealbill(mealBill)),
+    postComplaint: (complaint) => dispatch(postComplaint(complaint)),
+    fetchComplaints: () => dispatch(fetchComplaints()),
+    deleteComplaint: (complaintId) => dispatch(deleteComplaint(complaintId)),
 })
 
 const mapStateToProps = (state) => {
@@ -43,6 +47,7 @@ const mapStateToProps = (state) => {
         employees: state.employees,
         students: state.students,
         mealBills: state.mealBills,
+        complaints: state.complaints
     }
 }
 class LandingPage extends Component {
@@ -53,6 +58,7 @@ class LandingPage extends Component {
             this.props.fetchEmployees();
             this.props.fetchStudents();
             this.props.fetchMealbill();
+            this.props.fetchComplaints();
         }
     }
     render() {
@@ -84,20 +90,14 @@ class LandingPage extends Component {
                 <div className="mainSection">
                     <Switch>
                         <Route path="/home" component={() => <Header />} />
-<<<<<<< HEAD
                         <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postNotice={this.props.postNotice} notices={this.props.notices}  deleteNotice={this.props.deleteNotice} fetchNotices={this.props.fetchNotices} 
                             postEmployee={this.props.postEmployee} fetchEmployees={this.props.fetchEmployees} employees={this.props.employees} updateEmployee={this.props.updateEmployee} deleteEmployee={this.props.deleteEmployee}  
                             postStudent={this.props.postStudent} fetchStudents={this.props.fetchStudents} students={this.props.students} updateStudent={this.props.updateStudent} deleteStudent={this.props.deleteStudent} 
                             postMealbill={this.props.postMealbill} fetchMealbill={this.props.fetchMealbill} mealBills={this.props.mealBills} updateMealbill={this.props.updateMealbill} deleteMealbill={this.props.deleteMealbill}
+                            deleteComplaint={this.props.deleteComplaint} complaints={this.props.complaints}
                             /> } />
-                        <StudentRoute path="/student" component={() => <Student auth={this.props.auth} />} />
-=======
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} postComplaint={this.props.postComplaint} complaints={this.props.complaints}
-                            employees={this.props.employees} notices={this.props.notices} students={this.props.students} meals={this.props.meals} />} />
-                        <AdminRoute path="/admin" component={() => <Admin auth={this.props.auth} postNotice={this.props.postNotice} notices={this.props.notices} 
-                            deleteNotice={this.props.deleteNotice} fetchNotices={this.props.fetchNotices} postEmployee={this.props.postEmployee} fetchEmployees={this.props.fetchEmployees} 
-                            employees={this.props.employees} updateEmployee={this.props.updateEmployee} deleteEmployee={this.props.deleteEmployee} /> } />
->>>>>>> 1d8ab6f1c574fcd46e586195d2e78ed719d2eff6
+                            employees={this.props.employees} notices={this.props.notices} students={this.props.students} mealBills={this.props.mealBills} />} />
                         <Route path="/gallery" component={() => <Gallery />} />
                         <Route path="/contactus" component={() => <Contact />} />
                         <Route path="/login" component={() => <LoginForm auth={this.props.auth} loginUser={this.props.loginUser} />} />

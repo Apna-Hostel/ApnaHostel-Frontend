@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 
-function Complaints({ complaints, }) {
+function Complaints({ complaints, errMess}) {
 
   const [datatable] = React.useState({
     columns: [
@@ -38,6 +38,10 @@ function Complaints({ complaints, }) {
     ],
     rows: complaints
   });
+  if (errMess) {
+    return (<div><p>{errMess} Please try again</p></div>);
+  }
+  else {
     return (
       <div>
         <div className="row">
@@ -62,6 +66,7 @@ function Complaints({ complaints, }) {
         </div>
       </div>
     );
+  }
 }
 
 export default Complaints;
