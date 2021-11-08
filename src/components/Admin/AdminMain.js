@@ -13,6 +13,7 @@ import EmployeeUpdate from "./Employee/EmployeeUpdate";
 import Complaints from "./ViewComplaints";
 import NoticeBoard from "./NoticeBoard";
 import DashBoard from "../DashBoard";
+import Rooms from "./AddRooms";
 
 class Admin extends Component {
     constructor(props){
@@ -23,6 +24,7 @@ class Admin extends Component {
             Students: [],
             MealBills: [],
             Complaints :[],
+            Rooms: []
         };
     }
 
@@ -182,6 +184,7 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/updateEmployee/:id" component={employeedetails} />
                             <Route exact path="/admin/complaints" component={() => <Complaints complaints={this.state.Complaints} errMess={this.props.errMess} />} />
                             <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.state.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />
+                            <Route exact path="/admin/rooms" component={() => <Rooms />} />
                         </Switch>
                     </div>
                 </div>
