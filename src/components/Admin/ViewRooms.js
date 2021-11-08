@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 
-export default function ViewRooms({ notices, errMess}) {
+export default function ViewRooms({ rooms, errMess}) {
   const [datatable] = React.useState({
     columns: [
       {
@@ -26,7 +26,7 @@ export default function ViewRooms({ notices, errMess}) {
         </div>
       }
     ],
-    rows: notices,
+    rows: rooms,
   });
   if(errMess){
     return(<div><p>{errMess} Please Try Again</p></div>);

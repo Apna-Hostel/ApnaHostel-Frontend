@@ -6,7 +6,7 @@ class Rooms extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            room: '',
+            roomNo: '',
             capacity: '',
         }
     }
@@ -40,9 +40,9 @@ class Rooms extends Component {
                         <Row form>
                             <Col md={5}>
                                 <FormGroup>
-                                    <Label for="room">Room No.</Label>
+                                    <Label for="roomNo">Room No.</Label>
                                     <Input required type="text"
-                                        name="room" id="room" placeholder="Room No." value={this.state.room} onChange={this.handleInputChange}
+                                        name="roomNo" id="roomNo" placeholder="Room No." value={this.state.roomNo} onChange={this.handleInputChange}
                                     />
                                     <FormFeedback></FormFeedback>
                                 </FormGroup>
@@ -67,7 +67,7 @@ class Rooms extends Component {
                     </Form>
                 </div>
                 <div className="col-12 container-fluid">
-                    <ViewRooms notices={this.props.notices} errMess={this.props.errMess} />
+                    <ViewRooms rooms={this.props.rooms} errMess={this.props.errMess} />
                 </div>
             </div>
         )

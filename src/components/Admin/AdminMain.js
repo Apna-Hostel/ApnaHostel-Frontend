@@ -24,7 +24,7 @@ class Admin extends Component {
             Students: [],
             MealBills: [],
             Complaints :[],
-            Rooms: []
+            Rooms: [],
         };
     }
 
@@ -72,6 +72,22 @@ class Admin extends Component {
             })
         });
         const employeeList = this.state.Employees.concat(employees);
+
+        let rooms = [];
+        this.props.rooms.rooms.forEach(element => {
+            rooms.push({
+                roomNo: element.roomNo,
+                capacity: element.capacity,
+                actions: <div>
+                    <Link className="fa fa-pencil edit mr-2" to={`/admin/rooms/updateRoom/${element._id}`}></Link>
+                    <i className="fa fa-trash delete" onClick={() => {
+                    if (window.confirm("Are u sure u want to delete ?"))
+                        this.props.deleteRoom(element._id)
+                    }}></i>
+                </div>
+            })
+        });
+        const roomList = this.state.Rooms.concat(rooms);
 
         let notices = [];
         this.props.notices.notices.forEach(element => {
@@ -131,6 +147,7 @@ class Admin extends Component {
             Students: studentlist,
             MealBills: mealBillsList,
             Complaints: complaintsList,
+            Rooms: roomList
         });
             
         }; 
@@ -184,7 +201,7 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/updateEmployee/:id" component={employeedetails} />
                             <Route exact path="/admin/complaints" component={() => <Complaints complaints={this.state.Complaints} errMess={this.props.errMess} />} />
                             <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.state.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />
-                            <Route exact path="/admin/rooms" component={() => <Rooms />} />
+                            <Route exact path="/admin/rooms" component={() => <Rooms rooms={this.props.rooms} postRoom={this.props.postRoom} errMess={this.props.rooms.errMess} />} />
                         </Switch>
                     </div>
                 </div>
