@@ -7,6 +7,8 @@ import { Students } from './reducers/students';
 import{ MealBills } from './reducers/messBills'
 import { Complaints } from './reducers/complaint';
 import { Rooms } from './reducers/rooms';
+import { Hostels } from './reducers/hostel';
+import { Requests } from './reducers/request';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -17,7 +19,9 @@ export const ConfigureStore = () => {
             employees:Employees,
             students: Students,
             mealBills: MealBills,
-            rooms: Rooms
+            rooms: Rooms,
+            hostels: Hostels,
+            requests: Requests
         }, +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()),
         applyMiddleware(thunk)
     );

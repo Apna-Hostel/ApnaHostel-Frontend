@@ -10,6 +10,7 @@ import Gallery from "./gallery"
 import Team from "./team"
 import Contact from "./contact"
 import LoginForm from "./LoginForm";
+import Register from "./register";
 import { logoutUser, loginUser } from "../../redux/actions/auth"
 import { postNotice, fetchNotices, deleteNotice } from "../../redux/actions/notices";
 import { postEmployee, fetchEmployees, deleteEmployee, updateEmployee } from "../../redux/actions/employee";
@@ -17,6 +18,8 @@ import { deleteStudent, fetchStudents, postStudent, updateStudent} from "../../r
 import { deleteMealbill, fetchMealbill, postMealbill, updateMealbill } from "../../redux/actions/messBills";
 import { postComplaint, fetchComplaints, deleteComplaint } from "../../redux/actions/complaint";
 import { deleteRoom, fetchRooms, postRoom, updateRoom } from "../../redux/actions/rooms";
+import { fetchRequests, postRequest, updateRequest, deleteRequest } from "../../redux/actions/request";
+import { fetchHostels } from "../../redux/actions/hostel";
 
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (creds) => dispatch(loginUser(creds)),
@@ -42,7 +45,12 @@ const mapDispatchToProps = (dispatch) => ({
     postRoom: (room) => dispatch(postRoom(room)),
     fetchRooms: () => dispatch(fetchRooms()),
     deleteRoom: (roomId) => dispatch(deleteRoom(roomId)),
-    updateRoom: (room) => dispatch(updateRoom(room))
+    updateRoom: (room) => dispatch(updateRoom(room)),
+    postRequest: (request) => dispatch(postRequest(request)),
+    fetchRequests: () => dispatch(fetchRequests()),
+    deleteRequest: (requestId) => dispatch(deleteRequest(requestId)),
+    updateRequest: (request) => dispatch(updateRequest(request)),
+    fetchHostels: () => dispatch(fetchHostels())
 })
 
 const mapStateToProps = (state) => {
@@ -54,6 +62,8 @@ const mapStateToProps = (state) => {
         mealBills: state.mealBills,
         complaints: state.complaints,
         rooms: state.rooms,
+        requests: state.requests,
+        hostels: state.hostels
     }
 }
 class LandingPage extends Component {
@@ -66,7 +76,9 @@ class LandingPage extends Component {
             this.props.fetchMealbill();
             this.props.fetchComplaints();
             this.props.fetchRooms();
+            this.props.fetchRequests();
         }
+        this.props.fetchHostels();
     }
     render() {
         const AdminRoute = ({ component: Component, ...rest }) => (
@@ -103,12 +115,14 @@ class LandingPage extends Component {
                             postMealbill={this.props.postMealbill} fetchMealbill={this.props.fetchMealbill} mealBills={this.props.mealBills} updateMealbill={this.props.updateMealbill} deleteMealbill={this.props.deleteMealbill}
                             deleteComplaint={this.props.deleteComplaint} complaints={this.props.complaints} fetchComplaints={this.props.fetchComplaints}
                             postRoom={this.props.postRoom} rooms={this.props.rooms} fetchRooms={this.props.fetchRooms} updateRoom={this.props.updateRoom} deleteRoom={this.props.deleteRoom}
+                            requests={this.props.requests} fetchRequests={this.props.fetchRequests}
                             /> } />
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} postComplaint={this.props.postComplaint} complaints={this.props.complaints}
                             employees={this.props.employees} notices={this.props.notices} students={this.props.students} mealBills={this.props.mealBills} />} />
                         <Route path="/gallery" component={() => <Gallery />} />
                         <Route path="/contactus" component={() => <Contact />} />
                         <Route path="/login" component={() => <LoginForm auth={this.props.auth} loginUser={this.props.loginUser} />} />
+                        <Route path="/register" component={() => <Register postRequest={this.props.postRequest} hostels={this.props.hostels} fetchHostels={this.props.fetchHostels} />} />
                         <Route path="/team" component={() => <Team />} />
                         <Redirect to="/home"/>
                     </Switch>

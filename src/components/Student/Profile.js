@@ -81,7 +81,7 @@ class StudentProfile extends Component {
                                 <div className="row d-flex justify-content-start">
 
                                     <h5 className="card-title col-sm-3">Mobile No.</h5>
-                                    <h5 className="card-title col-sm-3">{student !== null && student.mobile}</h5>
+                                    <h5 className="card-title col-sm-3">{student !== null && student.mobileNo}</h5>
 
                                     <h5 className="card-title col-sm-3">Room No.</h5>
                                     <h5 className="card-title col-sm-3">{student !== null && student.roomNo}</h5>

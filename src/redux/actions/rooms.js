@@ -24,7 +24,8 @@ export const postRoom = (room) => (dispatch) => {
 
     const newRoom = {
         roomNo: room.roomNo,
-        capacity: room.capacity
+        capacity: room.capacity,
+        alloted: room.capacity
     }
     console.log('Room: ', newRoom);
 
@@ -120,7 +121,7 @@ export const deleteRoom = (roomId) => (dispatch) => {
 export const updateRoom = (room) => (dispatch) => {
     const newRoom = {
         rooomNo: room.roomNo,
-        capacity: room.capacity
+        capacity: room.capacity,
     }
     // console.log('Employee: ', newemployee);
 

@@ -55,7 +55,7 @@ class DashBoard extends Component {
                                 </div>
 
                             </CardHeader>
-                            <CardFooter><Link to="manageEmployee/view">Details</Link></CardFooter>
+                            <CardFooter><Link to={this.state.employee}>Details</Link></CardFooter>
                         </Card>
                     </div>
                     <div className="col-lg-6 col-sm-12 mt-6" >
@@ -72,7 +72,7 @@ class DashBoard extends Component {
                                 </div>
 
                             </CardHeader>
-                            <CardFooter><Link to="manageStudents/view">Details</Link></CardFooter>
+                            <CardFooter><Link to={this.state.student}>Details</Link></CardFooter>
                         </Card>
                     </div>
                 </div>

@@ -74,7 +74,8 @@ export const postStudent = (student) => (dispatch) => {
         fatherName: student.father,
         motherName: student.mother,
         fatherMobile: student.Fnum,
-        roomNo: student.roomNo
+        roomNo: student.roomNo,
+        year: student.year
     }
     console.log('Student: ', newStudent);
 
@@ -128,6 +129,7 @@ export const updateStudent = (student) => (dispatch) => {
         gender: student.gender,
         nationality: student.nationality,
         dob: student.dob,
+        year: student.year
     }
     console.log('Student: ', newStudent);
 

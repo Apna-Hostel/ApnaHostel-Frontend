@@ -13,7 +13,7 @@ class Rooms extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.postRooms(this.state);
+        this.props.postRoom(this.state);
     }
 
     handleInputChange = (event) => {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Input, Button, Label, Col, Row, FormGroup, FormFeedback } from 'reactstrap';
 
-class AddStudent extends Component {
+class Register extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -17,8 +17,8 @@ class AddStudent extends Component {
             father: '',
             mother: '',
             Fnum: '',
-            roomNo: '',
             year: '',
+            hostel: '',
             touched: {
                 name: false,
                 id: false,
@@ -27,8 +27,11 @@ class AddStudent extends Component {
                 father: false,
                 mother: false,
                 Fnum: false,
-                dob: false
-            }
+                dob: false,
+                gender: false,
+                year: false,
+                hostel: false
+            },
         }
     }
 
@@ -44,7 +47,7 @@ class AddStudent extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.postStudent(this.state);
+        this.props.postRequest(this.state);
     }
 
     handleBlur = (field) => (evt) => {
@@ -53,7 +56,7 @@ class AddStudent extends Component {
         });
     }
 
-    validate = (name, id, mobile, email, father, mother, Fnum, dob) => {
+    validate = (name, id, mobile, email, father, mother, Fnum, dob, gender, year, hostel) => {
         const errors = {
             name: '',
             id: '',
@@ -63,6 +66,9 @@ class AddStudent extends Component {
             mother: '',
             Fnum: '',
             dob: '',
+            gender: '',
+            year: '',
+            hostel: ''
         }
         if (this.state.touched.name && name.length < 3)
             errors.name = 'Name should be of minimum length of 3 characters';
@@ -83,6 +89,13 @@ class AddStudent extends Component {
         if (this.state.touched.id && id.length !== 8) {
             errors.id = 'Length of the student id should be equal to 8';
         }
+        if (this.state.touched.gender && gender.length === 0)
+            errors.gender = 'Specify Gender';
+        if (this.state.touched.year && year.length === 0)
+            errors.year = 'Specify Year';
+        if (this.state.touched.hostel && hostel.length === 0)
+            errors.hostel = 'Specify Hostel';
+        
 
         const reg = /^\d{10}$/;
         if (this.state.touched.mobile && !reg.test(mobile))
@@ -98,12 +111,12 @@ class AddStudent extends Component {
 
     render(){
         const errors = this.validate(this.state.name, this.state.id, this.state.mobile,
-            this.state.email, this.state.father, this.state.mother, this.state.Fnum, this.state.dob);
+            this.state.email, this.state.father, this.state.mother, this.state.Fnum, this.state.dob, this.state.gender, this.state.year, this.state.hostel);
         return (
-            <div>
+            <div className="container">
                 <div className="row">
                     <div className="col-12 container-fluid">
-                        <h2 className="feature-heading ">Add New Student</h2>
+                        <h2 className="feature-heading ">Request for hostel</h2>
                         <hr className="feature-line" />
                     </div>
                 </div>
@@ -151,7 +164,7 @@ class AddStudent extends Component {
                                 <FormGroup>
                                     <Label for="gender">Gender</Label>
                                     <Input required type="select" name="gender" id="gender" value={this.state.gender} 
-                                        onChange={this.handleInputChange} className="form-control">
+                                        onChange={this.handleInputChange} className="form-control" valid={errors.gender === ''} invalid={errors.gender !== ''} onBlur={this.handleBlur('gender')}>
                                         <option defaultValue>Select</option>
                                         <option>Male</option>
                                         <option>Female</option>
@@ -203,24 +216,29 @@ class AddStudent extends Component {
                         <Row form>
                             <Col md={4}>
                                 <FormGroup>
-                                    <Label for="year">Year</Label>
-                                    <Input required type="select" name="year" id="year" className="form-control" value={this.state.year} 
-                                        onChange={this.handleInputChange}>
+                                <Label for="hostel">Hostel</Label>
+                                    <Input required type="select" name="hostel" id="hostel" className="form-control" value={this.state.hostel} 
+                                        onChange={this.handleInputChange} valid={errors.hostel === ''} invalid={errors.hostel !== ''} onBlur={this.handleBlur('hostel')}>
                                         <option defaultValue>Select</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
+                                    {this.props.hostels.hostels.map(element => (
+                                        <option value={element._id}>{element.name} hostel</option>
+                                    ))}
                                     </Input>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <Label for="roomNo">Room No.</Label>
-                                    <Input required type="text" name="roomNo" id="roomNo" placeholder="Room No." value={this.state.roomNo} 
-                                        onChange={this.handleInputChange}/>
+                                    <Label for="year">Year</Label>
+                                    <Input required type="select" name="year" id="year" value={this.state.year} 
+                                        onChange={this.handleInputChange} className="form-control" valid={errors.year === ''} invalid={errors.year !== ''} onBlur={this.handleBlur('year')}>
+                                        <option defaultValue>Select</option>
+                                        <option vlaue="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </Input>
                                 </FormGroup>
-                            </Col>
+                            </Col>  
                         </Row>
                         <div>
                             <h3>Parent's Details</h3>
@@ -254,7 +272,7 @@ class AddStudent extends Component {
                         <FormGroup row>
                             <Col md={{ size: 10 }}>
                                 <Button type="submit" color="primary">
-                                    Save
+                                    Request
                                 </Button>
                             </Col>
                         </FormGroup>
@@ -265,4 +283,4 @@ class AddStudent extends Component {
     }
 }
 
-export default AddStudent;
+export default Register;

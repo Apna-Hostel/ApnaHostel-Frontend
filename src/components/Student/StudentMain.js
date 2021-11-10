@@ -8,6 +8,7 @@ import ViewMessBill from "./ViewMessBill";
 import ViewStudent from "./ViewStudent";
 import ViewNotice from "./ViewNotice";
 import DashBoard from "../DashBoard";
+import Complaints from "../Admin/ViewComplaints";
 class Student extends Component {
     constructor(props) {
         super(props);
@@ -43,7 +44,7 @@ class Student extends Component {
             employeetype: element.employeeType,
             designation: element.designation,
             mobile: element.mobileNo,
-            date: element.joiningDate,
+            date:element.joiningDate.split('T')[0].split("-")[2] + "-" + element.joiningDate.split('T')[0].split("-")[1] + "-" + element.joiningDate.split('T')[0].split("-")[0],
             address: element.hostel.name
           })
         });
@@ -81,13 +82,14 @@ class Student extends Component {
             complaint: element.complaint
           })
         });
+        console.log(complaints);
         const complaintsList = this.state.Complaints.concat(complaints);
     
         this.setState({
           Students: studentlist,
           Employees: employeeList,
           Notices: noticeList,
-          MealsBills: mealBillsList,
+          MessBills: mealBillsList,
           Complaints: complaintsList
         });
       }
@@ -101,14 +103,15 @@ class Student extends Component {
                     </div>
                     <div className="col-md-9">
                         <Switch>
-                            <Route exact path="/student/studentview" component={() => <ViewStudent students={this.state.students} errMess={this.props.errMess} />} />
-                            <Route exact path="/student/employeeview" component={() => <ViewEmployee employees={this.props.employees} errMess={this.props.errMess} />} />
+                            <Route exact path="/student/studentview" component={() => <ViewStudent students={this.state.Students} errMess={this.props.errMess} />} />
+                            <Route exact path="/student/employeeview" component={() => <ViewEmployee employees={this.state.Employees} errMess={this.props.errMess} />} />
                             <Route exact path="/student/profile" component={() => <StudentProfile students={this.props.students} auth={this.props.auth} />} />
-                            <Route exact path="/student/bills" component={() => <ViewMessBill meals={this.props.MealsBills} errMess={this.props.errMess} />} />
+                            <Route exact path="/student/bills" component={() => <ViewMessBill messBills={this.state.MessBills} errMess={this.props.errMess} />} />
                             <Route exact path="/student/complaints" component={() => <SubmitComplaint postComplaint={this.props.postComplaint} complaints={this.state.Complaints} auth={this.props.auth} />} />
                             <Route exact path="/student/noticeBoard" component={() => <ViewNotice notices={this.props.notices.notices} errMess={this.props.errMess} />} />
-                            <Route exact path="/student/dashboard" component={() => <DashBoard employees={this.props.employees} students={this.props.students}
+                            <Route path="/student/dashboard" component={() => <DashBoard employees={this.props.employees} students={this.props.students}
                              auth={this.props.auth} notices={this.props.notices.notices}  />} />
+                            <Redirect to="/student/dashboard" />
                         </Switch>
                     </div>
                     

@@ -64,6 +64,11 @@ class navbar extends Component {
                                           {button}
                                     </li>
                                     <li className="nav-item">
+                                          <Link className="nav-link me" to="/register">
+                                                Register
+                                          </Link>
+                                    </li>
+                                    <li className="nav-item">
                                           <Link className="nav-link me" to="/login">
                                                 Go to DashBoard
                                           </Link>

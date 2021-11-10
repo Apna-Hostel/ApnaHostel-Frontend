@@ -6,7 +6,7 @@ export default function ViewRooms({ rooms, errMess}) {
     columns: [
       {
         label: 'Room No.',
-        field: 'room',
+        field: 'roomNo',
         sort: 'disabled',
         width: 130,
       },

@@ -26,12 +26,6 @@ function ViewEmployee({ employees}) {
         width: 200,
       },
       {
-        label: 'Designation',
-        field: 'designation',
-
-        width: 100,
-      },
-      {
         label: 'Join Date',
         field: 'date',
         sort: 'asc',

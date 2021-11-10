@@ -1,25 +1,25 @@
 import React, {Component} from "react";
 import { Col, Form, FormFeedback, FormGroup, Input, Label, Row, Button } from "reactstrap";
 
-class UpdateStudent extends Component{
+class ApproveRequest extends Component{
     constructor(props){
         super(props);
         this.state = {
             id: this.props.id,
-            sid: (typeof this.props.student === 'undefined') ? '' : this.props.student.sid,
-            fullname: (typeof this.props.student === 'undefined') ? '' : this.props.student.studentName,
-            mobile: (typeof this.props.student === 'undefined') ? '' : this.props.student.mobileNo,
-            program: (typeof this.props.student === 'undefined') ? '' : this.props.student.branch,
-            father: (typeof this.props.student === 'undefined') ? '' : this.props.student.fatherName,
-            mother: (typeof this.props.student === 'undefined') ? '' : this.props.student.motherName,
-            fnum: (typeof this.props.student === 'undefined') ? '' : this.props.student.fatherMobile,
-            address: (typeof this.props.student === 'undefined') ? '' : this.props.student.address,
-            email: (typeof this.props.student === 'undefined') ? '' : this.props.student.email,
-            roomNo: (typeof this.props.student === 'undefined') ? '' : this.props.student.roomNo,
-            dob: (typeof this.props.student === 'undefined') ? '' : this.props.student.dob.split('T')[0],
-            gender: (typeof this.props.student === 'undefined') ? '' : this.props.student.gender,
-            nationality: (typeof this.props.student === 'undefined') ? '' : this.props.student.nationality,
-            year: (typeof this.props.student === 'undefined') ? '' : this.props.student.year,
+            sid: (typeof this.props.request === 'undefined') ? '' : this.props.request.sid,
+            fullname: (typeof this.props.request === 'undefined') ? '' : this.props.request.studentName,
+            mobile: (typeof this.props.request === 'undefined') ? '' : this.props.request.mobileNo,
+            program: (typeof this.props.request === 'undefined') ? '' : this.props.request.branch,
+            father: (typeof this.props.request === 'undefined') ? '' : this.props.request.fatherName,
+            mother: (typeof this.props.request === 'undefined') ? '' : this.props.request.motherName,
+            fnum: (typeof this.props.request === 'undefined') ? '' : this.props.request.fatherMobile,
+            address: (typeof this.props.request === 'undefined') ? '' : this.props.request.address,
+            email: (typeof this.props.request === 'undefined') ? '' : this.props.request.email,
+            roomNo: (typeof this.props.request === 'undefined') ? '' : this.props.request.roomNo,
+            dob: (typeof this.props.request === 'undefined') ? '' : this.props.request.dob.split('T')[0],
+            gender: (typeof this.props.request === 'undefined') ? '' : this.props.request.gender,
+            nationality: (typeof this.props.request === 'undefined') ? '' : this.props.request.nationality,
+            year: (typeof this.props.request === 'undefined') ? '' : this.props.request.year,
             touched: {
                 sid: false,
                 fullname: false,
@@ -30,7 +30,8 @@ class UpdateStudent extends Component{
                 fnum: false,
                 address: false,
                 email: false,
-                dob: false
+                dob: false,
+                year: false
             }
         }
     }
@@ -47,9 +48,10 @@ class UpdateStudent extends Component{
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.updateStudent(
+        this.props.postStudent(
             this.state
         );
+        this.props.deleteRequest(this.props.id);
     }
 
     handleBlur = (field) => (evt) => {
@@ -68,7 +70,8 @@ class UpdateStudent extends Component{
         fnum,
         email,
         address,
-        dob
+        dob,
+        year
     ) => {
         const errors = {
             sid: '',
@@ -80,7 +83,8 @@ class UpdateStudent extends Component{
             fnum: '',
             email: '',
             address: '',
-            dob: ''
+            dob: '',
+            year: ''
         }
 
         if (this.state.touched.sid && sid.length !== 8)
@@ -97,6 +101,8 @@ class UpdateStudent extends Component{
             errors.address = 'Address length should lie between 5 and 50 characters'
         if (this.state.touched.dob && dob.length === 0)
             errors.dob = 'Specify Date of Birth';
+        if (this.state.touched.year && year.length === 0)
+            errors.dob = 'Specify Year';
         const reg = /^\d{10}$/;
         if (this.state.touched.mobile && !reg.test(mobile))
             errors.mobile = 'Enter a valid Mobile Number';
@@ -119,13 +125,14 @@ class UpdateStudent extends Component{
             this.state.fnum,
             this.state.email,
             this.state.address,
-            this.state.dob);
+            this.state.dob,
+            this.state.year);
 
         return(
             <div>
                 <div className="row">
                     <div className="col-12 container-fluid">
-                        <h2 className="feature-heading">Update Student Details</h2>
+                        <h2 className="feature-heading">ApproveRequest</h2>
                         <hr className="feature-line" />
                     </div>
                 </div>
@@ -138,7 +145,7 @@ class UpdateStudent extends Component{
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="name">Full Name</Label>
-                                    <Input required type="text" name="name" id="name" placeholder="Name" value={this.state.fullname}
+                                    <Input disabled required type="text" name="name" id="name" placeholder="Name" value={this.state.fullname}
                                     onChange={this.handleInputChange} valid={errors.fullname === ''} invalid={errors.fullname !== ''} onBlur={this.handleBlur('fullname')}/>
                                     <FormFeedback>{errors.fullname}</FormFeedback>
                                 </FormGroup>
@@ -146,7 +153,7 @@ class UpdateStudent extends Component{
                             <Col md={3}>
                                 <FormGroup>
                                     <Label htmlFor="id">Student Id(As Login Id)</Label>
-                                    <Input required type="text" name="id" id="id" placeholder="Student Id" value={this.state.sid}
+                                    <Input disabled required type="text" name="id" id="id" placeholder="Student Id" value={this.state.sid}
                                     onChange={this.handleInputChange} valid={errors.sid === ''} invalid={errors.sid !== ''} onBlur={this.handleBlur('sid')}/>
                                     <FormFeedback>{errors.sid}</FormFeedback>
                                 </FormGroup>
@@ -154,7 +161,7 @@ class UpdateStudent extends Component{
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="mobile">Mobile No.</Label>
-                                    <Input required type="text" name="mobile" id="mobile" placeholder="Mobile No."value={this.state.mobile}
+                                    <Input disabled required type="text" name="mobile" id="mobile" placeholder="Mobile No."value={this.state.mobile}
                                     onChange={this.handleInputChange} valid={errors.mobile === ''} invalid={errors.mobile !== ''} onBlur={this.handleBlur('mobile')}/>
                                     <FormFeedback>{errors.mobile}</FormFeedback>
                                 </FormGroup>
@@ -164,7 +171,7 @@ class UpdateStudent extends Component{
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="dob">Date of Birth</Label>
-                                    <Input required type="date" name="dob" id="dob" placeholder="Date Of Birth" value={this.state.dob}
+                                    <Input disabled required type="date" name="dob" id="dob" placeholder="Date Of Birth" value={this.state.dob}
                                         onChange={this.handleInputChange} valid={errors.dob === ''} invalid={errors.dob !== ''} onBlur={this.handleBlur('dob')}/>
                                         <FormFeedback>{errors.dob}</FormFeedback>
                                 </FormGroup>
@@ -172,7 +179,7 @@ class UpdateStudent extends Component{
                             <Col md={3}>
                                 <FormGroup>
                                     <Label htmlFor="gender">Gender</Label>
-                                    <Input required type="select" name="gender" id="gender" value={this.state.gender}
+                                    <Input disabled required type="select" name="gender" id="gender" value={this.state.gender}
                                     onChange={this.handleInputChange}>
                                         <option defaultValue>Select</option>
                                         <option>Male</option>
@@ -183,7 +190,7 @@ class UpdateStudent extends Component{
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="email">Email</Label>
-                                    <Input required type="email" name="email" id="email" placeholder="Email" value={this.state.email}
+                                    <Input disabled required type="email" name="email" id="email" placeholder="Email" value={this.state.email}
                                     onChange={this.handleInputChange} valid={errors.email === ''} invalid={errors.email !== ''} onBlur={this.handleBlur('email')}/>
                                     <FormFeedback>{errors.email}</FormFeedback>
                                 </FormGroup>
@@ -193,7 +200,7 @@ class UpdateStudent extends Component{
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="branch">Branch</Label>
-                                    <Input required type="select" name="branch" id="branch" className="form-control" value={this.state.program}
+                                    <Input disabled required type="select" name="branch" id="branch" className="form-control" value={this.state.program}
                                     onChange={this.handleInputChange}>
                                         <option defaultValue>Select</option>
                                         <option value="CSE">CSE</option>
@@ -210,14 +217,14 @@ class UpdateStudent extends Component{
                             <Col md={3}>
                                 <FormGroup>
                                     <Label htmlFor="nationality">Nationality</Label>
-                                    <Input required type="text" name="nationality" id="nationality" placeholder="Nationality" value={this.state.nationality}
+                                    <Input disabled required type="text" name="nationality" id="nationality" placeholder="Nationality" value={this.state.nationality}
                                     onChange={this.handleInputChange}/>
                                 </FormGroup>
                             </Col>
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="address">Address</Label>
-                                    <Input required type="textarea" name="address" id="address" placeholder="Address" rows="1" value={this.state.address}
+                                    <Input disabled required type="textarea" name="address" id="address" placeholder="Address" rows="1" value={this.state.address}
                                     onChange={this.handleInputChange}/>
                                 </FormGroup>
                             </Col>
@@ -225,9 +232,9 @@ class UpdateStudent extends Component{
                         <Row form>
                             <Col md={4}>
                                 <FormGroup>
-                                    <Label for="year">Year</Label>
-                                    <Input required type="select" name="year" id="year" className="form-control" value={this.state.year} 
-                                        onChange={this.handleInputChange}>
+                                    <Label htmlFor="year">Year</Label>
+                                    <Input disabled required type="select" name="year" id="year" className="form-control" value={this.state.year}
+                                    onChange={this.handleInputChange}>
                                         <option defaultValue>Select</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -238,7 +245,7 @@ class UpdateStudent extends Component{
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <Label htmlFor="address">Room No.</Label>
+                                    <Label htmlFor="room">Room No.</Label>
                                     <Input required type="text" name="room" id="room" placeholder="Room No." value={this.state.roomNo}
                                     onChange={this.handleInputChange}/>
                                 </FormGroup>
@@ -251,7 +258,7 @@ class UpdateStudent extends Component{
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="father">Father's Name</Label>
-                                    <Input required type="text" name="father" id="fathername" placeholder="Father's Name" value={this.state.father}
+                                    <Input disabled required type="text" name="father" id="fathername" placeholder="Father's Name" value={this.state.father}
                                     onChange={this.handleInputChange} valid={errors.father === ''} invalid={errors.father !== ''} onBlur={this.handleBlur('father')}/>
                                     <FormFeedback>{errors.father}</FormFeedback>
                                 </FormGroup>
@@ -259,7 +266,7 @@ class UpdateStudent extends Component{
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="mother">Mother's Name</Label>
-                                    <Input required type="text" name="mother" id="mothername" placeholder="Mother's Name" value={this.state.mother}
+                                    <Input disabled required type="text" name="mother" id="mothername" placeholder="Mother's Name" value={this.state.mother}
                                     onChange={this.handleInputChange} valid={errors.mother === ''} invalid={errors.mother !== ''} onBlur={this.handleBlur('mother')}/>
                                     <FormFeedback>{errors.mother}</FormFeedback>
                                 </FormGroup>
@@ -267,7 +274,7 @@ class UpdateStudent extends Component{
                             <Col md={3}>
                                 <FormGroup>
                                     <Label htmlFor="Fnum">Father's Mobile No.</Label>
-                                    <Input required type="text" name="Fnum" id="fathermobile" placeholder="Father Mobile No." value={this.state.fnum}
+                                    <Input disabled required type="text" name="Fnum" id="fathermobile" placeholder="Father Mobile No." value={this.state.fnum}
                                     onChange={this.handleInputChange} valid={errors.fnum === ''} invalid={errors.fnum !== ''} onBlur={this.handleBlur('fnum')}/>
                                     <FormFeedback>{errors.fnum}</FormFeedback>
                                 </FormGroup>
@@ -276,7 +283,7 @@ class UpdateStudent extends Component{
                         <FormGroup row>
                             <Col md={{ size: 10 }}>
                                 <Button type="submit" color="primary">
-                                    Update
+                                    Approve
                                 </Button>
                             </Col>
                         </FormGroup>
@@ -287,4 +294,4 @@ class UpdateStudent extends Component{
     }
 }
 
-export default UpdateStudent;
+export default ApproveRequest;

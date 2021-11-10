@@ -14,6 +14,8 @@ import Complaints from "./ViewComplaints";
 import NoticeBoard from "./NoticeBoard";
 import DashBoard from "../DashBoard";
 import Rooms from "./AddRooms";
+import RoomRequest from "./Requests/RoomRequest";
+import ApproveRequest from "./Requests/ApproveRequest";
 
 class Admin extends Component {
     constructor(props){
@@ -25,6 +27,7 @@ class Admin extends Component {
             MealBills: [],
             Complaints :[],
             Rooms: [],
+            Requests: []
         };
     }
 
@@ -78,8 +81,8 @@ class Admin extends Component {
             rooms.push({
                 roomNo: element.roomNo,
                 capacity: element.capacity,
+                alloted: element.alloted,
                 actions: <div>
-                    <Link className="fa fa-pencil edit mr-2" to={`/admin/rooms/updateRoom/${element._id}`}></Link>
                     <i className="fa fa-trash delete" onClick={() => {
                     if (window.confirm("Are u sure u want to delete ?"))
                         this.props.deleteRoom(element._id)
@@ -88,6 +91,26 @@ class Admin extends Component {
             })
         });
         const roomList = this.state.Rooms.concat(rooms);
+
+        let requests = [];
+        this.props.requests.requests.forEach(element => {
+            requests.push({
+                name: element.studentName,
+                mobile: element.mobileNo,
+                year: element.year,
+                sid: element.sid,
+                pAddress: element.address,
+                actions: <div>
+                    <Link className="fa fa-pencil edit mr-2" to={`/admin/manageRequests/approve/${element._id}`}></Link>
+                    <i className="fa fa-trash delete" onClick={() => {
+                    if (window.confirm("Are u sure u want to delete ?"))
+                        this.props.deleteRequest(element._id)
+                    }}></i>
+                </div>
+            })
+        });
+        const requestList = this.state.Requests.concat(requests);
+
 
         let notices = [];
         this.props.notices.notices.forEach(element => {
@@ -147,7 +170,8 @@ class Admin extends Component {
             Students: studentlist,
             MealBills: mealBillsList,
             Complaints: complaintsList,
-            Rooms: roomList
+            Rooms: roomList,
+            Requests: requestList
         });
             
         }; 
@@ -180,6 +204,17 @@ class Admin extends Component {
               />
             )
           }
+        
+        const requestdetails = ({match}) => {
+            return (
+                <ApproveRequest
+                    postStudent={this.props.postStudent}
+                    deleteRequest={this.props.deleteRequest}
+                    id={match.params.id}
+                    request={this.props.requests.requests.filter((request) => (request._id === match.params.id))[0]}
+                />
+            )
+        }
 
         return (
             <div className="feature admin">
@@ -201,7 +236,10 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/updateEmployee/:id" component={employeedetails} />
                             <Route exact path="/admin/complaints" component={() => <Complaints complaints={this.state.Complaints} errMess={this.props.errMess} />} />
                             <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.state.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />
-                            <Route exact path="/admin/rooms" component={() => <Rooms rooms={this.props.rooms} postRoom={this.props.postRoom} errMess={this.props.rooms.errMess} />} />
+                            <Route exact path="/admin/rooms" component={() => <Rooms rooms={this.state.Rooms} postRoom={this.props.postRoom} errMess={this.props.rooms.errMess} fetchRooms={this.props.fetchRooms} />} />
+                            <Route exact path="/admin/manageRequests/view" component={()=> <RoomRequest requests={this.state.Requests} errMess={this.props.errMess} />} />
+                            <Route exact path="/admin/manageRequests/approve/:id" component={requestdetails} />
+                            <Redirect to="/admin/dashboard" />
                         </Switch>
                     </div>
                 </div>
