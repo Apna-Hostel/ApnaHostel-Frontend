@@ -81,7 +81,7 @@ class Admin extends Component {
             rooms.push({
                 roomNo: element.roomNo,
                 capacity: element.capacity,
-                alloted: element.alloted,
+                available: element.available,
                 actions: <div>
                     <i className="fa fa-trash delete" onClick={() => {
                     if (window.confirm("Are u sure u want to delete ?"))
@@ -180,6 +180,7 @@ class Admin extends Component {
             return (
               <UpdateStudent
                 updateStudent={this.props.updateStudent}
+                rooms={this.props.rooms}
                 id={match.params.id}
                 student={this.props.students.students.filter((student) => (student._id === match.params.id))[0]}
               />
@@ -210,6 +211,7 @@ class Admin extends Component {
                 <ApproveRequest
                     postStudent={this.props.postStudent}
                     deleteRequest={this.props.deleteRequest}
+                    rooms={this.props.rooms}
                     id={match.params.id}
                     request={this.props.requests.requests.filter((request) => (request._id === match.params.id))[0]}
                 />
@@ -225,7 +227,7 @@ class Admin extends Component {
                     <div className="col-md-9">
                         <Switch>
                             <Route path="/admin/dashboard" component={() => <DashBoard auth={this.props.auth} notices={this.props.notices.notices} employees={this.props.employees}/>} />
-                            <Route exact path="/admin/manageStudents/addNew" component={() => <AddStudent postStudent={this.props.postStudent} />} />
+                            <Route exact path="/admin/manageStudents/addNew" component={() => <AddStudent postStudent={this.props.postStudent} rooms={this.props.rooms} />} />
                             <Route exact path="/admin/manageStudents/view" component={() => <ViewStudent students={this.state.Students} errMess={this.props.students.errMess} />} />
                             <Route exact path="/admin/manageStudents/updateStudent/:id" component={studentdetails} />
                             <Route exact path="/admin/manageStudentsPayment/addBill" component={ () => <AddMessBill postMealbill={this.props.postMealbill} />} />
@@ -238,7 +240,7 @@ class Admin extends Component {
                             <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.state.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />
                             <Route exact path="/admin/rooms" component={() => <Rooms rooms={this.state.Rooms} postRoom={this.props.postRoom} errMess={this.props.rooms.errMess} fetchRooms={this.props.fetchRooms} />} />
                             <Route exact path="/admin/manageRequests/view" component={()=> <RoomRequest requests={this.state.Requests} errMess={this.props.errMess} />} />
-                            <Route exact path="/admin/manageRequests/approve/:id" component={requestdetails} />
+                            <Route exact path="/admin/manageRequests/approve/:id" component={requestdetails}/>
                             <Redirect to="/admin/dashboard" />
                         </Switch>
                     </div>

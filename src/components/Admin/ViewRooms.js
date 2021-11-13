@@ -7,14 +7,20 @@ export default function ViewRooms({ rooms, errMess}) {
       {
         label: 'Room No.',
         field: 'roomNo',
-        sort: 'disabled',
-        width: 130,
+        sort: true,
+        width: 100,
       },
       {
         label: 'Capacity',
         field: 'capacity',
         sort: 'disabled',
-        width: 150
+        width: 100
+      },
+      {
+        label: 'Available',
+        field: 'available',
+        sort: true,
+        width: 100
       },
       {
         label: 'Actions',

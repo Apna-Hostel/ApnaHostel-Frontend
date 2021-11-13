@@ -24,7 +24,7 @@ export const postRequest = (request) => (dispatch) => {
 
     const newRequest = {
         studentName: request.name,
-        sid: request.id,
+        sid: request.sid,
         mobileNo: request.mobile,
         dob: request.dob,
         gender: request.gender,

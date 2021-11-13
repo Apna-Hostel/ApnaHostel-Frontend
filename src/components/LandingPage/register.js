@@ -6,7 +6,7 @@ class Register extends Component {
         super(props);
         this.state = {
             name: '',
-            id: '',
+            sid: '',
             mobile: '',
             dob: '',
             gender: '',
@@ -21,7 +21,7 @@ class Register extends Component {
             hostel: '',
             touched: {
                 name: false,
-                id: false,
+                sid: false,
                 mobile: false,
                 email: false,
                 father: false,
@@ -56,10 +56,10 @@ class Register extends Component {
         });
     }
 
-    validate = (name, id, mobile, email, father, mother, Fnum, dob, gender, year, hostel) => {
+    validate = (name, sid, mobile, email, father, mother, Fnum, dob, gender, year, hostel) => {
         const errors = {
             name: '',
-            id: '',
+            sid: '',
             mobile: '',
             email: '',
             father: '',
@@ -86,8 +86,8 @@ class Register extends Component {
             errors.father = 'Name should not be greater than 30 characters';
         if (this.state.touched.dob && dob.length === 0)
             errors.dob = 'Specify Date of Birth';
-        if (this.state.touched.id && id.length !== 8) {
-            errors.id = 'Length of the student id should be equal to 8';
+        if (this.state.touched.sid && sid.length !== 8) {
+            errors.sid = 'Length of the student id should be equal to 8';
         }
         if (this.state.touched.gender && gender.length === 0)
             errors.gender = 'Specify Gender';
@@ -110,7 +110,7 @@ class Register extends Component {
 
 
     render(){
-        const errors = this.validate(this.state.name, this.state.id, this.state.mobile,
+        const errors = this.validate(this.state.name, this.state.sid, this.state.mobile,
             this.state.email, this.state.father, this.state.mother, this.state.Fnum, this.state.dob, this.state.gender, this.state.year, this.state.hostel);
         return (
             <div className="container">
@@ -136,10 +136,10 @@ class Register extends Component {
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <Label for="id">Student Id(As Login Id)</Label>
-                                    <Input required type="text" name="id" id="id" placeholder="Student Id" value={this.state.id} 
-                                        onChange={this.handleInputChange} valid={errors.id === ''} invalid={errors.id !== ''} onBlur={this.handleBlur('id')}/>
-                                    <FormFeedback>{errors.id}</FormFeedback>
+                                    <Label for="sid">Student Id(As Login Id)</Label>
+                                    <Input required type="text" name="sid" id="sid" placeholder="Student Id" value={this.state.sid} 
+                                        onChange={this.handleInputChange} valid={errors.sid === ''} invalid={errors.sid !== ''} onBlur={this.handleBlur('sid')}/>
+                                    <FormFeedback>{errors.sid}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={4}>

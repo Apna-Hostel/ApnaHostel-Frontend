@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import sixs from './img/portfolio/06-small.jpg'
 
 function gallery() {
@@ -11,7 +12,7 @@ function gallery() {
             <div className="img-item col-lg-4 col-md-4 col-sm-6">
               <h4 className="img-heading">Shivalik Hostel</h4>
               <img src={sixs} className="img-responsive" alt="hello" />
-            </div>
+            </div> 
             <div className="img-item col-lg-4 col-md-4 col-sm-6">
               <h4 className="img-heading">Aravali Hostel</h4>
               <img src={sixs} className="img-responsive" alt="hello" />

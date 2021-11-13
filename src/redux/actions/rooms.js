@@ -25,7 +25,7 @@ export const postRoom = (room) => (dispatch) => {
     const newRoom = {
         roomNo: room.roomNo,
         capacity: room.capacity,
-        alloted: room.capacity
+        available: room.capacity
     }
     console.log('Room: ', newRoom);
 
@@ -120,14 +120,14 @@ export const deleteRoom = (roomId) => (dispatch) => {
 
 export const updateRoom = (room) => (dispatch) => {
     const newRoom = {
-        rooomNo: room.roomNo,
-        capacity: room.capacity,
+        available: room.available
     }
-    // console.log('Employee: ', newemployee);
+    console.log('Room: ', room.roomId);
+    console.log('Available' , newRoom);
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseurl + 'rooms/' + room.id, {
+    return fetch(baseurl + 'rooms/' + room.roomId, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

@@ -145,8 +145,8 @@ class UpdateStudent extends Component{
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <Label htmlFor="id">Student Id(As Login Id)</Label>
-                                    <Input required type="text" name="id" id="id" placeholder="Student Id" value={this.state.sid}
+                                    <Label htmlFor="sid">Student Id(As Login Id)</Label>
+                                    <Input required type="text" name="sid" id="sid" placeholder="Student Id" value={this.state.sid}
                                     onChange={this.handleInputChange} valid={errors.sid === ''} invalid={errors.sid !== ''} onBlur={this.handleBlur('sid')}/>
                                     <FormFeedback>{errors.sid}</FormFeedback>
                                 </FormGroup>
@@ -228,7 +228,6 @@ class UpdateStudent extends Component{
                                     <Label for="year">Year</Label>
                                     <Input required type="select" name="year" id="year" className="form-control" value={this.state.year} 
                                         onChange={this.handleInputChange}>
-                                        <option defaultValue>Select</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -238,9 +237,13 @@ class UpdateStudent extends Component{
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <Label htmlFor="address">Room No.</Label>
-                                    <Input required type="text" name="room" id="room" placeholder="Room No." value={this.state.roomNo}
-                                    onChange={this.handleInputChange}/>
+                                    <Label htmlFor="roomNo">Room No.</Label>
+                                    <Input required type="select" name="roomNo" id="roomNo" className="form-control" value={this.state.roomNo}
+                                    onChange={this.handleInputChange}>
+                                    {this.props.rooms.rooms.filter(e => (e.available !=="0")).map(element => (
+                                            <option value={[element.roomNo, element._id, element.available-1]}>{element.roomNo}</option>
+                                    ))}
+                                    </Input>
                                 </FormGroup>
                             </Col>
                         </Row>

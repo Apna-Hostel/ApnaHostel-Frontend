@@ -1,5 +1,7 @@
 import * as ActionTypes from './actionTypes'
 import {baseurl} from '../config'
+import { deleteRequest } from './request';
+import { updateRoom } from './rooms';
 
 export const studentsLoading = () => ({
     type: ActionTypes.STUDENTS_LOADING
@@ -63,7 +65,7 @@ export const postStudent = (student) => (dispatch) => {
 
     const newStudent = {
         studentName: student.name,
-        sid: student.id,
+        sid: student.sid,
         mobileNo: student.mobile,
         dob: student.dob,
         gender: student.gender,
@@ -74,8 +76,12 @@ export const postStudent = (student) => (dispatch) => {
         fatherName: student.father,
         motherName: student.mother,
         fatherMobile: student.Fnum,
-        roomNo: student.roomNo,
+        roomNo: student.roominfo.split(',')[0],
         year: student.year
+    }
+    const newRoom = {
+        roomId: student.roominfo.split(',')[1],
+        available: student.roominfo.split(',')[2]
     }
     console.log('Student: ', newStudent);
 
@@ -106,7 +112,7 @@ export const postStudent = (student) => (dispatch) => {
                 throw errmess;
             })
         .then(response => response.json())
-        .then(response => { alert("Student has been added Successfully!!"); dispatch(registerStudent(response)); dispatch(addStudent(response)); dispatch(fetchStudents()); })
+        .then(response => { alert("Student has been added Successfully!!"); dispatch(deleteRequest(student.id)); dispatch(registerStudent(response)); dispatch(updateRoom(newRoom)); dispatch(addStudent(response)); dispatch(fetchStudents()); })
         .catch(error => {
             console.log('Post students ', error.message);
             alert('Your student could not be added\nError: ' + error.message);
@@ -125,11 +131,15 @@ export const updateStudent = (student) => (dispatch) => {
         fatherName: student.father,
         motherName: student.mother,
         fatherMobile: student.fnum,
-        roomNo: student.roomNo,
+        roomNo: student.roomNo.split(',')[0],
         gender: student.gender,
         nationality: student.nationality,
         dob: student.dob,
         year: student.year
+    }
+    const newRoom ={
+        roomId: student.roomNo.split(',')[1],
+        available: student.roomNo.split(',')[2]
     }
     console.log('Student: ', newStudent);
 
@@ -159,7 +169,7 @@ export const updateStudent = (student) => (dispatch) => {
                 throw errmess;
             })
         .then(response => response.json())
-        .then(response => { alert("Student Updated!"); dispatch(registerStudent(response)); dispatch(fetchStudents()); })
+        .then(response => { alert("Student Updated!"); dispatch(updateRoom(newRoom)); dispatch(fetchStudents()); })
         .catch(error => {
             console.log('Update students ', error.message);
             alert('Your student could not be updated\nError: ' + error.message);

@@ -7,12 +7,12 @@ class ApproveRequest extends Component{
         this.state = {
             id: this.props.id,
             sid: (typeof this.props.request === 'undefined') ? '' : this.props.request.sid,
-            fullname: (typeof this.props.request === 'undefined') ? '' : this.props.request.studentName,
+            name: (typeof this.props.request === 'undefined') ? '' : this.props.request.studentName,
             mobile: (typeof this.props.request === 'undefined') ? '' : this.props.request.mobileNo,
-            program: (typeof this.props.request === 'undefined') ? '' : this.props.request.branch,
+            branch: (typeof this.props.request === 'undefined') ? '' : this.props.request.branch,
             father: (typeof this.props.request === 'undefined') ? '' : this.props.request.fatherName,
             mother: (typeof this.props.request === 'undefined') ? '' : this.props.request.motherName,
-            fnum: (typeof this.props.request === 'undefined') ? '' : this.props.request.fatherMobile,
+            Fnum: (typeof this.props.request === 'undefined') ? '' : this.props.request.fatherMobile,
             address: (typeof this.props.request === 'undefined') ? '' : this.props.request.address,
             email: (typeof this.props.request === 'undefined') ? '' : this.props.request.email,
             roomNo: (typeof this.props.request === 'undefined') ? '' : this.props.request.roomNo,
@@ -20,18 +20,20 @@ class ApproveRequest extends Component{
             gender: (typeof this.props.request === 'undefined') ? '' : this.props.request.gender,
             nationality: (typeof this.props.request === 'undefined') ? '' : this.props.request.nationality,
             year: (typeof this.props.request === 'undefined') ? '' : this.props.request.year,
+            roominfo: '',
             touched: {
                 sid: false,
-                fullname: false,
+                name: false,
                 mobile: false,
-                program: false,
+                branch: false,
                 father: false,
                 mother: false,
-                fnum: false,
+                Fnum: false,
                 address: false,
                 email: false,
                 dob: false,
-                year: false
+                year: false,
+                roominfo: false
             }
         }
     }
@@ -44,6 +46,7 @@ class ApproveRequest extends Component{
         this.setState({
             [name]: value
         });
+        console.log(event.target.value)
     }
 
     handleSubmit = (event) => {
@@ -51,7 +54,6 @@ class ApproveRequest extends Component{
         this.props.postStudent(
             this.state
         );
-        this.props.deleteRequest(this.props.id);
     }
 
     handleBlur = (field) => (evt) => {
@@ -62,37 +64,39 @@ class ApproveRequest extends Component{
 
     validate = (
         sid,
-        fullname,
+        name,
         mobile,
-        program,
+        branch,
         mother,
         father,
-        fnum,
+        Fnum,
         email,
         address,
         dob,
-        year
+        year,
+        roominfo
     ) => {
         const errors = {
             sid: '',
-            fullname: '',
+            name: '',
             mobile: '',
-            program: '',
+            branch: '',
             mother: '',
             father: '',
-            fnum: '',
+            Fnum: '',
             email: '',
             address: '',
             dob: '',
-            year: ''
+            year: '',
+            roominfo: ''
         }
 
         if (this.state.touched.sid && sid.length !== 8)
             errors.sid = 'Sid should be of 8 characters';
-        if (this.state.touched.fullname && fullname.length < 3)
-            errors.fullname = 'Name should be greater than 3 characters';
-        if (this.state.touched.program && program.length < 3)
-            errors.program = 'Program should be of minimum length of 3 characters';
+        if (this.state.touched.name && name.length < 3)
+            errors.name = 'Name should be greater than 3 characters';
+        if (this.state.touched.branch && branch.length < 3)
+            errors.branch = 'Program should be of minimum length of 3 characters';
         if (this.state.touched.mother && (mother.length > 30 || mother.length < 3))
             errors.mother = 'Name should not be greater than 30 characters and smaller than 3 characters';
         if (this.state.touched.father && (father.length > 30 || father.length < 3))
@@ -102,12 +106,14 @@ class ApproveRequest extends Component{
         if (this.state.touched.dob && dob.length === 0)
             errors.dob = 'Specify Date of Birth';
         if (this.state.touched.year && year.length === 0)
-            errors.dob = 'Specify Year';
+            errors.year = 'Specify Year';
+        if (this.state.touched.roominfo && roominfo.length === 0)
+            errors.roominfo = 'Specify Room No.';
         const reg = /^\d{10}$/;
         if (this.state.touched.mobile && !reg.test(mobile))
             errors.mobile = 'Enter a valid Mobile Number';
-        if (this.state.touched.fnum && !reg.test(fnum))
-            errors.fnum = 'Enter a valid Mobile Number';
+        if (this.state.touched.Fnum && !reg.test(Fnum))
+            errors.Fnum = 'Enter a valid Mobile Number';
         if (this.state.touched.email && email.split('').filter(x => x === '@').length !== 1)
             errors.email = 'Enter a valid email';
 
@@ -117,17 +123,17 @@ class ApproveRequest extends Component{
     render(){
         const errors = this.validate(
             this.state.sid,
-            this.state.fullname,
+            this.state.name,
             this.state.mobile,
-            this.state.program,
+            this.state.branch,
             this.state.mother,
             this.state.father,
-            this.state.fnum,
+            this.state.Fnum,
             this.state.email,
             this.state.address,
             this.state.dob,
-            this.state.year);
-
+            this.state.year,
+            this.state.roominfo);
         return(
             <div>
                 <div className="row">
@@ -145,15 +151,15 @@ class ApproveRequest extends Component{
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="name">Full Name</Label>
-                                    <Input disabled required type="text" name="name" id="name" placeholder="Name" value={this.state.fullname}
-                                    onChange={this.handleInputChange} valid={errors.fullname === ''} invalid={errors.fullname !== ''} onBlur={this.handleBlur('fullname')}/>
-                                    <FormFeedback>{errors.fullname}</FormFeedback>
+                                    <Input disabled required type="text" name="name" id="name" placeholder="Name" value={this.state.name}
+                                    onChange={this.handleInputChange} valid={errors.name === ''} invalid={errors.name !== ''} onBlur={this.handleBlur('name')}/>
+                                    <FormFeedback>{errors.name}</FormFeedback>
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <Label htmlFor="id">Student Id(As Login Id)</Label>
-                                    <Input disabled required type="text" name="id" id="id" placeholder="Student Id" value={this.state.sid}
+                                    <Label htmlFor="sid">Student Id(As Login Id)</Label>
+                                    <Input disabled required type="text" name="sid" id="sid" placeholder="Student Id" value={this.state.sid}
                                     onChange={this.handleInputChange} valid={errors.sid === ''} invalid={errors.sid !== ''} onBlur={this.handleBlur('sid')}/>
                                     <FormFeedback>{errors.sid}</FormFeedback>
                                 </FormGroup>
@@ -200,7 +206,7 @@ class ApproveRequest extends Component{
                             <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="branch">Branch</Label>
-                                    <Input disabled required type="select" name="branch" id="branch" className="form-control" value={this.state.program}
+                                    <Input disabled required type="select" name="branch" id="branch" className="form-control" value={this.state.branch}
                                     onChange={this.handleInputChange}>
                                         <option defaultValue>Select</option>
                                         <option value="CSE">CSE</option>
@@ -245,9 +251,15 @@ class ApproveRequest extends Component{
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <Label htmlFor="room">Room No.</Label>
-                                    <Input required type="text" name="room" id="room" placeholder="Room No." value={this.state.roomNo}
-                                    onChange={this.handleInputChange}/>
+                                    <Label htmlFor="roominfo">Room No.</Label>
+                                    <Input required type="select" name="roominfo" id="roominfo" placeholder="Room No." value={this.state.roominfo}
+                                    onChange={this.handleInputChange} valid={errors.roominfo === ''} invalid={errors.roominfo !== ''} onBlur={this.handleBlur('roominfo')}>
+                                        <option defaultValue>Select</option>
+                                        {this.props.rooms.rooms.filter(e => (e.available!=="0")).map(element => (
+                                            <option value={[element.roomNo, element._id, element.available-1]}>{element.roomNo}</option>
+                                        ))}
+                                    </Input>
+                                    <FormFeedback>{errors.roominfo}</FormFeedback>
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -274,9 +286,9 @@ class ApproveRequest extends Component{
                             <Col md={3}>
                                 <FormGroup>
                                     <Label htmlFor="Fnum">Father's Mobile No.</Label>
-                                    <Input disabled required type="text" name="Fnum" id="fathermobile" placeholder="Father Mobile No." value={this.state.fnum}
-                                    onChange={this.handleInputChange} valid={errors.fnum === ''} invalid={errors.fnum !== ''} onBlur={this.handleBlur('fnum')}/>
-                                    <FormFeedback>{errors.fnum}</FormFeedback>
+                                    <Input disabled required type="text" name="Fnum" id="fathermobile" placeholder="Father Mobile No." value={this.state.Fnum}
+                                    onChange={this.handleInputChange} valid={errors.Fnum === ''} invalid={errors.Fnum !== ''} onBlur={this.handleBlur('Fnum')}/>
+                                    <FormFeedback>{errors.Fnum}</FormFeedback>
                                 </FormGroup>
                             </Col>
                         </Row>

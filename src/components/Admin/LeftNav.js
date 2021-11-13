@@ -121,7 +121,7 @@ class LeftNav extends Component {
                             </NavItem>
                             <NavItem>
                                 <Link className="nav-link" to="/admin/manageRequests/view">
-                                    <i className="fa fa-hotel" aria-hidden="true"></i> Manage Requests
+                                    <i className="fa fa-thumbs-up" aria-hidden="true"></i> Manage Requests
                                 </Link>
                             </NavItem>
                             <NavItem>
