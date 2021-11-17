@@ -20,6 +20,12 @@ import { postComplaint, fetchComplaints, deleteComplaint } from "../../redux/act
 import { deleteRoom, fetchRooms, postRoom, updateRoom } from "../../redux/actions/rooms";
 import { fetchRequests, postRequest, updateRequest, deleteRequest } from "../../redux/actions/request";
 import { fetchHostels } from "../../redux/actions/hostel";
+import Shivalik from "./hostels/shivalik";
+import Aravali from "./hostels/aravali";
+import Himalaya from "./hostels/himalaya";
+import Kurukshetra from "./hostels/kurukshetra";
+import Vindhya from "./hostels/vindhya";
+import KalpanaChawla from "./hostels/kalpanachawla";
 
 const mapDispatchToProps = (dispatch) => ({
     loginUser: (creds) => dispatch(loginUser(creds)),
@@ -119,11 +125,17 @@ class LandingPage extends Component {
                             /> } />
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} postComplaint={this.props.postComplaint} complaints={this.props.complaints}
                             employees={this.props.employees} notices={this.props.notices} students={this.props.students} mealBills={this.props.mealBills} />} />
-                        <Route path="/gallery" component={() => <Gallery />} />
-                        <Route path="/contactus" component={() => <Contact />} />
-                        <Route path="/login" component={() => <LoginForm auth={this.props.auth} loginUser={this.props.loginUser} />} />
-                        <Route path="/register" component={() => <Register postRequest={this.props.postRequest} hostels={this.props.hostels} fetchHostels={this.props.fetchHostels} />} />
-                        <Route path="/team" component={() => <Team />} />
+                        <Route exact path="/gallery" component={() => <Gallery />} />
+                        <Route exact path="/gallery/shivalik" component={() => <Shivalik />} />
+                        <Route exact path="/gallery/aravali" component={() => <Aravali />} />
+                        <Route exact path="/gallery/himalaya" component={() => <Himalaya />} />
+                        <Route exact path="/gallery/kurukshetra" component={() => <Kurukshetra />} />
+                        <Route exact path="/gallery/vindhya" component={() => <Vindhya />} />
+                        <Route exact path="/gallery/kalpanachawla" component={() => <KalpanaChawla />} />
+                        <Route exact path="/contactus" component={() => <Contact />} />
+                        <Route exact path="/login" component={() => <LoginForm auth={this.props.auth} loginUser={this.props.loginUser} />} />
+                        <Route exact path="/register" component={() => <Register postRequest={this.props.postRequest} hostels={this.props.hostels} fetchHostels={this.props.fetchHostels} />} />
+                        <Route exact path="/team" component={() => <Team />} />
                         <Redirect to="/home"/>
                     </Switch>
                 </div>

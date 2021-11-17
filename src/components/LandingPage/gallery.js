@@ -10,28 +10,44 @@ function gallery() {
           </div>
           <div className="img-section row container-fluid">
             <div className="img-item col-lg-4 col-md-4 col-sm-6">
-              <h4 className="img-heading">Shivalik Hostel</h4>
-              <img src={sixs} className="img-responsive" alt="hello" />
+              <h4 className="img-heading" style={{color: "black"}}>Shivalik Hostel</h4>
+              <Link className="nav-link" to="/gallery/shivalik">
+                <img src={sixs} className="img-responsive" alt="hello" />
+              </Link>
             </div> 
             <div className="img-item col-lg-4 col-md-4 col-sm-6">
-              <h4 className="img-heading">Aravali Hostel</h4>
-              <img src={sixs} className="img-responsive" alt="hello" />
+              <h4 className="img-heading" style={{color: "black"}}>Aravali Hostel</h4>
+              <Link className="nav-link" to="/gallery/aravali">
+                <img src={sixs} className="img-responsive" alt="hello" />
+              </Link>
             </div>
             <div className="img-item col-lg-4 col-md-4 col-sm-6">
-              <h4 className="img-heading">Himalya Hostel</h4>
-              <img src={sixs} className="img-responsive" alt="hello" />
+              <h4 className="img-heading" style={{color: "black"}}>Himalya Hostel</h4>
+              <Link className="nav-link" to="/gallery/himalaya">
+                <img src={sixs} className="img-responsive" alt="hello" />
+              </Link>
             </div>
             <div className="img-item col-lg-4 col-md-4 col-sm-6">
-              <h4 className="img-heading">Kurukshetra Hostel</h4>
-              <img src={sixs} className="img-responsive" alt="hello" />
+              <h4 className="img-heading" style={{color: "black"}}>Kurukshetra Hostel</h4>
+              <Link className="nav-link" to="/gallery/kurukshetra">
+                <img src={sixs} className="img-responsive" alt="hello" />
+              </Link>
             </div>
             <div className="img-item col-lg-4 col-md-4 col-sm-6">
-              <h4 className="img-heading">Vindhya Hostel</h4>
+              
+                <h4 className="img-heading" style={{color: "black"}}>Vindhya Hostel</h4>
+              
+              <Link className="nav-link" to="/gallery/vindhya">
               <img src={sixs} className="img-responsive" alt="hello" />
+              </Link>
             </div>
             <div className="img-item col-lg-4 col-md-4 col-sm-6">
-              <h4 className="img-heading">Kalpana Chawla Hostel</h4>
+              
+                <h4 className="img-heading" style={{color: "black"}}>Kalpna Chawla Hostel</h4>
+              
+              <Link className="nav-link" to="/gallery/kalpanachawla">
               <img src={sixs} className="img-responsive" alt="hello" />
+              </Link>
             </div>
           </div>
         </div>
