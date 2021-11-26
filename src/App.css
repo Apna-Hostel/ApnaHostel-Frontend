@@ -396,3 +396,12 @@ strong {
   font-size: 2.5rem;
   margin-top: 10px;
 }
+
+.carousel-item {
+  height: 400px;
+}
+
+.carousel-image {
+  height: 100%;
+  width: 100%;
+}

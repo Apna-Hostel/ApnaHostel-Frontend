@@ -20,6 +20,7 @@ class ApproveRequest extends Component{
             gender: (typeof this.props.request === 'undefined') ? '' : this.props.request.gender,
             nationality: (typeof this.props.request === 'undefined') ? '' : this.props.request.nationality,
             year: (typeof this.props.request === 'undefined') ? '' : this.props.request.year,
+            cg: (typeof this.props.request === 'undefined') ? '' : this.props.request.cg,
             roominfo: '',
             touched: {
                 sid: false,
@@ -250,6 +251,13 @@ class ApproveRequest extends Component{
                                 </FormGroup>
                             </Col>
                             <Col md={3}>
+                                <FormGroup>
+                                    <Label htmlFor="cg">CG</Label>
+                                    <Input disabled required type="text" name="cg" id="cg" placeholder="CG" value={this.state.cg}
+                                    onChange={this.handleInputChange}/>
+                                </FormGroup>
+                            </Col>
+                            <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="roominfo">Room No.</Label>
                                     <Input required type="select" name="roominfo" id="roominfo" placeholder="Room No." value={this.state.roominfo}

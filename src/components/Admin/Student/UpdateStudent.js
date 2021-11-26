@@ -20,6 +20,7 @@ class UpdateStudent extends Component{
             gender: (typeof this.props.student === 'undefined') ? '' : this.props.student.gender,
             nationality: (typeof this.props.student === 'undefined') ? '' : this.props.student.nationality,
             year: (typeof this.props.student === 'undefined') ? '' : this.props.student.year,
+            cg: (typeof this.props.student === 'undefined') ? '' : this.props.student.cg,
             touched: {
                 sid: false,
                 fullname: false,
@@ -30,7 +31,8 @@ class UpdateStudent extends Component{
                 fnum: false,
                 address: false,
                 email: false,
-                dob: false
+                dob: false,
+                cg: false
             }
         }
     }
@@ -68,7 +70,8 @@ class UpdateStudent extends Component{
         fnum,
         email,
         address,
-        dob
+        dob,
+        cg
     ) => {
         const errors = {
             sid: '',
@@ -80,7 +83,8 @@ class UpdateStudent extends Component{
             fnum: '',
             email: '',
             address: '',
-            dob: ''
+            dob: '',
+            cg: ''
         }
 
         if (this.state.touched.sid && sid.length !== 8)
@@ -97,6 +101,8 @@ class UpdateStudent extends Component{
             errors.address = 'Address length should lie between 5 and 50 characters'
         if (this.state.touched.dob && dob.length === 0)
             errors.dob = 'Specify Date of Birth';
+        if(this.state.touched.cg && cg.length === 0)
+            errors.cg = 'Specify CG';
         const reg = /^\d{10}$/;
         if (this.state.touched.mobile && !reg.test(mobile))
             errors.mobile = 'Enter a valid Mobile Number';
@@ -119,7 +125,8 @@ class UpdateStudent extends Component{
             this.state.fnum,
             this.state.email,
             this.state.address,
-            this.state.dob);
+            this.state.dob,
+            this.state.cg);
 
         return(
             <div>
@@ -235,7 +242,16 @@ class UpdateStudent extends Component{
                                     </Input>
                                 </FormGroup>
                             </Col>
+                            {this.state.year === '1' ? '' :
                             <Col md={3}>
+                                <FormGroup>
+                                    <Label htmlFor="cg">CG</Label>
+                                    <Input required type="text" name="cg" id="cg" placeholder="CG" value={this.state.cg}
+                                    onChange={this.handleInputChange} valid={errors.cg ===''} invalid={errors.cg !== ''} onBlur={this.handleBlur('cg')}/>
+                                </FormGroup>
+                            </Col>
+                            }
+                            <Col md={4}>
                                 <FormGroup>
                                     <Label htmlFor="roomNo">Room No.</Label>
                                     <Input required type="select" name="roomNo" id="roomNo" className="form-control" value={this.state.roomNo}

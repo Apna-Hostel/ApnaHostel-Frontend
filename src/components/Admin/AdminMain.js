@@ -98,6 +98,7 @@ class Admin extends Component {
                 name: element.studentName,
                 mobile: element.mobileNo,
                 year: element.year,
+                cg: element.cg,
                 sid: element.sid,
                 pAddress: element.address,
                 actions: <div>

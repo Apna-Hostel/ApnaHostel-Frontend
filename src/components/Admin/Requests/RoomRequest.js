@@ -19,9 +19,16 @@ function RoomRequest({requests, errMess}) {
                 width: 150,
             },
             {
-                label: 'Year',
+                label: 'Semester',
                 field: 'year',
-                width: 150,
+                width: 100,
+                sort: true
+            },
+            {
+                label: 'CG',
+                field: 'cg',
+                width: 100,
+                sort: true
             },
 
             {

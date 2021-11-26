@@ -17,8 +17,9 @@ class Register extends Component {
             father: '',
             mother: '',
             Fnum: '',
-            year: '',
+            year: '', //Year === Smeester
             hostel: '',
+            cg: '0',
             touched: {
                 name: false,
                 sid: false,
@@ -30,7 +31,8 @@ class Register extends Component {
                 dob: false,
                 gender: false,
                 year: false,
-                hostel: false
+                hostel: false,
+                cg: false
             },
         }
     }
@@ -56,7 +58,7 @@ class Register extends Component {
         });
     }
 
-    validate = (name, sid, mobile, email, father, mother, Fnum, dob, gender, year, hostel) => {
+    validate = (name, sid, mobile, email, father, mother, Fnum, dob, gender, year, hostel, cg) => {
         const errors = {
             name: '',
             sid: '',
@@ -68,7 +70,8 @@ class Register extends Component {
             dob: '',
             gender: '',
             year: '',
-            hostel: ''
+            hostel: '',
+            cg: ''
         }
         if (this.state.touched.name && name.length < 3)
             errors.name = 'Name should be of minimum length of 3 characters';
@@ -95,6 +98,9 @@ class Register extends Component {
             errors.year = 'Specify Year';
         if (this.state.touched.hostel && hostel.length === 0)
             errors.hostel = 'Specify Hostel';
+        if(this.state.touched.cg && cg.length === 0){
+            errors.cg = 'Specify CG';
+        }
         
 
         const reg = /^\d{10}$/;
@@ -110,8 +116,8 @@ class Register extends Component {
 
 
     render(){
-        const errors = this.validate(this.state.name, this.state.sid, this.state.mobile,
-            this.state.email, this.state.father, this.state.mother, this.state.Fnum, this.state.dob, this.state.gender, this.state.year, this.state.hostel);
+        const errors = this.validate(this.state.name, this.state.sid, this.state.mobile, this.state.email, this.state.father, 
+            this.state.mother, this.state.Fnum, this.state.dob, this.state.gender, this.state.year, this.state.hostel, this.state.cg);
         return (
             <div className="container">
                 <div className="row">
@@ -228,7 +234,7 @@ class Register extends Component {
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <Label for="year">Year</Label>
+                                    <Label for="year">Semester</Label>
                                     <Input required type="select" name="year" id="year" value={this.state.year} 
                                         onChange={this.handleInputChange} className="form-control" valid={errors.year === ''} invalid={errors.year !== ''} onBlur={this.handleBlur('year')}>
                                         <option defaultValue>Select</option>
@@ -236,9 +242,21 @@ class Register extends Component {
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
                                     </Input>
                                 </FormGroup>
                             </Col>  
+                            {this.state.year === '1' ? '' : 
+                            <Col md={4}>
+                                <FormGroup>
+                                    <Label for="cg">CG</Label>
+                                    <Input required type="text" name="cg" id="cg" placeholder="CG" value={this.state.cg} 
+                                        onChange={this.handleInputChange} valid={errors.cg === ''} invalid={errors.cg !== ''} onBlur={this.handleBlur('cg')} />
+                                </FormGroup>
+                            </Col>}
                         </Row>
                         <div>
                             <h3>Parent's Details</h3>

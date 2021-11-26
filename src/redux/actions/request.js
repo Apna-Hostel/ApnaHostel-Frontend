@@ -36,7 +36,8 @@ export const postRequest = (request) => (dispatch) => {
         motherName: request.mother,
         fatherMobile: request.Fnum,
         hostelName: request.hostel,
-        year: request.year
+        year: request.year,
+        cg: request.cg
     }
     console.log('Request: ', JSON.stringify(newRequest));
 
@@ -142,7 +143,8 @@ export const updateRequest = (request) => (dispatch) => {
         fatherName: request.father,
         motherName: request.mother,
         fatherMobile: request.Fnum,
-        year: request.year
+        year: request.year,
+        cg: request.cg
     }
     // console.log('Employee: ', newemployee);
 
