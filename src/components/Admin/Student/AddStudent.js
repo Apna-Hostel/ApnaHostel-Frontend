@@ -17,7 +17,7 @@ class AddStudent extends Component {
             father: '',
             mother: '',
             Fnum: '',
-            roomNo: '',
+            roominfo: '',
             year: '',
             cg: '0',
             touched: {
@@ -226,8 +226,8 @@ class AddStudent extends Component {
                             </Col>
                             <Col md={3}>
                                 <FormGroup>
-                                    <Label for="roomNo">Room No.</Label>
-                                    <Input required type="select" name="roomNo" id="roomNo" placeholder="Room No." value={this.state.roomNo} 
+                                    <Label for="roominfo">Room No.</Label>
+                                    <Input required type="select" name="roominfo" id="roominfo" placeholder="Room No." value={this.state.roominfo} 
                                         onChange={this.handleInputChange}>
                                         <option defaultValue>Select</option>
                                         {this.props.rooms.rooms.filter(e => (e.available !== "0")).map(element => (

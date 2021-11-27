@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import hostel from '../img/hostel1.jpg'
 import building from '../img/himalaya_building.jpeg'
 import commonroom from '../img/himalaya_commonroom.jpeg'
-import mess from '../img/shivalik_commonroom.jpeg'
+import mess from '../img/shivalik_mess.jpeg'
 
 class Himalaya extends Component {
     constructor(props){

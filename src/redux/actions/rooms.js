@@ -151,7 +151,7 @@ export const updateRoom = (room) => (dispatch) => {
                 throw errmess;
             })
         .then(response => response.json())
-        .then(response => { alert("Room Updated!"); dispatch(fetchRooms()); })
+        .then(response => { dispatch(fetchRooms()); })
         .catch(error => {
             console.log('Update Room ', error.message);
             alert('Your room could not be updated\nError: ' + error.message);

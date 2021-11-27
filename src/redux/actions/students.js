@@ -76,13 +76,13 @@ export const postStudent = (student) => (dispatch) => {
         fatherName: student.father,
         motherName: student.mother,
         fatherMobile: student.Fnum,
-        roomNo: student.roomNo.split(',')[0],
+        roomNo: student.roominfo.split(',')[0],
         year: student.year,
         cg: student.cg
     }
     const newRoom = {
-        roomId: student.roomNo.split(',')[1],
-        available: student.roomNo.split(',')[2]
+        roomId: student.roominfo.split(',')[1],
+        available: student.roominfo.split(',')[2]
     }
     console.log(newRoom);
     console.log('Student: ', newStudent);

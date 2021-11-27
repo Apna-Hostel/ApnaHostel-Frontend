@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import hostel from '../img/hostel1.jpg'
 import building from '../img/kurukshetra_building.jpeg'
 import commonroom from '../img/kurukshetra_commonroom.jpeg'
-import mess from '../img/aravali_commonroom.jpeg'
+import mess from '../img/aravali_mess.jpeg'
 
 class Kurukshetra extends Component {
     constructor(props){

@@ -14,6 +14,16 @@ function ViewStudent({students, errMess}) {
                 },
             },
             {
+                label: 'SID',
+                field: 'sid',
+                width: 100,
+            },
+            {
+                label: 'Room No.',
+                field: 'roomNo',
+                width: 100,
+            },
+            {
                 label: 'Mobile No.',
                 field: 'mobile',
                 width: 150,
@@ -29,18 +39,7 @@ function ViewStudent({students, errMess}) {
                 sort: 'disabled',
                 width: 100,
             },
-            {
-                label: 'G Mobile',
-                field: 'gMob',
-                sort: 'disabled',
-                width: 150,
-            },
-            {
-                label: 'P. Address',
-                field: 'pAddress',
-                sort: 'disabled',
-                width: 100
-            },
+            
             {
                 label: 'Actions',
                 field: 'actions',
