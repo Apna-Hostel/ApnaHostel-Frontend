@@ -16,6 +16,8 @@ import DashBoard from "../DashBoard";
 import Rooms from "./AddRooms";
 import RoomRequest from "./Requests/RoomRequest";
 import ApproveRequest from "./Requests/ApproveRequest";
+import AddMeal from "./Meals/AddMeal";
+import MealView from "./Meals/ViewMeal";
 
 class Admin extends Component {
     constructor(props){
@@ -237,6 +239,8 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/addnew" component={() => <AddEmployee postEmployee={this.props.postEmployee} />} />
                             <Route exact path="/admin/manageEmployee/view" component={() => <EmployeeView employees={this.state.Employees} errMess={this.props.errMess} />} />
                             <Route exact path="/admin/manageEmployee/updateEmployee/:id" component={employeedetails} />
+                            <Route exact path="/admin/manageMeal/view" component={() => <MealView meals={this.state.Meals} isLoading={this.props.meals.isLoading} errMess={this.props.meals.errMess} />} />
+                            <Route exact path="/admin/manageMeal/add" component={() => <AddMeal meals={this.state.Meals} updateMeal={this.props.updateMeal}/>} />
                             <Route exact path="/admin/complaints" component={() => <Complaints complaints={this.state.Complaints} errMess={this.props.errMess} />} />
                             <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.state.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />
                             <Route exact path="/admin/rooms" component={() => <Rooms rooms={this.state.Rooms} postRoom={this.props.postRoom} errMess={this.props.rooms.errMess} fetchRooms={this.props.fetchRooms} />} />

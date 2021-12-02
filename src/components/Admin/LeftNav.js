@@ -23,11 +23,13 @@ class LeftNav extends Component {
             isNavOpen: false,
             ismanageStudentOpen: false,
             ismanageStudentPaymentOpen: false,
-            ismanageEmployeeOpen: false
+            ismanageEmployeeOpen: false,
+            ismanagemealopen: false,
         }
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleManageStudent = this.toggleManageStudent.bind(this);
         this.togglemanageEmployee = this.togglemanageEmployee.bind(this);
+        this.toggleManageMeal = this.toggleManageMeal.bind(this);
 
         this.togglemanageStudentPayment = this.toggleManageStudentPayment.bind(this);
     }
@@ -46,6 +48,10 @@ class LeftNav extends Component {
 
     togglemanageEmployee() {
         this.setState({ismanageEmployeeOpen: !this.state.ismanageEmployeeOpen});
+    }
+
+    toggleManageMeal() {
+        this.setState({ ismealmanageopen: !this.state.ismanagemealopen });
     }
 
     render() {
@@ -112,6 +118,21 @@ class LeftNav extends Component {
                                         <Link className="nav-link offset-2" to="/admin/manageEmployee/view"><i className="fa fa-eye" aria-hidden="true"></i> View</Link>
                                     </NavItem>
                                     
+                                </UncontrolledCollapse>
+                            </div>
+                            <NavItem>
+                                <Link id="toggler4" onClick={this.toggleManageMeal} className="nav-link" to="/admin/MealManage"> <i className="fa fa-utensils" aria-hidden="true"></i> Meal Manage
+                                    <Carrot open={this.state.ismanagemealopen} /></Link>
+                            </NavItem>
+                            <div>
+                                <UncontrolledCollapse toggler="#toggler4">
+                                <NavItem>
+                                    <Link className="nav-link offset-2" to="/admin/manageMeal/add"><i className="fa fa-plus" aria-hidden="true"></i> Add</Link>
+                                </NavItem>
+
+                                <NavItem>
+                                    <Link className="nav-link offset-2" to="/admin/manageMeal/view"><i className="fa fa-eye" aria-hidden="true"></i> View</Link>
+                                </NavItem>
                                 </UncontrolledCollapse>
                             </div>
                             <NavItem>
