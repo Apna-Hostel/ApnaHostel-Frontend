@@ -36,3 +36,7 @@ export const ADD_HOSTEL = 'ADD_HOSTEL';
 export const HOSTEL_LOADING = 'HOSTEL_LOADING';
 export const HOSTEL_SUCCESS= 'HOSTEL_SUCCESS';
 export const HOSTEL_FAILED='HOSTEL_FAILED';
+export const ADD_MEAL = 'ADD_MEAL';
+export const MEALS_SUCCESS = 'MEALS_SUCCESS';
+export const MEALS_LOADING = 'MEALS_LOADING';
+export const MEALS_FAILED = 'MEALS_FAILED';

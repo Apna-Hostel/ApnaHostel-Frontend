@@ -172,7 +172,7 @@ export default class AddMeal extends Component {
                         </FormGroup>
                         <FormGroup>
                             <Button type="submit" color="primary">
-                                Add Data
+                                Update Data
                             </Button>
                         </FormGroup>
                     </Form>

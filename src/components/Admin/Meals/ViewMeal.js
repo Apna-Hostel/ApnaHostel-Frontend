@@ -63,27 +63,34 @@ export default class MealView extends Component {
   }
 
   render() {
-      return (
-        <div className="mealTable">
-          <div className="row">
-            <div className="col-12 container-fluid">
-              <h4 className="feature-heading ">Menu</h4>
-              <hr className="feature-line" />
+        if (this.props.errMess) {
+            return (
+            <div><p>{this.props.errMess} Please try again</p></div>);
+        }
+  
+      else {
+        return (
+            <div className="mealTable">
+            <div className="row">
+                <div className="col-12 container-fluid">
+                <h4 className="feature-heading ">Menu</h4>
+                <hr className="feature-line" />
+                </div>
             </div>
-          </div>
-          <MDBTable hover responsive>
-            <MDBTableHead>
-              <tr>
-                <th>Day</th>
-                <th>Breakfast</th>
-                <th>Lunch</th>
-                <th>Snacks</th>
-                <th>Dinner</th>
-              </tr>
-            </MDBTableHead>
-            {this.RenderMenu()}
-          </MDBTable>
-        </div>
-      );
+            <MDBTable hover responsive>
+                <MDBTableHead>
+                <tr>
+                    <th>Day</th>
+                    <th>Breakfast</th>
+                    <th>Lunch</th>
+                    <th>Snacks</th>
+                    <th>Dinner</th>
+                </tr>
+                </MDBTableHead>
+                {this.RenderMenu()}
+            </MDBTable>
+            </div>
+        );
+        }
     }
 }

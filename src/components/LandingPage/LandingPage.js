@@ -19,6 +19,7 @@ import { deleteMealbill, fetchMealbill, postMealbill, updateMealbill } from "../
 import { postComplaint, fetchComplaints, deleteComplaint } from "../../redux/actions/complaint";
 import { deleteRoom, fetchRooms, postRoom, updateRoom } from "../../redux/actions/rooms";
 import { fetchRequests, postRequest, updateRequest, deleteRequest } from "../../redux/actions/request";
+import { postMeal, fetchMeals, updateMeal } from "../../redux/actions/meals";
 import { fetchHostels } from "../../redux/actions/hostel";
 import Shivalik from "./hostels/shivalik";
 import Aravali from "./hostels/aravali";
@@ -56,7 +57,10 @@ const mapDispatchToProps = (dispatch) => ({
     fetchRequests: () => dispatch(fetchRequests()),
     deleteRequest: (requestId) => dispatch(deleteRequest(requestId)),
     updateRequest: (request) => dispatch(updateRequest(request)),
-    fetchHostels: () => dispatch(fetchHostels())
+    fetchHostels: () => dispatch(fetchHostels()),
+    postMeal: (meal) => dispatch(postMeal(meal)),
+    fetchMeals: () => dispatch(fetchMeals()),
+    updateMeal: (meal) => dispatch(updateMeal(meal))
 })
 
 const mapStateToProps = (state) => {
@@ -69,7 +73,8 @@ const mapStateToProps = (state) => {
         complaints: state.complaints,
         rooms: state.rooms,
         requests: state.requests,
-        hostels: state.hostels
+        hostels: state.hostels,
+        meals: state.meals,
     }
 }
 class LandingPage extends Component {
@@ -83,6 +88,7 @@ class LandingPage extends Component {
             this.props.fetchComplaints();
             this.props.fetchRooms();
             this.props.fetchRequests();
+            this.props.fetchMeals();
         }
         this.props.fetchHostels();
     }
@@ -122,9 +128,10 @@ class LandingPage extends Component {
                             deleteComplaint={this.props.deleteComplaint} complaints={this.props.complaints} fetchComplaints={this.props.fetchComplaints}
                             postRoom={this.props.postRoom} rooms={this.props.rooms} fetchRooms={this.props.fetchRooms} updateRoom={this.props.updateRoom} deleteRoom={this.props.deleteRoom}
                             requests={this.props.requests} fetchRequests={this.props.fetchRequests} deleteRequest={this.props.deleteRequest}
+                            meals={this.props.meals} updateMeal={this.props.updateMeal} fetchMeals={this.props.fetchMeals}
                             /> } />
                         <StudentRoute path="/student" component={() => <Student auth={this.props.auth} postComplaint={this.props.postComplaint} complaints={this.props.complaints}
-                            employees={this.props.employees} notices={this.props.notices} students={this.props.students} mealBills={this.props.mealBills} />} />
+                            employees={this.props.employees} notices={this.props.notices} students={this.props.students} mealBills={this.props.mealBills} meals={this.props.meals} />} />
                         <Route exact path="/gallery" component={() => <Gallery />} />
                         <Route exact path="/gallery/shivalik" component={() => <Shivalik />} />
                         <Route exact path="/gallery/aravali" component={() => <Aravali />} />

@@ -121,13 +121,13 @@ class LeftNav extends Component {
                                 </UncontrolledCollapse>
                             </div>
                             <NavItem>
-                                <Link id="toggler4" onClick={this.toggleManageMeal} className="nav-link" to="/admin/MealManage"> <i className="fa fa-utensils" aria-hidden="true"></i> Meal Manage
+                                <Link id="toggler4" onClick={this.toggleManageMeal} className="nav-link" to="/admin/MealManage"> <i className="fa fa-calendar" aria-hidden="true"></i> Manage Meals
                                     <Carrot open={this.state.ismanagemealopen} /></Link>
                             </NavItem>
                             <div>
                                 <UncontrolledCollapse toggler="#toggler4">
                                 <NavItem>
-                                    <Link className="nav-link offset-2" to="/admin/manageMeal/add"><i className="fa fa-plus" aria-hidden="true"></i> Add</Link>
+                                    <Link className="nav-link offset-2" to="/admin/manageMeal/add"><i className="fa fa-pencil" aria-hidden="true"></i> Update</Link>
                                 </NavItem>
 
                                 <NavItem>

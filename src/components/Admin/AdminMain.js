@@ -29,7 +29,8 @@ class Admin extends Component {
             MealBills: [],
             Complaints :[],
             Rooms: [],
-            Requests: []
+            Requests: [],
+            Meals: [],
         };
     }
 
@@ -167,6 +168,8 @@ class Admin extends Component {
         });
         const complaintsList = this.state.Complaints.concat(complaints);
 
+        const mealsList = this.state.Meals.concat(this.props.meals.meals);
+
         this.setState({
             Notices: noticeList,
             Employees: employeeList,
@@ -174,7 +177,9 @@ class Admin extends Component {
             MealBills: mealBillsList,
             Complaints: complaintsList,
             Rooms: roomList,
-            Requests: requestList
+            Requests: requestList,
+            Meals: mealsList
+
         });
             
         }; 
@@ -239,7 +244,7 @@ class Admin extends Component {
                             <Route exact path="/admin/manageEmployee/addnew" component={() => <AddEmployee postEmployee={this.props.postEmployee} />} />
                             <Route exact path="/admin/manageEmployee/view" component={() => <EmployeeView employees={this.state.Employees} errMess={this.props.errMess} />} />
                             <Route exact path="/admin/manageEmployee/updateEmployee/:id" component={employeedetails} />
-                            <Route exact path="/admin/manageMeal/view" component={() => <MealView meals={this.state.Meals} isLoading={this.props.meals.isLoading} errMess={this.props.meals.errMess} />} />
+                            <Route exact path="/admin/manageMeal/view" component={() => <MealView meals={this.state.Meals} errMess={this.props.meals.errMess} />} />
                             <Route exact path="/admin/manageMeal/add" component={() => <AddMeal meals={this.state.Meals} updateMeal={this.props.updateMeal}/>} />
                             <Route exact path="/admin/complaints" component={() => <Complaints complaints={this.state.Complaints} errMess={this.props.errMess} />} />
                             <Route exact path="/admin/noticeBoard" component={() => <NoticeBoard notices={this.state.Notices} postNotice={this.props.postNotice} errMess={this.props.notices.errMess} />} />

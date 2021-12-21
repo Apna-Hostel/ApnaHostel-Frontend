@@ -38,6 +38,9 @@ class LeftNav extends Component {
                                 </Link>
                             </NavItem>
                             <NavItem>
+                                <Link className="nav-link" to="/student/menu"><i className="fa fa-calendar" aria-hidden="true"></i> Menu</Link>
+                            </NavItem>
+                            <NavItem>
                                 <Link className="nav-link" to="/student/noticeBoard">
                                     <i className="fa fa-newspaper-o" aria-hidden="true"></i> Notice Board
                                 </Link>

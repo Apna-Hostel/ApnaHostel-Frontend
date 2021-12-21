@@ -4,6 +4,7 @@ import { fetchNotices, noticesFailed } from "./notices"
 import { fetchEmployees, employeesFailed } from "./employee"
 import { fetchStudents, studentsFailed } from "./students"
 import { fetchMealbill, mealbillFailed } from "./messBills"
+import { mealsFailed, fetchMeals } from "./meals"
 
 export const requestLogin = (creds) => {
     return {
@@ -62,6 +63,7 @@ export const loginUser = (creds) => (dispatch) => {
                 dispatch(fetchEmployees());
                 dispatch(fetchStudents());
                 dispatch(fetchMealbill());
+                dispatch(fetchMeals());
             }
             else {
                 var error = new Error('Error ' + response.status);
@@ -95,4 +97,5 @@ export const logoutUser = () => (dispatch) => {
     dispatch(employeesFailed("Error 401: Unauthorized"));
     dispatch(studentsFailed("Error 401: Unauthorised"));
     dispatch(mealbillFailed("Error 401: Unauthorized"));
+    dispatch(mealsFailed("Error 401: Unauthorized"));
 }

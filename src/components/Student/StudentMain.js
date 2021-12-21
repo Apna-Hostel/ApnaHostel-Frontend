@@ -9,6 +9,7 @@ import ViewStudent from "./ViewStudent";
 import ViewNotice from "./ViewNotice";
 import DashBoard from "../DashBoard";
 import Complaints from "../Admin/ViewComplaints";
+import MealView from "../Admin/Meals/ViewMeal";
 class Student extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +18,8 @@ class Student extends Component {
           Employees: [],
           Notices: [],
           MessBills: [],
-          Complaints: []
+          Complaints: [],
+          Meals: []
         }
       }
       componentDidMount() {
@@ -84,13 +86,16 @@ class Student extends Component {
         });
         console.log(complaints);
         const complaintsList = this.state.Complaints.concat(complaints);
+
+        const mealsList = this.state.Meals.concat(this.props.meals.meals);
     
         this.setState({
           Students: studentlist,
           Employees: employeeList,
           Notices: noticeList,
           MessBills: mealBillsList,
-          Complaints: complaintsList
+          Complaints: complaintsList,
+          Meals: mealsList
         });
       }
     
@@ -107,6 +112,7 @@ class Student extends Component {
                             <Route exact path="/student/employeeview" component={() => <ViewEmployee employees={this.state.Employees} errMess={this.props.errMess} />} />
                             <Route exact path="/student/profile" component={() => <StudentProfile students={this.props.students} auth={this.props.auth} />} />
                             <Route exact path="/student/bills" component={() => <ViewMessBill messBills={this.state.MessBills} errMess={this.props.errMess} />} />
+                            <Route exact path="/student/menu" component={() => <MealView meals={this.state.Meals} errMess={this.props.meals.errMess} />} />
                             <Route exact path="/student/complaints" component={() => <SubmitComplaint postComplaint={this.props.postComplaint} complaints={this.state.Complaints} auth={this.props.auth} />} />
                             <Route exact path="/student/noticeBoard" component={() => <ViewNotice notices={this.props.notices.notices} errMess={this.props.errMess} />} />
                             <Route path="/student/dashboard" component={() => <DashBoard employees={this.props.employees} students={this.props.students}
